@@ -1,0 +1,124 @@
+//{{NO_DEPENDENCIES}}
+// Microsoft Visual C++ generated include file.
+// Used by EQTool.rc
+//
+#define IDM_ABOUTBOX                    0x0010
+#define IDD_ABOUTBOX                    100
+#define IDS_ABOUTBOX                    101
+#define IDD_EQTOOL_DIALOG               102
+#define IDR_MAINFRAME                   128
+#define IDD_DIALOG_DRC                  131
+#define IDR_MENU_MAIN                   132
+#define IDD_DIALOG_DRC1                 132
+#define IDD_DIALOG_EQ                   132
+#define IDD_DIALOG_COMSET               133
+#define IDC_BUTTON1                     1000
+#define IDC_BUTTON2                     1001
+#define IDC_BUTTON_LEQ                  1001
+#define IDC_BUTTON_CAN                  1001
+#define IDC_BUTTON3                     1002
+#define IDC_BUTTON_LDRC                 1002
+#define IDC_BUTTON4                     1003
+#define IDC_BUTTON5                     1004
+#define IDC_BUTTON_REQ                  1004
+#define IDC_BUTTON6                     1005
+#define IDC_BUTTONRDRC                  1005
+#define IDC_TAB_INFO                    1006
+#define IDC_ChartCtrl_DRC               1009
+#define IDC_ChartCtrl_EQ                1010
+#define IDC_EDIT_LIMIT                  1011
+#define IDC_EDIT_THREL_H                1011
+#define IDC_EDIT_ENERGY                 1012
+#define IDC_EDIT_SMTHTIME_H             1012
+#define IDC_EDIT_THRESHOLD              1013
+#define IDC_EDIT_THREH_H                1013
+#define IDC_EDIT_ATTACK                 1014
+#define IDC_EDIT_ATTATIME_H             1014
+#define IDC_EDIT_SLOPE                  1015
+#define IDC_EDIT_DECAY                  1016
+#define IDC_EDIT_ECALTIME_H             1016
+#define IDC_EDIT_OFFSET                 1017
+#define IDC_EDIT_OFFSET_H               1017
+#define IDC_EDIT_GF3                    1018
+#define IDC_EDIT_THREL_L                1018
+#define IDC_EDIT_Q3                     1019
+#define IDC_EDIT_RATLNOM_L              1019
+#define IDC_EDIT_GAIN4                  1020
+#define IDC_EDIT_THREH_L                1020
+#define IDC_EDIT_GF4                    1021
+#define IDC_EDIT_RATHNOM_L              1021
+#define IDC_EDIT_Q4                     1022
+#define IDC_EDIT_SMTHTIME_L             1022
+#define IDC_EDIT_GAIN5                  1023
+#define IDC_EDIT_ECALTIME_L             1023
+#define IDC_EDIT_GF5                    1024
+#define IDC_EDIT_OFFSET_L               1024
+#define IDC_EDIT_Q5                     1025
+#define IDC_EDIT_RLSTIME_L              1025
+#define IDC_EDIT_GAIN6                  1026
+#define IDC_EDIT_ATTATIME_L             1026
+#define IDC_EDIT_GF6                    1027
+#define IDC_EDIT_RATLDEN_L              1027
+#define IDC_EDIT_Q6                     1028
+#define IDC_EDIT_GAIN7                  1029
+#define IDC_EDIT_RATHDEN_L              1029
+#define IDC_EDIT_GF7                    1030
+#define IDC_EDIT_Q7                     1031
+#define IDC_EDIT_RLSTIME_H              1031
+#define IDC_EDIT_GAIN8                  1032
+#define IDC_EDIT_RATLNOM_H              1032
+#define IDC_EDIT_GF8                    1033
+#define IDC_EDIT_RATHNOM_H              1033
+#define IDC_EDIT_Q8                     1034
+#define IDC_EDIT_RATLDEN_H              1034
+#define IDC_EDIT_GAIN9                  1035
+#define IDC_EDIT_RATHDEN_H              1035
+#define IDC_EDIT_GF9                    1036
+#define IDC_EDIT_Q9                     1037
+#define IDC_EDIT_GAIN10                 1038
+#define IDC_EDIT_GF10                   1039
+#define IDC_EDIT_Q10                    1040
+#define IDC_EDIT_GAIN1                  1041
+#define IDC_EDIT_GAIN2                  1042
+#define IDC_EDIT_GAIN3                  1043
+#define IDC_EDIT_GF1                    1044
+#define IDC_EDIT_GF2                    1045
+#define IDC_EDIT_Q1                     1046
+#define IDC_EDIT_Q2                     1047
+#define IDC_EDIT_COM                    1048
+#define IDC_EDIT_RATE                   1049
+#define ID_BTN_OK                       1050
+#define ID_BTN_CANCEL                   1051
+#define IDC_MSCOMM1                     1052
+#define IDC_MSCOMM_EQ                   1052
+#define IDC_BUTTON_SAVE                 1054
+#define IDC_BUTTON_CANCEL               1055
+#define IDC_EDIT_DIVFREQ                1055
+#define IDC_CHECK_LINK                  1058
+#define IDC_COMBO_CHANUM                1059
+#define IDC_EDIT_GAIN                   1060
+#define IDC_BUTTON_SET                  1061
+#define IDC_BUTTON_READ                 1062
+#define IDC_LABEL_DEVICE                1063
+#define IDC_BUTTON_READ2                1064
+#define ID_FILE                         32771
+#define ID_FILE_LOAD                    32772
+#define ID_FILE_SAVEAS                  32773
+#define ID_COMPORT                      32774
+#define ID_COMPORT_SETTING              32775
+#define ID_DEVICE                       32776
+#define ID_DEVICE_RK3229                32777
+#define ID_ABOUT                        32778
+#define ID_ABOUT_VERSION                32779
+#define ID_VIEW                         32780
+
+// Next default values for new objects
+// 
+#ifdef APSTUDIO_INVOKED
+#ifndef APSTUDIO_READONLY_SYMBOLS
+#define _APS_NEXT_RESOURCE_VALUE        135
+#define _APS_NEXT_COMMAND_VALUE         32781
+#define _APS_NEXT_CONTROL_VALUE         1064
+#define _APS_NEXT_SYMED_VALUE           101
+#endif
+#endif

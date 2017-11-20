@@ -1,0 +1,426 @@
+// Microsoft Visual C++ generated resource script.
+//
+#include "resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#ifndef APSTUDIO_INVOKED
+#include "targetver.h"
+#endif
+#include "afxres.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// 中文(中华人民共和国) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_CHS)
+#ifdef _WIN32
+LANGUAGE LANG_CHINESE, SUBLANG_CHINESE_SIMPLIFIED
+#pragma code_page(936)
+#endif //_WIN32
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE 
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE 
+BEGIN
+    "#ifndef APSTUDIO_INVOKED\r\n"
+    "#include ""targetver.h""\r\n"
+    "#endif\r\n"
+    "#include ""afxres.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE 
+BEGIN
+    "#define _AFX_NO_SPLITTER_RESOURCES\r\n"
+    "#define _AFX_NO_OLE_RESOURCES\r\n"
+    "#define _AFX_NO_TRACKER_RESOURCES\r\n"
+    "#define _AFX_NO_PROPERTY_RESOURCES\r\n"
+    "\r\n"
+    "#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_CHS)\r\n"
+    "LANGUAGE 4, 2\r\n"
+    "#pragma code_page(936)\r\n"
+    "#include ""res\\EQTool.rc2""  // 非 Microsoft Visual C++ 编辑的资源\r\n"
+    "#include ""l.CHS\\afxres.rc""      // 标准组件\r\n"
+    "#endif\r\n"
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Icon
+//
+
+// Icon with lowest ID value placed first to ensure application icon
+// remains consistent on all systems.
+IDR_MAINFRAME           ICON                    "res\\EQTool.ico"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_ABOUTBOX DIALOGEX 0, 0, 170, 62
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "关于 EQTool"
+FONT 9, "MS Shell Dlg", 0, 0, 0x1
+BEGIN
+    ICON            IDR_MAINFRAME,IDC_STATIC,14,14,21,20
+    LTEXT           "EQTool，1.0 版",IDC_STATIC,42,14,114,8,SS_NOPREFIX
+    LTEXT           "Copyright (C) 2017",IDC_STATIC,42,26,114,8
+    DEFPUSHBUTTON   "确定",IDOK,113,41,50,14,WS_GROUP
+END
+
+IDD_EQTOOL_DIALOG DIALOGEX 0, 0, 394, 394
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_MINIMIZEBOX | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+EXSTYLE WS_EX_APPWINDOW
+CAPTION "EQTool"
+MENU IDR_MENU_MAIN
+FONT 9, "MS Shell Dlg", 0, 0, 0x1
+BEGIN
+    GROUPBOX        "",IDC_STATIC,16,8,350,78
+    LTEXT           "L",IDC_STATIC,23,26,8,8
+    CONTROL         "-------------->",IDC_STATIC,"Static",SS_SIMPLE | WS_GROUP,36,25,39,8
+    PUSHBUTTON      "VOLUM",IDC_BUTTON1,74,16,45,26
+    LTEXT           "--------------->",IDC_STATIC,119,25,40,8
+    PUSHBUTTON      "EQ",IDC_BUTTON_LEQ,158,16,45,26
+    LTEXT           "------------->",IDC_STATIC,205,26,36,8
+    PUSHBUTTON      "DRC",IDC_BUTTON_LDRC,240,17,45,26
+    LTEXT           "------------->",IDC_STATIC,285,26,36,8
+    LTEXT           "OUT",IDC_STATIC,321,26,17,8
+    LTEXT           "R",IDC_STATIC,23,59,8,8
+    LTEXT           "-------------->",IDC_STATIC,36,57,39,8
+    PUSHBUTTON      "VOLUM",IDC_BUTTON4,74,48,45,26
+    LTEXT           "--------------->",IDC_STATIC,119,57,40,8
+    PUSHBUTTON      "EQ",IDC_BUTTON_REQ,158,48,45,26
+    LTEXT           "------------->",IDC_STATIC,205,57,36,8
+    PUSHBUTTON      "DRC",IDC_BUTTONRDRC,240,49,45,26
+    LTEXT           "------------->",IDC_STATIC,285,57,36,8
+    LTEXT           "OUT",IDC_STATIC,321,58,17,8
+    CONTROL         "",IDC_TAB_INFO,"SysTabControl32",0x0,16,139,361,213,WS_EX_DLGMODALFRAME
+    GROUPBOX        "",IDC_STATIC,16,88,350,48
+    CONTROL         "Link",IDC_CHECK_LINK,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,48,106,28,10
+    COMBOBOX        IDC_COMBO_CHANUM,99,105,51,30,CBS_DROPDOWN | CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "Gain",IDC_STATIC,230,107,14,8
+    EDITTEXT        IDC_EDIT_GAIN,263,104,58,14,ES_AUTOHSCROLL
+    LTEXT           "dB",IDC_STATIC,323,107,9,8
+    CTEXT           "Not Found rockusb",IDC_LABEL_DEVICE,7,379,380,13
+    PUSHBUTTON      "Set",IDC_BUTTON_SET,19,359,50,14
+    PUSHBUTTON      "Read",IDC_BUTTON_READ,120,359,50,14
+    PUSHBUTTON      "Cancel",IDC_BUTTON_CANCEL,322,359,50,14
+    PUSHBUTTON      "Save",IDC_BUTTON_SAVE,229,359,50,14
+END
+
+IDD_DIALOG_DRC DIALOGEX 0, 0, 388, 231
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_CHILD | WS_SYSMENU
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    GROUPBOX        "DRC High Band",IDC_STATIC,26,118,333,81
+    LTEXT           "Threshold L",IDC_STATIC,37,158,38,8
+    LTEXT           "Threshold H",IDC_STATIC,37,178,39,8
+    EDITTEXT        IDC_EDIT_THREL_H,78,154,36,14,ES_AUTOHSCROLL
+    LTEXT           "Smooth time",IDC_STATIC,247,136,40,8
+    EDITTEXT        IDC_EDIT_SMTHTIME_H,290,134,35,14,ES_AUTOHSCROLL
+    LTEXT           "dB",IDC_STATIC,115,157,9,8
+    LTEXT           "ms",IDC_STATIC,329,135,10,8
+    EDITTEXT        IDC_EDIT_THREH_H,79,174,35,14,ES_AUTOHSCROLL
+    LTEXT           "dB",IDC_STATIC,116,177,9,8
+    LTEXT           "Attack time",IDC_STATIC,245,178,37,8
+    EDITTEXT        IDC_EDIT_ATTATIME_H,288,176,44,14,ES_AUTOHSCROLL
+    LTEXT           "ms",IDC_STATIC,333,177,10,8
+    LTEXT           "Static time",IDC_STATIC,39,136,34,8
+    EDITTEXT        IDC_EDIT_ECALTIME_H,82,134,36,14,ES_AUTOHSCROLL
+    LTEXT           "ms",IDC_STATIC,119,136,10,8
+    LTEXT           "Makeup gain",IDC_STATIC,143,135,41,8
+    EDITTEXT        IDC_EDIT_OFFSET_H,186,133,36,14,ES_AUTOHSCROLL
+    LTEXT           "dB",IDC_STATIC,223,135,9,8
+    GROUPBOX        "DRC Low Band",IDC_STATIC,26,31,333,80
+    LTEXT           "Threshold L",IDC_STATIC,36,67,38,8
+    LTEXT           "Threshold H",IDC_STATIC,36,88,39,8
+    LTEXT           "Smooth time",IDC_STATIC,245,47,40,8
+    EDITTEXT        IDC_EDIT_THREL_L,78,65,35,14,ES_AUTOHSCROLL
+    LTEXT           "Ratio L",IDC_STATIC,140,69,23,8
+    EDITTEXT        IDC_EDIT_RATLNOM_L,180,67,20,14,ES_AUTOHSCROLL
+    LTEXT           "dB",IDC_STATIC,116,67,9,8
+    EDITTEXT        IDC_EDIT_THREH_L,78,85,35,14,ES_AUTOHSCROLL
+    LTEXT           "dB",IDC_STATIC,116,88,9,8
+    LTEXT           "Ratio H",IDC_STATIC,139,88,24,8
+    EDITTEXT        IDC_EDIT_RATHNOM_L,179,85,20,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDIT_SMTHTIME_L,292,46,38,14,ES_AUTOHSCROLL
+    LTEXT           "Static time",IDC_STATIC,36,48,34,8
+    EDITTEXT        IDC_EDIT_ECALTIME_L,78,45,37,14,ES_AUTOHSCROLL
+    LTEXT           "ms",IDC_STATIC,116,48,10,8
+    LTEXT           "Makeup gain",IDC_STATIC,140,48,41,8
+    EDITTEXT        IDC_EDIT_OFFSET_L,182,46,35,14,ES_AUTOHSCROLL
+    LTEXT           "dB",IDC_STATIC,220,48,9,8
+    LTEXT           "Release time",IDC_STATIC,245,67,42,8
+    LTEXT           "Attack time",IDC_STATIC,245,89,37,8
+    EDITTEXT        IDC_EDIT_RLSTIME_L,292,66,38,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDIT_ATTATIME_L,286,86,45,14,ES_AUTOHSCROLL
+    LTEXT           "ms",IDC_STATIC,333,48,10,8
+    LTEXT           "ms",IDC_STATIC,333,69,10,8
+    LTEXT           "ms",IDC_STATIC,334,89,10,8
+    LTEXT           "Division Frequency",IDC_STATIC,31,13,73,8
+    EDITTEXT        IDC_EDIT_DIVFREQ,115,11,65,14,ES_AUTOHSCROLL
+    LTEXT           ":",IDC_STATIC,202,69,8,8
+    LTEXT           ":",IDC_STATIC,201,86,8,8
+    EDITTEXT        IDC_EDIT_RATLDEN_L,207,67,20,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDIT_RATHDEN_L,206,85,20,14,ES_AUTOHSCROLL
+    LTEXT           "Release time",IDC_STATIC,248,156,42,8
+    EDITTEXT        IDC_EDIT_RLSTIME_H,291,154,35,14,ES_AUTOHSCROLL
+    LTEXT           "ms",IDC_STATIC,328,156,10,8
+    LTEXT           "Ratio L",IDC_STATIC,143,157,23,8
+    EDITTEXT        IDC_EDIT_RATLNOM_H,181,155,20,14,ES_AUTOHSCROLL
+    LTEXT           "Ratio H",IDC_STATIC,143,177,24,8
+    EDITTEXT        IDC_EDIT_RATHNOM_H,181,174,20,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDIT_RATLDEN_H,210,155,20,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDIT_RATHDEN_H,210,174,20,14,ES_AUTOHSCROLL
+    LTEXT           ":",IDC_STATIC,205,158,8,8
+    LTEXT           ":",IDC_STATIC,203,176,8,8
+    PUSHBUTTON      "Save",IDC_BUTTON_SAVE,51,205,50,14
+    PUSHBUTTON      "Cancel",IDC_BUTTON_CAN,257,205,50,14
+END
+
+IDD_DIALOG_EQ DIALOGEX 0, 0, 393, 239
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_CHILD | WS_SYSMENU
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    CONTROL         "自定义1",IDC_ChartCtrl_EQ,"ChartCtrl",WS_CLIPCHILDREN | WS_TABSTOP,21,16,356,123
+    LTEXT           "Gain",IDC_STATIC,25,151,15,8
+    LTEXT           "GF(HZ)",IDC_STATIC,25,174,22,8
+    LTEXT           "Q",IDC_STATIC,25,197,17,8
+    EDITTEXT        IDC_EDIT_GAIN1,51,149,28,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDIT_GF1,51,172,28,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDIT_Q1,51,194,28,14,ES_AUTOHSCROLL | ES_READONLY
+    EDITTEXT        IDC_EDIT_GAIN2,84,149,28,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDIT_GF2,84,172,29,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDIT_Q2,84,194,29,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDIT_GAIN3,117,149,29,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDIT_GF3,117,172,28,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDIT_Q3,117,194,27,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDIT_GAIN4,153,149,29,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDIT_GF4,153,172,28,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDIT_Q4,153,194,28,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDIT_GAIN5,189,149,29,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDIT_GF5,189,172,29,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDIT_Q5,189,194,28,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDIT_GAIN6,225,149,30,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDIT_GF6,225,172,29,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDIT_Q6,225,194,28,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDIT_GAIN7,262,149,32,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDIT_GF7,262,172,32,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDIT_Q7,262,194,31,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDIT_GAIN8,302,149,30,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDIT_GF8,302,172,31,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDIT_Q8,302,194,30,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDIT_GAIN9,343,149,31,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDIT_GF9,343,172,31,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDIT_Q9,343,194,30,14,ES_AUTOHSCROLL | ES_READONLY
+    PUSHBUTTON      "save",IDC_BUTTON_SAVE,74,212,50,14
+    PUSHBUTTON      "cancel",IDC_BUTTON_CANCEL,259,212,50,14
+END
+
+IDD_DIALOG_COMSET DIALOGEX 0, 0, 243, 97
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Dialog"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    DEFPUSHBUTTON   "OK",ID_BTN_OK,176,19,50,14
+    PUSHBUTTON      "Cancel",ID_BTN_CANCEL,177,48,50,14
+    LTEXT           "Com Port",IDC_STATIC,21,22,30,8
+    LTEXT           "Baud Rate",IDC_STATIC,22,49,34,8
+    EDITTEXT        IDC_EDIT_COM,75,20,60,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDIT_RATE,75,48,60,14,ES_AUTOHSCROLL
+    CONTROL         "",IDC_MSCOMM_EQ,"{648A5600-2C6E-101B-82B6-000000000014}",WS_TABSTOP,176,65,25,23
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Version
+//
+
+VS_VERSION_INFO VERSIONINFO
+ FILEVERSION 1,0,0,1
+ PRODUCTVERSION 1,0,0,1
+ FILEFLAGSMASK 0x3fL
+#ifdef _DEBUG
+ FILEFLAGS 0x1L
+#else
+ FILEFLAGS 0x0L
+#endif
+ FILEOS 0x4L
+ FILETYPE 0x1L
+ FILESUBTYPE 0x0L
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "080403a8"
+        BEGIN
+            VALUE "CompanyName", "TODO: <公司名>"
+            VALUE "FileDescription", "TODO: <文件说明>"
+            VALUE "FileVersion", "1.0.0.1"
+            VALUE "InternalName", "EQTool.exe"
+            VALUE "LegalCopyright", "TODO: (C) <公司名>。保留所有权利。"
+            VALUE "OriginalFilename", "EQTool.exe"
+            VALUE "ProductName", "TODO: <产品名>"
+            VALUE "ProductVersion", "1.0.0.1"
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x804, 936
+    END
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO 
+BEGIN
+    IDD_ABOUTBOX, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 163
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 55
+    END
+
+    IDD_EQTOOL_DIALOG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 387
+        VERTGUIDE, 285
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 387
+    END
+
+    IDD_DIALOG_DRC, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 381
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 224
+    END
+
+    IDD_DIALOG_EQ, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 386
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 232
+    END
+
+    IDD_DIALOG_COMSET, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 236
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 90
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Menu
+//
+
+IDR_MENU_MAIN MENU 
+BEGIN
+    POPUP "File"
+    BEGIN
+        MENUITEM "Load",                        ID_FILE_LOAD
+        MENUITEM "Save As",                     ID_FILE_SAVEAS
+    END
+    POPUP "COM Port"
+    BEGIN
+        MENUITEM "Setting",                     ID_COMPORT_SETTING
+    END
+    MENUITEM "View",                        ID_VIEW
+    POPUP "Device"
+    BEGIN
+        MENUITEM "RK3229",                      ID_DEVICE_RK3229
+    END
+    POPUP "About"
+    BEGIN
+        MENUITEM "Version",                     ID_ABOUT_VERSION
+    END
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog Info
+//
+
+IDD_DIALOG_COMSET DLGINIT
+BEGIN
+    IDC_MSCOMM_EQ, 0x376, 102, 0
+0x0013, 0x0000, 0x0043, 0x006f, 0x0070, 0x0079, 0x0072, 0x0069, 0x0067, 
+0x0068, 0x0074, 0x0020, 0x0028, 0x0063, 0x0029, 0x0020, 0x0031, 0x0039, 
+0x0039, 0x0034, 0x0020, 0x4321, 0x1234, 0x0008, 0x0000, 0x03ed, 0x0000, 
+0x03ed, 0x0000, 0x5601, 0x648a, 0x0000, 0x0006, 0x0000, 0x0001, 0x0400, 
+0x0000, 0x0200, 0x0000, 0x2580, 0x0000, 0x0000, 0x0008, 0x0000, 0x0000, 
+0x0000, 0x0000, 0x003f, 0x0000, 0x0001, 0x0000, 
+    0
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// String Table
+//
+
+STRINGTABLE 
+BEGIN
+    IDS_ABOUTBOX            "关于 EQTool(&A)..."
+END
+
+#endif    // 中文(中华人民共和国) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+#define _AFX_NO_SPLITTER_RESOURCES
+#define _AFX_NO_OLE_RESOURCES
+#define _AFX_NO_TRACKER_RESOURCES
+#define _AFX_NO_PROPERTY_RESOURCES
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_CHS)
+LANGUAGE 4, 2
+#pragma code_page(936)
+#include "res\EQTool.rc2"  // 非 Microsoft Visual C++ 编辑的资源
+#include "l.CHS\afxres.rc"      // 标准组件
+#endif
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+
