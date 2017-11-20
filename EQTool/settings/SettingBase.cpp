@@ -313,32 +313,32 @@ bool CIniSettingBase::LoadToolSetting(std::wstring strConfig)
 	nValue = EQQ_LEN;
 	ParseIntegers(strValue,EqQLeft,&nValue);
 	/********************** 左声道DRC参数 **********************/
-	DivFreq_L = _wtof(GetStr(TEXT("DIVFREQ_L")).c_str());
-	Offset_LL = _wtof(GetStr(TEXT("OFFSET_LL")).c_str());
-	Threl_LL = _wtof(GetStr(TEXT("THREL_LL")).c_str());
-	Threh_LL = _wtof(GetStr(TEXT("THREH_LL")).c_str());
-	Ecaltime_LL = _wtof(GetStr(TEXT("ECALTIME_LL")).c_str());
-	Ratlnom_LL = _wtof(GetStr(TEXT("RATLNOM_LL")).c_str());
-	Ratlden_LL = _wtof(GetStr(TEXT("RATLDEN_LL")).c_str());
-	Rathnom_LL = _wtof(GetStr(TEXT("RATHNOM_LL")).c_str());
-	Rathden_LL = _wtof(GetStr(TEXT("RATHDEN_LL")).c_str());
-	Rlstime_LL = _wtof(GetStr(TEXT("RSLTIME_LL")).c_str());
-	Smthtime_LL = _wtof(GetStr(TEXT("SMTHTIME_LL")).c_str());
-	Attatime_LL = _wtof(GetStr(TEXT("ATTATIME_LL")).c_str());
+	DivFreq_L = _wtoi(GetStr(TEXT("DIVFREQ_L")).c_str());
+	Offset_LL = _wtoi(GetStr(TEXT("OFFSET_LL")).c_str());
+	Threl_LL = _wtoi(GetStr(TEXT("THREL_LL")).c_str());
+	Threh_LL = _wtoi(GetStr(TEXT("THREH_LL")).c_str());
+	Ecaltime_LL = _wtoi(GetStr(TEXT("ECALTIME_LL")).c_str());
+	Ratlnom_LL = _wtoi(GetStr(TEXT("RATLNOM_LL")).c_str());
+	Ratlden_LL = _wtoi(GetStr(TEXT("RATLDEN_LL")).c_str());
+	Rathnom_LL = _wtoi(GetStr(TEXT("RATHNOM_LL")).c_str());
+	Rathden_LL = _wtoi(GetStr(TEXT("RATHDEN_LL")).c_str());
+	Rlstime_LL = _wtoi(GetStr(TEXT("RSLTIME_LL")).c_str());
+	Smthtime_LL = _wtoi(GetStr(TEXT("SMTHTIME_LL")).c_str());
+	Attatime_LL = _wtoi(GetStr(TEXT("ATTATIME_LL")).c_str());
 
-	Offset_LH = _wtof(GetStr(TEXT("OFFSET_LH")).c_str());
-	Threl_LH = _wtof(GetStr(TEXT("THREL_LH")).c_str());
-	Threh_LH = _wtof(GetStr(TEXT("THREH_LH")).c_str());
-	Ecaltime_LH = _wtof(GetStr(TEXT("ECALTIME_LH")).c_str());
-	Ratlnom_LH = _wtof(GetStr(TEXT("RATLNOM_LH")).c_str());
-	Ratlden_LH = _wtof(GetStr(TEXT("RATLDEN_LH")).c_str());
-	Rathnom_LH = _wtof(GetStr(TEXT("RATHNOM_LH")).c_str());
-	Rathden_LH = _wtof(GetStr(TEXT("RATHDEN_LH")).c_str());
-	Rlstime_LH = _wtof(GetStr(TEXT("RSLTIME_LH")).c_str());
-	Smthtime_LH = _wtof(GetStr(TEXT("SMTHTIME_LH")).c_str());
-	Attatime_LH = _wtof(GetStr(TEXT("ATTATIME_LH")).c_str());
+	Offset_LH = _wtoi(GetStr(TEXT("OFFSET_LH")).c_str());
+	Threl_LH = _wtoi(GetStr(TEXT("THREL_LH")).c_str());
+	Threh_LH = _wtoi(GetStr(TEXT("THREH_LH")).c_str());
+	Ecaltime_LH = _wtoi(GetStr(TEXT("ECALTIME_LH")).c_str());
+	Ratlnom_LH = _wtoi(GetStr(TEXT("RATLNOM_LH")).c_str());
+	Ratlden_LH = _wtoi(GetStr(TEXT("RATLDEN_LH")).c_str());
+	Rathnom_LH = _wtoi(GetStr(TEXT("RATHNOM_LH")).c_str());
+	Rathden_LH = _wtoi(GetStr(TEXT("RATHDEN_LH")).c_str());
+	Rlstime_LH = _wtoi(GetStr(TEXT("RSLTIME_LH")).c_str());
+	Smthtime_LH = _wtoi(GetStr(TEXT("SMTHTIME_LH")).c_str());
+	Attatime_LH = _wtoi(GetStr(TEXT("ATTATIME_LH")).c_str());
 
-	ScrGainR			= _wtof(GetStr(TEXT("SCTRGAINR")).c_str());
+	ScrGainR			= _wtoi(GetStr(TEXT("SCTRGAINR")).c_str());
 	/********************** 右声道EQ参数 **********************/
 	strValue = GetStr(TEXT("EQGAINRIGHT"));
 	nValue = EQGAIN_LEN;
@@ -350,30 +350,30 @@ bool CIniSettingBase::LoadToolSetting(std::wstring strConfig)
 	nValue = EQQ_LEN;
 	ParseIntegers(strValue,EqQRight,&nValue);
 	/********************** 右声道DRC参数 **********************/
-	DivFreq_R = _wtof(GetStr(TEXT("DIVFREQ_R")).c_str());
-	Offset_RL = _wtof(GetStr(TEXT("OFFSET_RL")).c_str());
-	Threl_RL = _wtof(GetStr(TEXT("THREL_RL")).c_str());
-	Threh_RL = _wtof(GetStr(TEXT("THREH_RL")).c_str());
-	Ecaltime_RL = _wtof(GetStr(TEXT("ECALTIME_RL")).c_str());
-	Ratlnom_RL = _wtof(GetStr(TEXT("RATLNOM_RL")).c_str());
-	Ratlden_RL = _wtof(GetStr(TEXT("RATLDEN_RL")).c_str());
-	Rathnom_RL = _wtof(GetStr(TEXT("RATHNOM_RL")).c_str());
-	Rathden_RL = _wtof(GetStr(TEXT("RATHDEN_RL")).c_str());
-	Rlstime_RL = _wtof(GetStr(TEXT("RSLTIME_RL")).c_str());
-	Smthtime_RL = _wtof(GetStr(TEXT("SMTHTIME_RL")).c_str());
-	Attatime_RL = _wtof(GetStr(TEXT("ATTATIME_RL")).c_str());
+	DivFreq_R = _wtoi(GetStr(TEXT("DIVFREQ_R")).c_str());
+	Offset_RL = _wtoi(GetStr(TEXT("OFFSET_RL")).c_str());
+	Threl_RL = _wtoi(GetStr(TEXT("THREL_RL")).c_str());
+	Threh_RL = _wtoi(GetStr(TEXT("THREH_RL")).c_str());
+	Ecaltime_RL = _wtoi(GetStr(TEXT("ECALTIME_RL")).c_str());
+	Ratlnom_RL = _wtoi(GetStr(TEXT("RATLNOM_RL")).c_str());
+	Ratlden_RL = _wtoi(GetStr(TEXT("RATLDEN_RL")).c_str());
+	Rathnom_RL = _wtoi(GetStr(TEXT("RATHNOM_RL")).c_str());
+	Rathden_RL = _wtoi(GetStr(TEXT("RATHDEN_RL")).c_str());
+	Rlstime_RL = _wtoi(GetStr(TEXT("RSLTIME_RL")).c_str());
+	Smthtime_RL = _wtoi(GetStr(TEXT("SMTHTIME_RL")).c_str());
+	Attatime_RL = _wtoi(GetStr(TEXT("ATTATIME_RL")).c_str());
 
-	Offset_RH = _wtof(GetStr(TEXT("OFFSET_RH")).c_str());
-	Threl_RH = _wtof(GetStr(TEXT("THREL_RH")).c_str());
-	Threh_RH = _wtof(GetStr(TEXT("THREH_RH")).c_str());
-	Ecaltime_RH = _wtof(GetStr(TEXT("ECALTIME_RH")).c_str());
-	Ratlnom_RH = _wtof(GetStr(TEXT("RATLNOM_RH")).c_str());
-	Ratlden_RH = _wtof(GetStr(TEXT("RATLDEN_RH")).c_str());
-	Rathnom_RH = _wtof(GetStr(TEXT("RATHNOM_RH")).c_str());
-	Rathden_RH = _wtof(GetStr(TEXT("RATHDEN_RH")).c_str());
-	Rlstime_RH = _wtof(GetStr(TEXT("RSLTIME_RH")).c_str());
-	Smthtime_RH = _wtof(GetStr(TEXT("SMTHTIME_RH")).c_str());
-	Attatime_RH = _wtof(GetStr(TEXT("ATTATIME_RH")).c_str());
+	Offset_RH = _wtoi(GetStr(TEXT("OFFSET_RH")).c_str());
+	Threl_RH = _wtoi(GetStr(TEXT("THREL_RH")).c_str());
+	Threh_RH = _wtoi(GetStr(TEXT("THREH_RH")).c_str());
+	Ecaltime_RH = _wtoi(GetStr(TEXT("ECALTIME_RH")).c_str());
+	Ratlnom_RH = _wtoi(GetStr(TEXT("RATLNOM_RH")).c_str());
+	Ratlden_RH = _wtoi(GetStr(TEXT("RATLDEN_RH")).c_str());
+	Rathnom_RH = _wtoi(GetStr(TEXT("RATHNOM_RH")).c_str());
+	Rathden_RH = _wtoi(GetStr(TEXT("RATHDEN_RH")).c_str());
+	Rlstime_RH = _wtoi(GetStr(TEXT("RSLTIME_RH")).c_str());
+	Smthtime_RH = _wtoi(GetStr(TEXT("SMTHTIME_RH")).c_str());
+	Attatime_RH = _wtoi(GetStr(TEXT("ATTATIME_RH")).c_str());
 
 
     return true;
@@ -400,127 +400,127 @@ bool CIniSettingBase::SaveToolSetting(std::wstring strConfig)
 		SetStr( TEXT("Channel")          , szTemp1);
 		
 		/*******************左声道参数***************************/
-		swprintf(szTemp1,nof(szTemp1),TEXT("%f"),ScrGainL);
+		swprintf(szTemp1,nof(szTemp1),TEXT("%d"),ScrGainL);
 		SetStr( TEXT("SCTRGAINL")          , szTemp1);
-        swprintf(szTemp1,nof(szTemp1),TEXT("%f,%f,%f,%f,%f,%f,%f,%f,%f"),EqGainLeft[0],
+        swprintf(szTemp1,nof(szTemp1),TEXT("%d,%d,%d,%d,%d,%d,%d,%d,%d"),EqGainLeft[0],
 				EqGainLeft[1],EqGainLeft[2],EqGainLeft[3],EqGainLeft[4],EqGainLeft[5],
 				EqGainLeft[6],EqGainLeft[7],EqGainLeft[8]);
         SetStr( TEXT("EQGAINLEFT")          , szTemp1);
-		swprintf(szTemp1,nof(szTemp1),TEXT("%f,%f,%f,%f,%f,%f,%f,%f,%f"),EqCFLeft[0],
+		swprintf(szTemp1,nof(szTemp1),TEXT("%d,%d,%d,%d,%d,%d,%d,%d,%d"),EqCFLeft[0],
 			EqCFLeft[1],EqCFLeft[2],EqCFLeft[3],EqCFLeft[4],EqCFLeft[5],EqCFLeft[6],EqCFLeft[7],EqCFLeft[8]);
 		SetStr( TEXT("EQCFLEFT")          , szTemp1);
 		swprintf(szTemp1,nof(szTemp1),TEXT("%f,%f,%f,%f,%f,%f,%f"),EqQLeft[0],
 			EqQLeft[1],EqQLeft[2],EqQLeft[3],EqQLeft[4],EqQLeft[5],EqQLeft[6]);
 		SetStr( TEXT("EQQLEFT")          , szTemp1);
 
-		swprintf(szTemp1,nof(szTemp1),TEXT("%f"),DivFreq_L);
+		swprintf(szTemp1,nof(szTemp1),TEXT("%d"),DivFreq_L);
 		SetStr( TEXT("DIVFREQ_L")          , szTemp1);
-		swprintf(szTemp1,nof(szTemp1),TEXT("%f"),Offset_LL);
+		swprintf(szTemp1,nof(szTemp1),TEXT("%d"),Offset_LL);
 		SetStr( TEXT("OFFSET_LL")          , szTemp1);
-		swprintf(szTemp1,nof(szTemp1),TEXT("%f"),Threl_LL);
+		swprintf(szTemp1,nof(szTemp1),TEXT("%d"),Threl_LL);
 		SetStr( TEXT("THREL_LL")          , szTemp1);
-		swprintf(szTemp1,nof(szTemp1),TEXT("%f"),Threh_LL);
+		swprintf(szTemp1,nof(szTemp1),TEXT("%d"),Threh_LL);
 		SetStr( TEXT("THREH_LL")          , szTemp1);
-		swprintf(szTemp1,nof(szTemp1),TEXT("%f"),Ecaltime_LL);
+		swprintf(szTemp1,nof(szTemp1),TEXT("%d"),Ecaltime_LL);
 		SetStr( TEXT("ECALTIME_LL")          , szTemp1);
-		swprintf(szTemp1,nof(szTemp1),TEXT("%f"),Ratlnom_LL);
+		swprintf(szTemp1,nof(szTemp1),TEXT("%d"),Ratlnom_LL);
 		SetStr( TEXT("RATLNOM_LL")          , szTemp1);
-		swprintf(szTemp1,nof(szTemp1),TEXT("%f"),Ratlden_LL);
+		swprintf(szTemp1,nof(szTemp1),TEXT("%d"),Ratlden_LL);
 		SetStr( TEXT("RATLDEN_LL")          , szTemp1);
-		swprintf(szTemp1,nof(szTemp1),TEXT("%f"),Rathnom_LL);
+		swprintf(szTemp1,nof(szTemp1),TEXT("%d"),Rathnom_LL);
 		SetStr( TEXT("RATHNOM_LL")          , szTemp1);
-		swprintf(szTemp1,nof(szTemp1),TEXT("%f"),Rathden_LL);
+		swprintf(szTemp1,nof(szTemp1),TEXT("%d"),Rathden_LL);
 		SetStr( TEXT("RATHDEN_LL")          , szTemp1);
-		swprintf(szTemp1,nof(szTemp1),TEXT("%f"),Rlstime_LL);
+		swprintf(szTemp1,nof(szTemp1),TEXT("%d"),Rlstime_LL);
 		SetStr( TEXT("RSLTIME_LL")          , szTemp1);
-		swprintf(szTemp1,nof(szTemp1),TEXT("%f"),Smthtime_LL);
+		swprintf(szTemp1,nof(szTemp1),TEXT("%d"),Smthtime_LL);
 		SetStr( TEXT("SMTHTIME_LL")          , szTemp1);
-		swprintf(szTemp1,nof(szTemp1),TEXT("%f"),Attatime_LL);
+		swprintf(szTemp1,nof(szTemp1),TEXT("%d"),Attatime_LL);
 		SetStr( TEXT("ATTATIME_LL")          , szTemp1);	
 
-		swprintf(szTemp1,nof(szTemp1),TEXT("%f"),Offset_LH);
+		swprintf(szTemp1,nof(szTemp1),TEXT("%d"),Offset_LH);
 		SetStr( TEXT("OFFSET_LH")          , szTemp1);
-		swprintf(szTemp1,nof(szTemp1),TEXT("%f"),Threl_LH);
+		swprintf(szTemp1,nof(szTemp1),TEXT("%d"),Threl_LH);
 		SetStr( TEXT("THREL_LH")          , szTemp1);
-		swprintf(szTemp1,nof(szTemp1),TEXT("%f"),Threh_LH);
+		swprintf(szTemp1,nof(szTemp1),TEXT("%d"),Threh_LH);
 		SetStr( TEXT("THREH_LH")          , szTemp1);
-		swprintf(szTemp1,nof(szTemp1),TEXT("%f"),Ecaltime_LH);
+		swprintf(szTemp1,nof(szTemp1),TEXT("%d"),Ecaltime_LH);
 		SetStr( TEXT("ECALTIME_LH")          , szTemp1);
-		swprintf(szTemp1,nof(szTemp1),TEXT("%f"),Ratlnom_LH);
+		swprintf(szTemp1,nof(szTemp1),TEXT("%d"),Ratlnom_LH);
 		SetStr( TEXT("RATLNOM_LH")          , szTemp1);
-		swprintf(szTemp1,nof(szTemp1),TEXT("%f"),Ratlden_LH);
+		swprintf(szTemp1,nof(szTemp1),TEXT("%d"),Ratlden_LH);
 		SetStr( TEXT("RATLDEN_LH")          , szTemp1);
-		swprintf(szTemp1,nof(szTemp1),TEXT("%f"),Rathnom_LH);
+		swprintf(szTemp1,nof(szTemp1),TEXT("%d"),Rathnom_LH);
 		SetStr( TEXT("RATHNOM_LH")          , szTemp1);
-		swprintf(szTemp1,nof(szTemp1),TEXT("%f"),Rathden_LH);
+		swprintf(szTemp1,nof(szTemp1),TEXT("%d"),Rathden_LH);
 		SetStr( TEXT("RATHDEN_LH")          , szTemp1);
-		swprintf(szTemp1,nof(szTemp1),TEXT("%f"),Rlstime_LH);
+		swprintf(szTemp1,nof(szTemp1),TEXT("%d"),Rlstime_LH);
 		SetStr( TEXT("RSLTIME_LH")          , szTemp1);
-		swprintf(szTemp1,nof(szTemp1),TEXT("%f"),Smthtime_LH);
+		swprintf(szTemp1,nof(szTemp1),TEXT("%d"),Smthtime_LH);
 		SetStr( TEXT("SMTHTIME_LH")          , szTemp1);
-		swprintf(szTemp1,nof(szTemp1),TEXT("%f"),Attatime_LH);
+		swprintf(szTemp1,nof(szTemp1),TEXT("%d"),Attatime_LH);
 		SetStr( TEXT("ATTATIME_LH")          , szTemp1);
 
 		/*******************右声道参数***************************/
-		swprintf(szTemp1,nof(szTemp1),TEXT("%f"),ScrGainR);
+		swprintf(szTemp1,nof(szTemp1),TEXT("%d"),ScrGainR);
 		SetStr( TEXT("SCTRGAINR")          , szTemp1);
-		swprintf(szTemp1,nof(szTemp1),TEXT("%f,%f,%f,%f,%f,%f,%f,%f,%f"),EqGainRight[0],
+		swprintf(szTemp1,nof(szTemp1),TEXT("%d,%d,%d,%d,%d,%d,%d,%d,%d"),EqGainRight[0],
 			EqGainRight[1],EqGainRight[2],EqGainRight[3],EqGainRight[4],EqGainRight[5],
 			EqGainRight[6],EqGainRight[7],EqGainRight[8]);
 		SetStr( TEXT("EQGAINRIGHT")          , szTemp1);
-		swprintf(szTemp1,nof(szTemp1),TEXT("%f,%f,%f,%f,%f,%f,%f,%f,%f"),EqCFRight[0],
+		swprintf(szTemp1,nof(szTemp1),TEXT("%d,%d,%d,%d,%d,%d,%d,%d,%d"),EqCFRight[0],
 			EqCFRight[1],EqCFRight[2],EqCFRight[3],EqCFRight[4],EqCFRight[5],EqCFRight[6],EqCFRight[7],EqCFRight[8]);
 		SetStr( TEXT("EQCFRIGHT")          , szTemp1);
 		swprintf(szTemp1,nof(szTemp1),TEXT("%f,%f,%f,%f,%f,%f,%f"),EqQRight[0],
 			EqQRight[1],EqQRight[2],EqQRight[3],EqQRight[4],EqQRight[5],EqQRight[6]);
 		SetStr( TEXT("EQQRIGHT")          , szTemp1);
 
-		swprintf(szTemp1,nof(szTemp1),TEXT("%f"),DivFreq_R);
+		swprintf(szTemp1,nof(szTemp1),TEXT("%d"),DivFreq_R);
 		SetStr( TEXT("DIVFREQ_R")          , szTemp1);
-		swprintf(szTemp1,nof(szTemp1),TEXT("%f"),Offset_RL);
+		swprintf(szTemp1,nof(szTemp1),TEXT("%d"),Offset_RL);
 		SetStr( TEXT("OFFSET_RL")          , szTemp1);
-		swprintf(szTemp1,nof(szTemp1),TEXT("%f"),Threl_RL);
+		swprintf(szTemp1,nof(szTemp1),TEXT("%d"),Threl_RL);
 		SetStr( TEXT("THREL_RL")          , szTemp1);
-		swprintf(szTemp1,nof(szTemp1),TEXT("%f"),Threh_RL);
+		swprintf(szTemp1,nof(szTemp1),TEXT("%d"),Threh_RL);
 		SetStr( TEXT("THREH_RL")          , szTemp1);
-		swprintf(szTemp1,nof(szTemp1),TEXT("%f"),Ecaltime_RL);
+		swprintf(szTemp1,nof(szTemp1),TEXT("%d"),Ecaltime_RL);
 		SetStr( TEXT("ECALTIME_RL")          , szTemp1);
-		swprintf(szTemp1,nof(szTemp1),TEXT("%f"),Ratlnom_RL);
+		swprintf(szTemp1,nof(szTemp1),TEXT("%d"),Ratlnom_RL);
 		SetStr( TEXT("RATLNOM_RL")          , szTemp1);
-		swprintf(szTemp1,nof(szTemp1),TEXT("%f"),Ratlden_RL);
+		swprintf(szTemp1,nof(szTemp1),TEXT("%d"),Ratlden_RL);
 		SetStr( TEXT("RATLDEN_RL")          , szTemp1);
-		swprintf(szTemp1,nof(szTemp1),TEXT("%f"),Rathnom_RL);
+		swprintf(szTemp1,nof(szTemp1),TEXT("%d"),Rathnom_RL);
 		SetStr( TEXT("RATHNOM_RL")          , szTemp1);
-		swprintf(szTemp1,nof(szTemp1),TEXT("%f"),Rathden_RL);
+		swprintf(szTemp1,nof(szTemp1),TEXT("%d"),Rathden_RL);
 		SetStr( TEXT("RATHDEN_RL")          , szTemp1);
-		swprintf(szTemp1,nof(szTemp1),TEXT("%f"),Rlstime_RL);
+		swprintf(szTemp1,nof(szTemp1),TEXT("%d"),Rlstime_RL);
 		SetStr( TEXT("RSLTIME_RL")          , szTemp1);
-		swprintf(szTemp1,nof(szTemp1),TEXT("%f"),Smthtime_RL);
+		swprintf(szTemp1,nof(szTemp1),TEXT("%d"),Smthtime_RL);
 		SetStr( TEXT("SMTHTIME_RL")          , szTemp1);
-		swprintf(szTemp1,nof(szTemp1),TEXT("%f"),Attatime_RL);
+		swprintf(szTemp1,nof(szTemp1),TEXT("%d"),Attatime_RL);
 		SetStr( TEXT("ATTATIME_RL")          , szTemp1);	
 
-		swprintf(szTemp1,nof(szTemp1),TEXT("%f"),Offset_RH);
+		swprintf(szTemp1,nof(szTemp1),TEXT("%d"),Offset_RH);
 		SetStr( TEXT("OFFSET_RH")          , szTemp1);
-		swprintf(szTemp1,nof(szTemp1),TEXT("%f"),Threl_RH);
+		swprintf(szTemp1,nof(szTemp1),TEXT("%d"),Threl_RH);
 		SetStr( TEXT("THREL_RH")          , szTemp1);
-		swprintf(szTemp1,nof(szTemp1),TEXT("%f"),Threh_RH);
+		swprintf(szTemp1,nof(szTemp1),TEXT("%d"),Threh_RH);
 		SetStr( TEXT("THREH_RH")          , szTemp1);
-		swprintf(szTemp1,nof(szTemp1),TEXT("%f"),Ecaltime_RH);
+		swprintf(szTemp1,nof(szTemp1),TEXT("%d"),Ecaltime_RH);
 		SetStr( TEXT("ECALTIME_RH")          , szTemp1);
-		swprintf(szTemp1,nof(szTemp1),TEXT("%f"),Ratlnom_RH);
+		swprintf(szTemp1,nof(szTemp1),TEXT("%d"),Ratlnom_RH);
 		SetStr( TEXT("RATLNOM_RH")          , szTemp1);
-		swprintf(szTemp1,nof(szTemp1),TEXT("%f"),Ratlden_RH);
+		swprintf(szTemp1,nof(szTemp1),TEXT("%d"),Ratlden_RH);
 		SetStr( TEXT("RATLDEN_RH")          , szTemp1);
-		swprintf(szTemp1,nof(szTemp1),TEXT("%f"),Rathnom_RH);
+		swprintf(szTemp1,nof(szTemp1),TEXT("%d"),Rathnom_RH);
 		SetStr( TEXT("RATHNOM_RH")          , szTemp1);
-		swprintf(szTemp1,nof(szTemp1),TEXT("%f"),Rathden_RH);
+		swprintf(szTemp1,nof(szTemp1),TEXT("%d"),Rathden_RH);
 		SetStr( TEXT("RATHDEN_RH")          , szTemp1);
-		swprintf(szTemp1,nof(szTemp1),TEXT("%f"),Rlstime_RH);
+		swprintf(szTemp1,nof(szTemp1),TEXT("%d"),Rlstime_RH);
 		SetStr( TEXT("RSLTIME_RH")          , szTemp1);
-		swprintf(szTemp1,nof(szTemp1),TEXT("%f"),Smthtime_RH);
+		swprintf(szTemp1,nof(szTemp1),TEXT("%d"),Smthtime_RH);
 		SetStr( TEXT("SMTHTIME_RH")          , szTemp1);
-		swprintf(szTemp1,nof(szTemp1),TEXT("%f"),Attatime_RH);
+		swprintf(szTemp1,nof(szTemp1),TEXT("%d"),Attatime_RH);
 		SetStr( TEXT("ATTATIME_RH")          , szTemp1);		
 		return pIniFile->Save(szFileName);
     }

@@ -1,7 +1,7 @@
 #ifndef _SETTINGBASE_H_
 #define _SETTINGBASE_H_
 #define USER_LOGIN
-#define APP_VERSION " EQTool V1.0.0"
+#define APP_VERSION " EQTool V1.0.1"
 #include "inifile.h"
 #include "../RK_ToolInterface.h"
 
@@ -180,73 +180,86 @@ public:
 
 	/* 1.2 左声道参数 */
 	/* 1.2.1 左声道增益 */
-	float		ScrGainL;
+	int		ScrGainL;
 	/* 1.2.2 左声道EQ参数 */
-	float	EqGainLeft[EQGAIN_LEN];
-	float	EqCFLeft[EQCF_LEN];
+	int		EqGainLeft[EQGAIN_LEN];
+	int		EqCFLeft[EQCF_LEN];
 	float   EqQLeft[EQQ_LEN];
 	//float	DrcLeft[DRC_LEN];
 	/* 1.2.2 左声道DRC参数 */
-	float	DivFreq_L;		//计算RMS能量的统计时间，单位ms
+	int		DivFreq_L;		//计算RMS能量的统计时间，单位ms
 	// 低频子带
-	float	Offset_LL;		// 线性段提升dB数
-	float	Threl_LL;		// 低能段能量阈值，单位dB		
-	float	Threh_LL;		// 高能段能量阈值，单位dB
-	float	Ecaltime_LL;	//计算RMS能量的统计时间，单位ms
-	float	Ratlnom_LL;		// 低能段压缩比例的分子
-	float	Ratlden_LL;		// 低能段压缩比例的分母
-	float	Rathnom_LL;		// 高能段压缩比例的分子
-	float	Rathden_LL;		// 高能段压缩比例的分母
-	float	Rlstime_LL;		// release time，单位ms
-	float	Smthtime_LL;	// 中间段时域平滑时间，单位ms
-	float	Attatime_LL;	// attack time，单位ms
+	int		Offset_LL;		// 线性段提升dB数
+	int		Threl_LL;		// 低能段能量阈值，单位dB		
+	int		Threh_LL;		// 高能段能量阈值，单位dB
+	int		Ecaltime_LL;	//计算RMS能量的统计时间，单位ms
+	int		Ratlnom_LL;		// 低能段压缩比例的分子
+	int		Ratlden_LL;		// 低能段压缩比例的分母
+	int		Rathnom_LL;		// 高能段压缩比例的分子
+	int		Rathden_LL;		// 高能段压缩比例的分母
+	int		Rlstime_LL;		// release time，单位ms
+	int		Smthtime_LL;	// 中间段时域平滑时间，单位ms
+	int		Attatime_LL;	// attack time，单位ms
 	// 高频子带
-	float	Offset_LH;
-	float	Threl_LH;
-	float	Threh_LH;
-	float	Ecaltime_LH;	//计算RMS能量的统计时间，单位ms
-	float	Ratlnom_LH;
-	float	Ratlden_LH;
-	float	Rathnom_LH;
-	float	Rathden_LH;
-	float	Rlstime_LH;
-	float	Smthtime_LH;
-	float	Attatime_LH;
+	int		Offset_LH;
+	int		Threl_LH;
+	int		Threh_LH;
+	int		Ecaltime_LH;	//计算RMS能量的统计时间，单位ms
+	int		Ratlnom_LH;
+	int		Ratlden_LH;
+	int		Rathnom_LH;
+	int		Rathden_LH;
+	int		Rlstime_LH;
+	int		Smthtime_LH;
+	int		Attatime_LH;
 
 	/* 1.3 右声道参数 */
-	/* 1.2.1 右声道增益 */
-	float	ScrGainR;
-	/* 1.2.2 右声道EQ参数 */
-	float	EqGainRight[9];
-	float	EqCFRight[9];
+	/* 1.3.1 右声道增益 */
+	int		ScrGainR;
+	/* 1.3.2 右声道EQ参数 */
+	int		EqGainRight[9];
+	int		EqCFRight[9];
 	float   EqQRight[7];
 	//sfloat	DrcRight[11];
-	/* 1.2.3 右声道DRC参数 */
-	float	DivFreq_R;		//计算RMS能量的统计时间，单位ms
+	/* 1.3.3 右声道DRC参数 */
+	int		DivFreq_R;		//计算RMS能量的统计时间，单位ms
 	// 低频子带
-	float	Offset_RL;		// 线性段提升dB数
-	float	Threl_RL;		// 低能段能量阈值，单位dB		
-	float	Threh_RL;		// 高能段能量阈值，单位dB
-	float	Ecaltime_RL;	//计算RMS能量的统计时间，单位ms
-	float	Ratlnom_RL;		// 低能段压缩比例的分子
-	float	Ratlden_RL;		// 低能段压缩比例的分母
-	float	Rathnom_RL;		// 高能段压缩比例的分子
-	float	Rathden_RL;		// 高能段压缩比例的分母
-	float	Rlstime_RL;		// release time，单位ms
-	float	Smthtime_RL;	// 中间段时域平滑时间，单位ms
-	float	Attatime_RL;	// attack time，单位ms
+	int		Offset_RL;		// 线性段提升dB数
+	int		Threl_RL;		// 低能段能量阈值，单位dB		
+	int		Threh_RL;		// 高能段能量阈值，单位dB
+	int		Ecaltime_RL;	//计算RMS能量的统计时间，单位ms
+	int		Ratlnom_RL;		// 低能段压缩比例的分子
+	int		Ratlden_RL;		// 低能段压缩比例的分母
+	int		Rathnom_RL;		// 高能段压缩比例的分子
+	int		Rathden_RL;		// 高能段压缩比例的分母
+	int		Rlstime_RL;		// release time，单位ms
+	int		Smthtime_RL;	// 中间段时域平滑时间，单位ms
+	int		Attatime_RL;	// attack time，单位ms
 	// 高频子带
-	float	Offset_RH;
-	float	Threl_RH;
-	float	Threh_RH;
-	float	Ecaltime_RH;	//计算RMS能量的统计时间，单位ms
-	float	Ratlnom_RH;
-	float	Ratlden_RH;
-	float	Rathnom_RH;
-	float	Rathden_RH;
-	float	Rlstime_RH;
-	float	Smthtime_RH;
-	float	Attatime_RH;
+	int		Offset_RH;
+	int		Threl_RH;
+	int		Threh_RH;
+	int		Ecaltime_RH;	//计算RMS能量的统计时间，单位ms
+	int		Ratlnom_RH;
+	int		Ratlden_RH;
+	int		Rathnom_RH;
+	int		Rathden_RH;
+	int		Rlstime_RH;
+	int		Smthtime_RH;
+	int		Attatime_RH;
+
+	/* 1.4 LIMITER 参数 */
+	
+
+	/* 1.5 第二个EQ参数 */
+	int		EqGainLeft1[EQGAIN_LEN];
+	int		EqCFLeft1[EQCF_LEN];
+	float   EqQLeft1[EQQ_LEN];
+
+	int		EqGainRight1[EQGAIN_LEN];
+	int		EqCFRight1[EQCF_LEN];
+	float   EqQRight1[EQQ_LEN];
+
 
 };
 class CIniLocalLan:public CSettingBase

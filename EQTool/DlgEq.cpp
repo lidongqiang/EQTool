@@ -330,25 +330,25 @@ void CDlgEq::InitUi(int nChannel)
 	GetDlgItem(IDC_EDIT_Q9)->EnableWindow(FALSE);
 	if (nChannel)
 	{
-		SetDlgItemText(IDC_EDIT_GAIN1,cmNumString::NumToStr(m_Configs.EqGainRight[0]));
-		SetDlgItemText(IDC_EDIT_GAIN2,cmNumString::NumToStr(m_Configs.EqGainRight[1]));
-		SetDlgItemText(IDC_EDIT_GAIN3,cmNumString::NumToStr(m_Configs.EqGainRight[2]));
-		SetDlgItemText(IDC_EDIT_GAIN4,cmNumString::NumToStr(m_Configs.EqGainRight[3]));
-		SetDlgItemText(IDC_EDIT_GAIN5,cmNumString::NumToStr(m_Configs.EqGainRight[4]));
-		SetDlgItemText(IDC_EDIT_GAIN6,cmNumString::NumToStr(m_Configs.EqGainRight[5]));
-		SetDlgItemText(IDC_EDIT_GAIN7,cmNumString::NumToStr(m_Configs.EqGainRight[6]));
-		SetDlgItemText(IDC_EDIT_GAIN8,cmNumString::NumToStr(m_Configs.EqGainRight[7]));
-		SetDlgItemText(IDC_EDIT_GAIN9,cmNumString::NumToStr(m_Configs.EqGainRight[8]));
+		SetDlgItemText(IDC_EDIT_GAIN1,cmNumString::NumToStr(m_Configs.EqGainRight[0],10));
+		SetDlgItemText(IDC_EDIT_GAIN2,cmNumString::NumToStr(m_Configs.EqGainRight[1],10));
+		SetDlgItemText(IDC_EDIT_GAIN3,cmNumString::NumToStr(m_Configs.EqGainRight[2],10));
+		SetDlgItemText(IDC_EDIT_GAIN4,cmNumString::NumToStr(m_Configs.EqGainRight[3],10));
+		SetDlgItemText(IDC_EDIT_GAIN5,cmNumString::NumToStr(m_Configs.EqGainRight[4],10));
+		SetDlgItemText(IDC_EDIT_GAIN6,cmNumString::NumToStr(m_Configs.EqGainRight[5],10));
+		SetDlgItemText(IDC_EDIT_GAIN7,cmNumString::NumToStr(m_Configs.EqGainRight[6],10));
+		SetDlgItemText(IDC_EDIT_GAIN8,cmNumString::NumToStr(m_Configs.EqGainRight[7],10));
+		SetDlgItemText(IDC_EDIT_GAIN9,cmNumString::NumToStr(m_Configs.EqGainRight[8],10));
 
-		SetDlgItemText(IDC_EDIT_GF1,cmNumString::NumToStr(m_Configs.EqCFRight[0]));
-		SetDlgItemText(IDC_EDIT_GF2,cmNumString::NumToStr(m_Configs.EqCFRight[1]));
-		SetDlgItemText(IDC_EDIT_GF3,cmNumString::NumToStr(m_Configs.EqCFRight[2]));
-		SetDlgItemText(IDC_EDIT_GF4,cmNumString::NumToStr(m_Configs.EqCFRight[3]));
-		SetDlgItemText(IDC_EDIT_GF5,cmNumString::NumToStr(m_Configs.EqCFRight[4]));
-		SetDlgItemText(IDC_EDIT_GF6,cmNumString::NumToStr(m_Configs.EqCFRight[5]));
-		SetDlgItemText(IDC_EDIT_GF7,cmNumString::NumToStr(m_Configs.EqCFRight[6]));
-		SetDlgItemText(IDC_EDIT_GF8,cmNumString::NumToStr(m_Configs.EqCFRight[7]));
-		SetDlgItemText(IDC_EDIT_GF9,cmNumString::NumToStr(m_Configs.EqCFRight[8]));
+		SetDlgItemText(IDC_EDIT_GF1,cmNumString::NumToStr(m_Configs.EqCFRight[0],10));
+		SetDlgItemText(IDC_EDIT_GF2,cmNumString::NumToStr(m_Configs.EqCFRight[1],10));
+		SetDlgItemText(IDC_EDIT_GF3,cmNumString::NumToStr(m_Configs.EqCFRight[2],10));
+		SetDlgItemText(IDC_EDIT_GF4,cmNumString::NumToStr(m_Configs.EqCFRight[3],10));
+		SetDlgItemText(IDC_EDIT_GF5,cmNumString::NumToStr(m_Configs.EqCFRight[4],10));
+		SetDlgItemText(IDC_EDIT_GF6,cmNumString::NumToStr(m_Configs.EqCFRight[5],10));
+		SetDlgItemText(IDC_EDIT_GF7,cmNumString::NumToStr(m_Configs.EqCFRight[6],10));
+		SetDlgItemText(IDC_EDIT_GF8,cmNumString::NumToStr(m_Configs.EqCFRight[7],10));
+		SetDlgItemText(IDC_EDIT_GF9,cmNumString::NumToStr(m_Configs.EqCFRight[8],10));
 
 		SetDlgItemText(IDC_EDIT_Q2,cmNumString::NumToStr(m_Configs.EqQRight[0]));
 		SetDlgItemText(IDC_EDIT_Q3,cmNumString::NumToStr(m_Configs.EqQRight[1]));
@@ -360,25 +360,25 @@ void CDlgEq::InitUi(int nChannel)
 	}
 	else
 	{
-		SetDlgItemText(IDC_EDIT_GAIN1,cmNumString::NumToStr(m_Configs.EqGainLeft[0]));
-		SetDlgItemText(IDC_EDIT_GAIN2,cmNumString::NumToStr(m_Configs.EqGainLeft[1]));
-		SetDlgItemText(IDC_EDIT_GAIN3,cmNumString::NumToStr(m_Configs.EqGainLeft[2]));
-		SetDlgItemText(IDC_EDIT_GAIN4,cmNumString::NumToStr(m_Configs.EqGainLeft[3]));
-		SetDlgItemText(IDC_EDIT_GAIN5,cmNumString::NumToStr(m_Configs.EqGainLeft[4]));
-		SetDlgItemText(IDC_EDIT_GAIN6,cmNumString::NumToStr(m_Configs.EqGainLeft[5]));
-		SetDlgItemText(IDC_EDIT_GAIN7,cmNumString::NumToStr(m_Configs.EqGainLeft[6]));
-		SetDlgItemText(IDC_EDIT_GAIN8,cmNumString::NumToStr(m_Configs.EqGainLeft[7]));
-		SetDlgItemText(IDC_EDIT_GAIN9,cmNumString::NumToStr(m_Configs.EqGainLeft[8]));
+		SetDlgItemText(IDC_EDIT_GAIN1,cmNumString::NumToStr(m_Configs.EqGainLeft[0],10));
+		SetDlgItemText(IDC_EDIT_GAIN2,cmNumString::NumToStr(m_Configs.EqGainLeft[1],10));
+		SetDlgItemText(IDC_EDIT_GAIN3,cmNumString::NumToStr(m_Configs.EqGainLeft[2],10));
+		SetDlgItemText(IDC_EDIT_GAIN4,cmNumString::NumToStr(m_Configs.EqGainLeft[3],10));
+		SetDlgItemText(IDC_EDIT_GAIN5,cmNumString::NumToStr(m_Configs.EqGainLeft[4],10));
+		SetDlgItemText(IDC_EDIT_GAIN6,cmNumString::NumToStr(m_Configs.EqGainLeft[5],10));
+		SetDlgItemText(IDC_EDIT_GAIN7,cmNumString::NumToStr(m_Configs.EqGainLeft[6],10));
+		SetDlgItemText(IDC_EDIT_GAIN8,cmNumString::NumToStr(m_Configs.EqGainLeft[7],10));
+		SetDlgItemText(IDC_EDIT_GAIN9,cmNumString::NumToStr(m_Configs.EqGainLeft[8],10));
 
-		SetDlgItemText(IDC_EDIT_GF1,cmNumString::NumToStr(m_Configs.EqCFLeft[0]));
-		SetDlgItemText(IDC_EDIT_GF2,cmNumString::NumToStr(m_Configs.EqCFLeft[1]));
-		SetDlgItemText(IDC_EDIT_GF3,cmNumString::NumToStr(m_Configs.EqCFLeft[2]));
-		SetDlgItemText(IDC_EDIT_GF4,cmNumString::NumToStr(m_Configs.EqCFLeft[3]));
-		SetDlgItemText(IDC_EDIT_GF5,cmNumString::NumToStr(m_Configs.EqCFLeft[4]));
-		SetDlgItemText(IDC_EDIT_GF6,cmNumString::NumToStr(m_Configs.EqCFLeft[5]));
-		SetDlgItemText(IDC_EDIT_GF7,cmNumString::NumToStr(m_Configs.EqCFLeft[6]));
-		SetDlgItemText(IDC_EDIT_GF8,cmNumString::NumToStr(m_Configs.EqCFLeft[7]));
-		SetDlgItemText(IDC_EDIT_GF9,cmNumString::NumToStr(m_Configs.EqCFLeft[8]));
+		SetDlgItemText(IDC_EDIT_GF1,cmNumString::NumToStr(m_Configs.EqCFLeft[0],10));
+		SetDlgItemText(IDC_EDIT_GF2,cmNumString::NumToStr(m_Configs.EqCFLeft[1],10));
+		SetDlgItemText(IDC_EDIT_GF3,cmNumString::NumToStr(m_Configs.EqCFLeft[2],10));
+		SetDlgItemText(IDC_EDIT_GF4,cmNumString::NumToStr(m_Configs.EqCFLeft[3],10));
+		SetDlgItemText(IDC_EDIT_GF5,cmNumString::NumToStr(m_Configs.EqCFLeft[4],10));
+		SetDlgItemText(IDC_EDIT_GF6,cmNumString::NumToStr(m_Configs.EqCFLeft[5],10));
+		SetDlgItemText(IDC_EDIT_GF7,cmNumString::NumToStr(m_Configs.EqCFLeft[6],10));
+		SetDlgItemText(IDC_EDIT_GF8,cmNumString::NumToStr(m_Configs.EqCFLeft[7],10));
+		SetDlgItemText(IDC_EDIT_GF9,cmNumString::NumToStr(m_Configs.EqCFLeft[8],10));
 
 		SetDlgItemText(IDC_EDIT_Q2,cmNumString::NumToStr(m_Configs.EqQLeft[0]));
 		SetDlgItemText(IDC_EDIT_Q3,cmNumString::NumToStr(m_Configs.EqQLeft[1]));

@@ -280,11 +280,11 @@ void CEQToolDlg::InitUi()
 	}
 	if (m_Configs.nChannel)
 	{
-		SetDlgItemText(IDC_EDIT_GAIN,cmNumString::NumToStr(m_Configs.ScrGainR));
+		SetDlgItemText(IDC_EDIT_GAIN,cmNumString::NumToStr(m_Configs.ScrGainR,10));
 	}
 	else
 	{
-		SetDlgItemText(IDC_EDIT_GAIN,cmNumString::NumToStr(m_Configs.ScrGainL));
+		SetDlgItemText(IDC_EDIT_GAIN,cmNumString::NumToStr(m_Configs.ScrGainL,10));
 	}
 
 	//为Tab Control增加两个页面  
@@ -750,11 +750,11 @@ void CEQToolDlg::LoadParaData(FILE *fpPara)
 
 	if (m_Configs.nChannel)
 	{
-		SetDlgItemText(IDC_EDIT_GAIN,cmNumString::NumToStr(m_Configs.ScrGainR));
+		SetDlgItemText(IDC_EDIT_GAIN,cmNumString::NumToStr(m_Configs.ScrGainR,10));
 	}
 	else
 	{
-		SetDlgItemText(IDC_EDIT_GAIN,cmNumString::NumToStr(m_Configs.ScrGainL));
+		SetDlgItemText(IDC_EDIT_GAIN,cmNumString::NumToStr(m_Configs.ScrGainL,10));
 	}
 	m_DlgEq.InitUi(m_Configs.nChannel);
 	m_DlgDrc.InitUi(m_Configs.nChannel);
@@ -942,11 +942,11 @@ void CEQToolDlg::OnCbnSelchangeComboChanum()
 	m_DlgDrc.InitUi(m_Configs.nChannel);
 	if (m_Configs.nChannel)
 	{
-		SetDlgItemText(IDC_EDIT_GAIN,cmNumString::NumToStr(m_Configs.ScrGainR));
+		SetDlgItemText(IDC_EDIT_GAIN,cmNumString::NumToStr(m_Configs.ScrGainR,10));
 	}
 	else
 	{
-		SetDlgItemText(IDC_EDIT_GAIN,cmNumString::NumToStr(m_Configs.ScrGainL));
+		SetDlgItemText(IDC_EDIT_GAIN,cmNumString::NumToStr(m_Configs.ScrGainL,10));
 	}
 	m_Configs.SaveToolSetting(_T(""));
 }
@@ -1146,11 +1146,11 @@ void CEQToolDlg::OnBnClickedButtonSave()
 		m_DlgDrc.SavePara(m_Configs.nChannel);
 		if (m_Configs.nChannel)
 		{
-			m_Configs.ScrGainR = cmNumString::StrToDouble(strValue);
+			m_Configs.ScrGainR = cmNumString::StrToInt32(strValue);
 		}
 		else
 		{
-			m_Configs.ScrGainL = cmNumString::StrToDouble(strValue);
+			m_Configs.ScrGainL = cmNumString::StrToInt32(strValue);
 		}
 	}
 	m_DlgEq.InitChartCtrl();
@@ -1165,7 +1165,7 @@ void CEQToolDlg::OnBnClickedButtonCancel()
 	m_DlgDrc.InitUi(m_Configs.nChannel);
 	if (m_Configs.nChannel)
 	{
-		SetDlgItemText(IDC_EDIT_GAIN,cmNumString::NumToStr(m_Configs.ScrGainR));
+		SetDlgItemText(IDC_EDIT_GAIN,cmNumString::NumToStr(m_Configs.ScrGainR,10));
 	}
 	else
 	{
