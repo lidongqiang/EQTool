@@ -36,6 +36,9 @@ public:
 
 	CChartCtrl m_ChartEq;
 	void InitChartCtrl();
+	void CheckGain(int ID);
+	void CheckQ(int ID);
+	void CheckCf(int ID);
 	void InitUi(int nChannel);
 	void SavePara(int nChannel);
 	typedef void(*EQProduct) (float *pfPara, float *pfCurve, signed int swFs, float fMinFreq, signed int swCurvePNum);
@@ -48,4 +51,28 @@ protected:
 public:
 	virtual BOOL OnInitDialog();
 	afx_msg void OnBnClickedButtonSave();
+	afx_msg void OnEnKillfocusEditGain1();
+	afx_msg void OnEnKillfocusEditGain2();
+	afx_msg void OnEnKillfocusEditGain3();
+	afx_msg void OnEnKillfocusEditGain4();
+	afx_msg void OnEnKillfocusEditGain5();
+	afx_msg void OnEnKillfocusEditGain6();
+	afx_msg void OnEnKillfocusEditGain7();
+	afx_msg void OnEnKillfocusEditGain8();
+	afx_msg void OnEnKillfocusEditGf1();
+	afx_msg void OnEnKillfocusEditGf2();
+	afx_msg void OnEnKillfocusEditGf3();
+	afx_msg void OnEnKillfocusEditGf4();
+	afx_msg void OnEnKillfocusEditGf5();
+	afx_msg void OnEnKillfocusEditGf6();
+	afx_msg void OnEnKillfocusEditGf7();
+	afx_msg void OnEnKillfocusEditGf8();
+	afx_msg void OnEnKillfocusEditQ1();
+	afx_msg void OnEnKillfocusEditQ2();
+	afx_msg void OnEnKillfocusEditQ3();
+	afx_msg void OnEnKillfocusEditQ4();
+	afx_msg void OnEnSetfocusEditQ5();
+	afx_msg void OnEnKillfocusEditQ6();
+	afx_msg void OnEnKillfocusEditQ7();
+	afx_msg void OnEnKillfocusEditQ8();
 };

@@ -40,4 +40,15 @@ public:
 	virtual BOOL OnInitDialog();
 	afx_msg void OnBnClickedButtonSave();
 	afx_msg void OnBnClickedButtonCan();
+	afx_msg void OnEnKillfocusEditDivfreq();
+	afx_msg void OnEnKillfocusEditEcaltimeL();
+	afx_msg void OnEnKillfocusEditRlstimeL();
+	afx_msg void OnEnKillfocusEditSmthtimeL();
+	afx_msg void OnEnKillfocusEditEcaltimeH();
+	afx_msg void OnEnKillfocusEditSmthtimeH();
+	afx_msg void OnEnKillfocusEditRlstimeH();
+	afx_msg void OnEnKillfocusEditThrelL();
+	afx_msg void OnEnKillfocusEditThrehL();
+	afx_msg void OnEnKillfocusEditThrelH();
+	afx_msg void OnEnKillfocusEditThrehH();
 };

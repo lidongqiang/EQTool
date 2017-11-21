@@ -30,6 +30,17 @@ void CDlgDrc::DoDataExchange(CDataExchange* pDX)
 BEGIN_MESSAGE_MAP(CDlgDrc, CDialog)
 	ON_BN_CLICKED(IDC_BUTTON_SAVE, &CDlgDrc::OnBnClickedButtonSave)
 	ON_BN_CLICKED(IDC_BUTTON_CAN, &CDlgDrc::OnBnClickedButtonCan)
+	ON_EN_KILLFOCUS(IDC_EDIT_DIVFREQ, &CDlgDrc::OnEnKillfocusEditDivfreq)
+	ON_EN_KILLFOCUS(IDC_EDIT_ECALTIME_L, &CDlgDrc::OnEnKillfocusEditEcaltimeL)
+	ON_EN_KILLFOCUS(IDC_EDIT_RLSTIME_L, &CDlgDrc::OnEnKillfocusEditRlstimeL)
+	ON_EN_KILLFOCUS(IDC_EDIT_SMTHTIME_L, &CDlgDrc::OnEnKillfocusEditSmthtimeL)
+	ON_EN_KILLFOCUS(IDC_EDIT_ECALTIME_H, &CDlgDrc::OnEnKillfocusEditEcaltimeH)
+	ON_EN_KILLFOCUS(IDC_EDIT_SMTHTIME_H, &CDlgDrc::OnEnKillfocusEditSmthtimeH)
+	ON_EN_KILLFOCUS(IDC_EDIT_RLSTIME_H, &CDlgDrc::OnEnKillfocusEditRlstimeH)
+	ON_EN_KILLFOCUS(IDC_EDIT_THREL_L, &CDlgDrc::OnEnKillfocusEditThrelL)
+	ON_EN_KILLFOCUS(IDC_EDIT_THREH_L, &CDlgDrc::OnEnKillfocusEditThrehL)
+	ON_EN_KILLFOCUS(IDC_EDIT_THREL_H, &CDlgDrc::OnEnKillfocusEditThrelH)
+	ON_EN_KILLFOCUS(IDC_EDIT_THREH_H, &CDlgDrc::OnEnKillfocusEditThrehH)
 END_MESSAGE_MAP()
 
 
@@ -281,5 +292,173 @@ void CDlgDrc::SavePara(int nChannel)
 		m_Configs.Rathnom_LH = cmNumString::StrToInt32(strValue);
 		GetDlgItemText(IDC_EDIT_RATHDEN_H,strValue);
 		m_Configs.Rathden_LH = cmNumString::StrToInt32(strValue);
+	}
+}
+void CDlgDrc::OnEnKillfocusEditDivfreq()
+{
+	// TODO: Add your control notification handler code here
+	CString strValue;
+	int nDiv;
+	GetDlgItemText(IDC_EDIT_DIVFREQ,strValue);
+	nDiv = cmNumString::StrToInt32(strValue);
+	if ((nDiv<=0) || (nDiv>=m_Configs.swFs/2))
+	{
+		MessageBox(_T("调节范围：0 < Division Frequency < 采样率/2!"), _T("错误"), MB_OK);
+		GetDlgItem(IDC_EDIT_DIVFREQ)->SetFocus();
+	}
+
+}
+
+void CDlgDrc::OnEnKillfocusEditEcaltimeL()
+{
+	// TODO: Add your control notification handler code here
+	CString strValue;
+	float nSta;
+	GetDlgItemText(IDC_EDIT_ECALTIME_L,strValue);
+	nSta = cmNumString::StrToInt32(strValue);
+	if (nSta<=0)
+	{
+		MessageBox(_T("数值必须大于0!"), _T("错误"), MB_OK);
+		GetDlgItem(IDC_EDIT_ECALTIME_L)->SetFocus();
+	}
+
+}
+
+void CDlgDrc::OnEnKillfocusEditRlstimeL()
+{
+	// TODO: Add your control notification handler code here
+	CString strValue;
+	float nRls;
+	GetDlgItemText(IDC_EDIT_RLSTIME_L,strValue);
+	nRls = cmNumString::StrToInt32(strValue);
+	if (nRls<=0)
+	{
+		MessageBox(_T("数值必须大于0!"), _T("错误"), MB_OK);
+		GetDlgItem(IDC_EDIT_RLSTIME_L)->SetFocus();
+	}
+
+}
+
+void CDlgDrc::OnEnKillfocusEditSmthtimeL()
+{
+	// TODO: Add your control notification handler code here
+	CString strValue;
+	float nSmt;
+	GetDlgItemText(IDC_EDIT_SMTHTIME_L,strValue);
+	nSmt = cmNumString::StrToInt32(strValue);
+	if (nSmt<=0)
+	{
+		MessageBox(_T("数值必须大于0!"), _T("错误"), MB_OK);
+		GetDlgItem(IDC_EDIT_SMTHTIME_L)->SetFocus();
+	}
+}
+
+void CDlgDrc::OnEnKillfocusEditEcaltimeH()
+{
+	// TODO: Add your control notification handler code here
+	CString strValue;
+	float nSta;
+	GetDlgItemText(IDC_EDIT_ECALTIME_H,strValue);
+	nSta = cmNumString::StrToInt32(strValue);
+	if (nSta<=0)
+	{
+		MessageBox(_T("数值必须大于0!"), _T("错误"), MB_OK);
+		GetDlgItem(IDC_EDIT_ECALTIME_H)->SetFocus();
+	}
+}
+
+void CDlgDrc::OnEnKillfocusEditSmthtimeH()
+{
+	// TODO: Add your control notification handler code here
+	CString strValue;
+	float nSmt;
+	GetDlgItemText(IDC_EDIT_SMTHTIME_H,strValue);
+	nSmt = cmNumString::StrToInt32(strValue);
+	if (nSmt<=0)
+	{
+		MessageBox(_T("数值必须大于0!"), _T("错误"), MB_OK);
+		GetDlgItem(IDC_EDIT_RLSTIME_H)->SetFocus();
+	}
+}
+
+void CDlgDrc::OnEnKillfocusEditRlstimeH()
+{
+	// TODO: Add your control notification handler code here
+	CString strValue;
+	float nRls;
+	GetDlgItemText(IDC_EDIT_RLSTIME_H,strValue);
+	nRls = cmNumString::StrToInt32(strValue);
+	if (nRls<=0)
+	{
+		MessageBox(_T("数值必须大于0!"), _T("错误"), MB_OK);
+		GetDlgItem(IDC_EDIT_RLSTIME_H)->SetFocus();
+	}
+}
+
+void CDlgDrc::OnEnKillfocusEditThrelL()
+{
+	// TODO: Add your control notification handler code here
+	CString strValue;
+	int nThrelL,nThrehL;
+	GetDlgItemText(IDC_EDIT_THREL_L,strValue);
+	nThrelL = cmNumString::StrToInt32(strValue);
+	GetDlgItemText(IDC_EDIT_THREH_L,strValue);
+	nThrehL = cmNumString::StrToInt64(strValue);
+
+	if ((nThrelL<-90) || (nThrelL>=nThrehL)||(nThrelL>=0))
+	{
+		MessageBox(_T("调节范围：-90.3087dB < Threshold L < Threshold H < 0dB"), _T("错误"), MB_OK);
+		GetDlgItem(IDC_EDIT_THREL_L)->SetFocus();
+	}
+}
+
+void CDlgDrc::OnEnKillfocusEditThrehL()
+{
+	// TODO: Add your control notification handler code here
+	CString strValue;
+	int nThrelL,nThrehL;
+	GetDlgItemText(IDC_EDIT_THREL_L,strValue);
+	nThrelL = cmNumString::StrToInt32(strValue);
+	GetDlgItemText(IDC_EDIT_THREH_L,strValue);
+	nThrehL = cmNumString::StrToInt64(strValue);
+
+	if ((nThrelL<-90) || (nThrelL>=nThrehL)||(nThrehL>=0))
+	{
+		MessageBox(_T("调节范围：-90.3087dB < Threshold L < Threshold H < 0dB"), _T("错误"), MB_OK);
+		GetDlgItem(IDC_EDIT_THREH_L)->SetFocus();
+	}
+}
+
+void CDlgDrc::OnEnKillfocusEditThrelH()
+{
+	// TODO: Add your control notification handler code here
+	CString strValue;
+	int nThrelH,nThrehH;
+	GetDlgItemText(IDC_EDIT_THREL_H,strValue);
+	nThrelH = cmNumString::StrToInt32(strValue);
+	GetDlgItemText(IDC_EDIT_THREH_H,strValue);
+	nThrehH = cmNumString::StrToInt64(strValue);
+
+	if ((nThrelH<-90) || (nThrelH>=nThrehH) || (nThrelH>=0))
+	{
+		MessageBox(_T("调节范围：-90.3087dB < Threshold L < Threshold H < 0dB"), _T("错误"), MB_OK);
+		GetDlgItem(IDC_EDIT_THREH_H)->SetFocus();
+	}
+}
+
+void CDlgDrc::OnEnKillfocusEditThrehH()
+{
+	// TODO: Add your control notification handler code here
+	CString strValue;
+	int nThrelH,nThrehH;
+	GetDlgItemText(IDC_EDIT_THREL_H,strValue);
+	nThrelH = cmNumString::StrToInt32(strValue);
+	GetDlgItemText(IDC_EDIT_THREH_H,strValue);
+	nThrehH = cmNumString::StrToInt64(strValue);
+
+	if ((nThrelH<-90) || (nThrelH>=nThrehH) || (nThrehH>=0))
+	{
+		MessageBox(_T("调节范围：-90.3087dB < Threshold L < Threshold H < 0dB"), _T("错误"), MB_OK);
+		GetDlgItem(IDC_EDIT_THREH_H)->SetFocus();
 	}
 }
