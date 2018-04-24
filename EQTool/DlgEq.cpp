@@ -24,6 +24,7 @@ void CDlgEq::DoDataExchange(CDataExchange* pDX)
 {
 	CDialog::DoDataExchange(pDX);
 	DDX_Control(pDX, IDC_ChartCtrl_EQ, m_ChartEq);  
+	DDX_Control(pDX, IDC_COMBO_CHANNUM, m_ComChannum);
 }
 
 
@@ -53,6 +54,8 @@ BEGIN_MESSAGE_MAP(CDlgEq, CDialog)
 	ON_EN_KILLFOCUS(IDC_EDIT_Q6, &CDlgEq::OnEnKillfocusEditQ6)
 	ON_EN_KILLFOCUS(IDC_EDIT_Q7, &CDlgEq::OnEnKillfocusEditQ7)
 	ON_EN_KILLFOCUS(IDC_EDIT_Q8, &CDlgEq::OnEnKillfocusEditQ8)
+	ON_CBN_SELCHANGE(IDC_COMBO_CHANNUM, &CDlgEq::OnCbnSelchangeComboChannum)
+	ON_BN_CLICKED(IDC_CHECK_LINK, &CDlgEq::OnBnClickedCheckLink)
 END_MESSAGE_MAP()
 
 
@@ -64,97 +67,100 @@ void CDlgEq::InitChartCtrl()
 	//signed short int  shwChaNum;
 	signed int swCurveLen;
 	float  fMinFreq;
-	float  afPara[PARANUM];
+	float  afPara[PARANUM] =  {0.0f};
 	float  afCurve1[3000];
 	float  afCurve2[3000];
 
 
 	/* 1.1 左右声道公共参数 */
 	afPara[PARA_CHANUM]    = m_Configs.shwChaNum;
-	afPara[PARA_EQSWTCH]   = m_Configs.bEQSwtch;
+	afPara[PARA_EQ10SWTCH]   = m_Configs.bEQSwtch;
 	afPara[PARA_DRCSWTCH]  = m_Configs.bDrcSwtch;
 	afPara[PARA_FS]        = m_Configs.swFs;
 
 	/* 1.2 左声道参数 */
 	/* 1.2.1 左声道增益 */
-	afPara[PARA_L_GAIN] = m_Configs.ScrGainL;
+	afPara[PARA_L_GAIN1] = m_Configs.ScrGainL1;
 	/* 1.2.2 左声道EQ参数 */
 	//Gain
-	afPara[PARA_LEQ_GBASS]    = m_Configs.EqGainLeft[0];                        
-	afPara[PARA_LEQ_GPEAK1]   = m_Configs.EqGainLeft[1];                       
-	afPara[PARA_LEQ_GPEAK1+1] = m_Configs.EqGainLeft[2];                       
-	afPara[PARA_LEQ_GPEAK1+2] = m_Configs.EqGainLeft[3];                       
-	afPara[PARA_LEQ_GPEAK1+3] = m_Configs.EqGainLeft[4];                        
-	afPara[PARA_LEQ_GPEAK1+4] = m_Configs.EqGainLeft[5];                       
-	afPara[PARA_LEQ_GPEAK1+5] = m_Configs.EqGainLeft[6];                        
-	afPara[PARA_LEQ_GPEAK1+6] = m_Configs.EqGainLeft[7];                       
-	afPara[PARA_LEQ_GTREBLE]  = m_Configs.EqGainLeft[8]; 
+	afPara[PARA_LEQ10_GBASS]    = m_Configs.EqGainLeft[0];                        
+	afPara[PARA_LEQ10_GPEAK1]   = m_Configs.EqGainLeft[1];                       
+	afPara[PARA_LEQ10_GPEAK1+1] = m_Configs.EqGainLeft[2];                       
+	afPara[PARA_LEQ10_GPEAK1+2] = m_Configs.EqGainLeft[3];                       
+	afPara[PARA_LEQ10_GPEAK1+3] = m_Configs.EqGainLeft[4];                        
+	afPara[PARA_LEQ10_GPEAK1+4] = m_Configs.EqGainLeft[5];                       
+	afPara[PARA_LEQ10_GPEAK1+5] = m_Configs.EqGainLeft[6];                        
+	afPara[PARA_LEQ10_GPEAK1+6] = m_Configs.EqGainLeft[7];
+	afPara[PARA_LEQ10_GPEAK1+7] = m_Configs.EqGainLeft[8]; 
+	afPara[PARA_LEQ10_GTREBLE]  = m_Configs.EqGainLeft[9]; 
 	//CF
-	afPara[PARA_LEQ_CFBASS]    = m_Configs.EqCFLeft[0];                        
-	afPara[PARA_LEQ_CFPEAK1]   = m_Configs.EqCFLeft[1];                       
-	afPara[PARA_LEQ_CFPEAK1+1] = m_Configs.EqCFLeft[2];                       
-	afPara[PARA_LEQ_CFPEAK1+2] = m_Configs.EqCFLeft[3];                       
-	afPara[PARA_LEQ_CFPEAK1+3] = m_Configs.EqCFLeft[4];                        
-	afPara[PARA_LEQ_CFPEAK1+4] = m_Configs.EqCFLeft[5];                       
-	afPara[PARA_LEQ_CFPEAK1+5] = m_Configs.EqCFLeft[6];                        
-	afPara[PARA_LEQ_CFPEAK1+6] = m_Configs.EqCFLeft[7];                      
-	afPara[PARA_LEQ_CFTREBLE]  = m_Configs.EqCFLeft[8];
+	afPara[PARA_LEQ10_CFBASS]    = m_Configs.EqCFLeft[0];                        
+	afPara[PARA_LEQ10_CFPEAK1]   = m_Configs.EqCFLeft[1];                       
+	afPara[PARA_LEQ10_CFPEAK1+1] = m_Configs.EqCFLeft[2];                       
+	afPara[PARA_LEQ10_CFPEAK1+2] = m_Configs.EqCFLeft[3];                       
+	afPara[PARA_LEQ10_CFPEAK1+3] = m_Configs.EqCFLeft[4];                        
+	afPara[PARA_LEQ10_CFPEAK1+4] = m_Configs.EqCFLeft[5];                       
+	afPara[PARA_LEQ10_CFPEAK1+5] = m_Configs.EqCFLeft[6];                        
+	afPara[PARA_LEQ10_CFPEAK1+6] = m_Configs.EqCFLeft[7];
+	afPara[PARA_LEQ10_CFPEAK1+7] = m_Configs.EqCFLeft[8]; 
+	afPara[PARA_LEQ10_CFTREBLE]  = m_Configs.EqCFLeft[9];
 	//Q
-	afPara[PARA_LEQ_Q1]   = m_Configs.EqQLeft[0];                        
-	afPara[PARA_LEQ_Q1+1] = m_Configs.EqQLeft[1];                       
-	afPara[PARA_LEQ_Q1+2] = m_Configs.EqQLeft[2];                       
-	afPara[PARA_LEQ_Q1+3] = m_Configs.EqQLeft[3]; 
-	afPara[PARA_LEQ_Q1+4] = m_Configs.EqQLeft[4]; 
-	afPara[PARA_LEQ_Q1+5] = m_Configs.EqQLeft[5]; 
-	afPara[PARA_LEQ_Q1+6] = m_Configs.EqQLeft[6]; 
+	afPara[PARA_LEQ10_Q1]   = m_Configs.EqQLeft[0];                        
+	afPara[PARA_LEQ10_Q1+1] = m_Configs.EqQLeft[1];                       
+	afPara[PARA_LEQ10_Q1+2] = m_Configs.EqQLeft[2];                       
+	afPara[PARA_LEQ10_Q1+3] = m_Configs.EqQLeft[3]; 
+	afPara[PARA_LEQ10_Q1+4] = m_Configs.EqQLeft[4]; 
+	afPara[PARA_LEQ10_Q1+5] = m_Configs.EqQLeft[5]; 
+	afPara[PARA_LEQ10_Q1+6] = m_Configs.EqQLeft[6]; 
+	afPara[PARA_LEQ10_Q1+7] = m_Configs.EqQLeft[7]; 
 
 	/* 1.3 右声道参数 */
-	if (m_Configs.nChannel == 1)
+	if (m_Configs.nEQChannel == 1)
 	{
-		afPara[PARA_R_GAIN] = m_Configs.ScrGainR;
+		afPara[PARA_R_GAIN1] = m_Configs.ScrGainR1;
 		//Gain
-		afPara[PARA_REQ_GBASS]    = m_Configs.EqGainRight[0];                        
-		afPara[PARA_REQ_GPEAK1]   = m_Configs.EqGainRight[1];                       
-		afPara[PARA_REQ_GPEAK1+1] = m_Configs.EqGainRight[2];                       
-		afPara[PARA_REQ_GPEAK1+2] = m_Configs.EqGainRight[3];                       
-		afPara[PARA_REQ_GPEAK1+3] = m_Configs.EqGainRight[4];                        
-		afPara[PARA_REQ_GPEAK1+4] = m_Configs.EqGainRight[5];                       
-		afPara[PARA_REQ_GPEAK1+5] = m_Configs.EqGainRight[6];                        
-		afPara[PARA_REQ_GPEAK1+6] = m_Configs.EqGainRight[7];                       
-		afPara[PARA_REQ_GTREBLE]  = m_Configs.EqGainRight[8]; 
+		afPara[PARA_REQ10_GBASS]    = m_Configs.EqGainRight[0];                        
+		afPara[PARA_REQ10_GPEAK1]   = m_Configs.EqGainRight[1];                       
+		afPara[PARA_REQ10_GPEAK1+1] = m_Configs.EqGainRight[2];                       
+		afPara[PARA_REQ10_GPEAK1+2] = m_Configs.EqGainRight[3];                       
+		afPara[PARA_REQ10_GPEAK1+3] = m_Configs.EqGainRight[4];                        
+		afPara[PARA_REQ10_GPEAK1+4] = m_Configs.EqGainRight[5];                       
+		afPara[PARA_REQ10_GPEAK1+5] = m_Configs.EqGainRight[6];                        
+		afPara[PARA_REQ10_GPEAK1+6] = m_Configs.EqGainRight[7];
+		afPara[PARA_REQ10_GPEAK1+7] = m_Configs.EqGainRight[8];
+		afPara[PARA_REQ10_GTREBLE]  = m_Configs.EqGainRight[9]; 
 		//CF
-		afPara[PARA_REQ_CFBASS]    = m_Configs.EqCFRight[0];                        
-		afPara[PARA_REQ_CFPEAK1]   = m_Configs.EqCFRight[1];                       
-		afPara[PARA_REQ_CFPEAK1+1] = m_Configs.EqCFRight[2];                       
-		afPara[PARA_REQ_CFPEAK1+2] = m_Configs.EqCFRight[3];                       
-		afPara[PARA_REQ_CFPEAK1+3] = m_Configs.EqCFRight[4];                        
-		afPara[PARA_REQ_CFPEAK1+4] = m_Configs.EqCFRight[5];                       
-		afPara[PARA_REQ_CFPEAK1+5] = m_Configs.EqCFRight[6];                        
-		afPara[PARA_REQ_CFPEAK1+6] = m_Configs.EqCFRight[7];                      
-		afPara[PARA_REQ_CFTREBLE]  = m_Configs.EqCFRight[8];
+		afPara[PARA_REQ10_CFBASS]    = m_Configs.EqCFRight[0];                        
+		afPara[PARA_REQ10_CFPEAK1]   = m_Configs.EqCFRight[1];                       
+		afPara[PARA_REQ10_CFPEAK1+1] = m_Configs.EqCFRight[2];                       
+		afPara[PARA_REQ10_CFPEAK1+2] = m_Configs.EqCFRight[3];                       
+		afPara[PARA_REQ10_CFPEAK1+3] = m_Configs.EqCFRight[4];                        
+		afPara[PARA_REQ10_CFPEAK1+4] = m_Configs.EqCFRight[5];                       
+		afPara[PARA_REQ10_CFPEAK1+5] = m_Configs.EqCFRight[6];                        
+		afPara[PARA_REQ10_CFPEAK1+6] = m_Configs.EqCFRight[7];
+		afPara[PARA_REQ10_CFPEAK1+7] = m_Configs.EqCFRight[8];
+		afPara[PARA_REQ10_CFTREBLE]  = m_Configs.EqCFRight[9];
 		//Q
-		afPara[PARA_REQ_Q1]   = m_Configs.EqQRight[0];                        
-		afPara[PARA_REQ_Q1+1] = m_Configs.EqQRight[1];                       
-		afPara[PARA_REQ_Q1+2] = m_Configs.EqQRight[2];                       
-		afPara[PARA_REQ_Q1+3] = m_Configs.EqQRight[3]; 
-		afPara[PARA_REQ_Q1+4] = m_Configs.EqQRight[4]; 
-		afPara[PARA_REQ_Q1+5] = m_Configs.EqQRight[5]; 
-		afPara[PARA_REQ_Q1+6] = m_Configs.EqQRight[6]; 
+		afPara[PARA_REQ10_Q1]   = m_Configs.EqQRight[0];                        
+		afPara[PARA_REQ10_Q1+1] = m_Configs.EqQRight[1];                       
+		afPara[PARA_REQ10_Q1+2] = m_Configs.EqQRight[2];                       
+		afPara[PARA_REQ10_Q1+3] = m_Configs.EqQRight[3]; 
+		afPara[PARA_REQ10_Q1+4] = m_Configs.EqQRight[4]; 
+		afPara[PARA_REQ10_Q1+5] = m_Configs.EqQRight[5]; 
+		afPara[PARA_REQ10_Q1+6] = m_Configs.EqQRight[6];
+		afPara[PARA_REQ10_Q1+7] = m_Configs.EqQRight[7]; 
 	}
 
 	/* 1. 设计EQ */
 	fMinFreq = 20;
 	swCurveLen = 1000;
-	EQProduct lvEQProduct = (EQProduct)GetProcAddress(AudioHnd, "EQProduct");
-	lvEQProduct(&(afPara[PARA_LEQ_GBASS]), afCurve1, m_Configs.swFs, fMinFreq, swCurveLen);
-
+	EQProduct lvEQProduct = (EQProduct)GetProcAddress(AudioHnd, "EQ10Product");
+	lvEQProduct(&(afPara[PARA_LEQ10_GBASS]), afCurve1, m_Configs.swFs, fMinFreq, swCurveLen);
 
 	/* 1.2 右声道EQ */
-	if (m_Configs.nChannel == 1)
+	if (m_Configs.nEQChannel == 1 )
 	{
-		// 设计
-		//EQProduct(&(afPara[AUDIOPOST_REQ_SCRGBASS]), afCurve2, swFs, fMinFreq, swCurveLen);
-		lvEQProduct(&(afPara[PARA_REQ_GBASS]), afCurve1, m_Configs.swFs, fMinFreq, swCurveLen);
+		lvEQProduct(&(afPara[PARA_REQ10_GBASS]), afCurve1, m_Configs.swFs, fMinFreq, swCurveLen);
 	}
 	m_ChartEq.RemoveAllSeries();
 	double tmp = 0.0; 
@@ -202,7 +208,11 @@ BOOL CDlgEq::OnInitDialog()
 	pLineSerie->SetPoints(XValues,YValues,1000);  
 	pLineSerie->SetColor(RGB(255,0,0)); 
 	pLineSerie->SetWidth(pLineSerie->GetWidth()*2);
-	InitUi(m_Configs.nChannel);
+
+	m_ComChannum.AddString(_T("channel0"));
+	m_ComChannum.AddString(_T("channel1"));
+	m_ComChannum.SetCurSel(m_Configs.nEQChannel);
+	InitUi(m_Configs.nEQChannel);
 
 	return TRUE;  // return TRUE unless you set the focus to a control
 	// EXCEPTION: OCX Property Pages should return FALSE
@@ -211,21 +221,7 @@ BOOL CDlgEq::OnInitDialog()
 void CDlgEq::OnBnClickedButtonSave()
 {
 	// TODO: Add your control notification handler code here
-	if (m_Configs.bLink)
-	{
-		SavePara(0);
-		SavePara(1);
-	}
-	else
-	{
-		SavePara(m_Configs.nChannel);
-	}
-	//发送命令给设备端，设置EQ参数
-	if (0)
-	{
-		return ;
-	}
-
+	SaveConfig();
 	InitChartCtrl();
 	m_Configs.SaveToolSetting(_T(""));
 	AfxMessageBox(_T("保存成功"));
@@ -254,6 +250,8 @@ void CDlgEq::SavePara(int nChannel)
 		m_Configs.EqGainRight[7] = cmNumString::StrToInt32(strValue);
 		GetDlgItemText(IDC_EDIT_GAIN9,strValue);
 		m_Configs.EqGainRight[8] = cmNumString::StrToInt32(strValue);
+		GetDlgItemText(IDC_EDIT_GAIN10,strValue);
+		m_Configs.EqGainRight[9] = cmNumString::StrToInt32(strValue);
 
 		GetDlgItemText(IDC_EDIT_GF1,strValue);
 		m_Configs.EqCFRight[0] = cmNumString::StrToInt32(strValue);
@@ -273,6 +271,8 @@ void CDlgEq::SavePara(int nChannel)
 		m_Configs.EqCFRight[7] = cmNumString::StrToInt32(strValue);
 		GetDlgItemText(IDC_EDIT_GF9,strValue);
 		m_Configs.EqCFRight[8] = cmNumString::StrToInt32(strValue);
+		GetDlgItemText(IDC_EDIT_GF10,strValue);
+		m_Configs.EqCFRight[9] = cmNumString::StrToInt32(strValue);
 
 		GetDlgItemText(IDC_EDIT_Q2,strValue);
 		m_Configs.EqQRight[0] = cmNumString::StrToDouble(strValue);
@@ -288,6 +288,8 @@ void CDlgEq::SavePara(int nChannel)
 		m_Configs.EqQRight[5] = cmNumString::StrToDouble(strValue);
 		GetDlgItemText(IDC_EDIT_Q8,strValue);
 		m_Configs.EqQRight[6] = cmNumString::StrToDouble(strValue);
+		GetDlgItemText(IDC_EDIT_Q9,strValue);
+		m_Configs.EqQRight[7] = cmNumString::StrToDouble(strValue);
 	}
 	else
 	{
@@ -309,6 +311,8 @@ void CDlgEq::SavePara(int nChannel)
 		m_Configs.EqGainLeft[7] = cmNumString::StrToInt32(strValue);
 		GetDlgItemText(IDC_EDIT_GAIN9,strValue);
 		m_Configs.EqGainLeft[8] = cmNumString::StrToInt32(strValue);
+		GetDlgItemText(IDC_EDIT_GAIN10,strValue);
+		m_Configs.EqGainLeft[9] = cmNumString::StrToInt32(strValue);
 
 		GetDlgItemText(IDC_EDIT_GF1,strValue);
 		m_Configs.EqCFLeft[0] = cmNumString::StrToInt32(strValue);
@@ -328,6 +332,8 @@ void CDlgEq::SavePara(int nChannel)
 		m_Configs.EqCFLeft[7] = cmNumString::StrToInt32(strValue);
 		GetDlgItemText(IDC_EDIT_GF9,strValue);
 		m_Configs.EqCFLeft[8] = cmNumString::StrToInt32(strValue);
+		GetDlgItemText(IDC_EDIT_GF10,strValue);
+		m_Configs.EqCFLeft[9] = cmNumString::StrToInt32(strValue);
 
 		GetDlgItemText(IDC_EDIT_Q2,strValue);
 		m_Configs.EqQLeft[0] = cmNumString::StrToDouble(strValue);
@@ -343,6 +349,21 @@ void CDlgEq::SavePara(int nChannel)
 		m_Configs.EqQLeft[5] = cmNumString::StrToDouble(strValue);
 		GetDlgItemText(IDC_EDIT_Q8,strValue);
 		m_Configs.EqQLeft[6] = cmNumString::StrToDouble(strValue);
+		GetDlgItemText(IDC_EDIT_Q9,strValue);
+		m_Configs.EqQLeft[7] = cmNumString::StrToDouble(strValue);
+	}
+}
+
+void CDlgEq::SaveConfig()
+{
+	if (m_Configs.bEQLink)
+	{
+		SavePara(0);
+		SavePara(1);
+	}
+	else
+	{
+		SavePara(m_Configs.nEQChannel);
 	}
 }
 
@@ -351,7 +372,17 @@ void CDlgEq::InitUi(int nChannel)
 	GetDlgItem(IDC_BUTTON_SAVE)->ShowWindow(FALSE);
 	GetDlgItem(IDC_BUTTON_CANCEL)->ShowWindow(FALSE);
 	GetDlgItem(IDC_EDIT_Q1)->EnableWindow(FALSE);
-	GetDlgItem(IDC_EDIT_Q9)->EnableWindow(FALSE);
+	GetDlgItem(IDC_EDIT_Q10)->EnableWindow(FALSE);
+	if (m_Configs.bEQLink)
+	{
+		((CButton*)GetDlgItem(IDC_CHECK_LINK))->SetCheck(BST_CHECKED);
+		GetDlgItem(IDC_COMBO_CHANNUM)->EnableWindow(FALSE);
+	}
+	else
+	{
+		((CButton*)GetDlgItem(IDC_CHECK_LINK))->SetCheck(BST_UNCHECKED);
+		GetDlgItem(IDC_COMBO_CHANNUM)->EnableWindow(TRUE);
+	}
 	if (nChannel)
 	{
 		SetDlgItemText(IDC_EDIT_GAIN1,cmNumString::NumToStr(m_Configs.EqGainRight[0],10));
@@ -363,6 +394,7 @@ void CDlgEq::InitUi(int nChannel)
 		SetDlgItemText(IDC_EDIT_GAIN7,cmNumString::NumToStr(m_Configs.EqGainRight[6],10));
 		SetDlgItemText(IDC_EDIT_GAIN8,cmNumString::NumToStr(m_Configs.EqGainRight[7],10));
 		SetDlgItemText(IDC_EDIT_GAIN9,cmNumString::NumToStr(m_Configs.EqGainRight[8],10));
+		SetDlgItemText(IDC_EDIT_GAIN10,cmNumString::NumToStr(m_Configs.EqGainRight[9],10));
 
 		SetDlgItemText(IDC_EDIT_GF1,cmNumString::NumToStr(m_Configs.EqCFRight[0],10));
 		SetDlgItemText(IDC_EDIT_GF2,cmNumString::NumToStr(m_Configs.EqCFRight[1],10));
@@ -373,6 +405,7 @@ void CDlgEq::InitUi(int nChannel)
 		SetDlgItemText(IDC_EDIT_GF7,cmNumString::NumToStr(m_Configs.EqCFRight[6],10));
 		SetDlgItemText(IDC_EDIT_GF8,cmNumString::NumToStr(m_Configs.EqCFRight[7],10));
 		SetDlgItemText(IDC_EDIT_GF9,cmNumString::NumToStr(m_Configs.EqCFRight[8],10));
+		SetDlgItemText(IDC_EDIT_GF10,cmNumString::NumToStr(m_Configs.EqCFRight[9],10));
 
 		SetDlgItemText(IDC_EDIT_Q2,cmNumString::NumToStr(m_Configs.EqQRight[0]));
 		SetDlgItemText(IDC_EDIT_Q3,cmNumString::NumToStr(m_Configs.EqQRight[1]));
@@ -381,6 +414,7 @@ void CDlgEq::InitUi(int nChannel)
 		SetDlgItemText(IDC_EDIT_Q6,cmNumString::NumToStr(m_Configs.EqQRight[4]));
 		SetDlgItemText(IDC_EDIT_Q7,cmNumString::NumToStr(m_Configs.EqQRight[5]));
 		SetDlgItemText(IDC_EDIT_Q8,cmNumString::NumToStr(m_Configs.EqQRight[6]));
+		SetDlgItemText(IDC_EDIT_Q9,cmNumString::NumToStr(m_Configs.EqQRight[7]));
 	}
 	else
 	{
@@ -393,6 +427,7 @@ void CDlgEq::InitUi(int nChannel)
 		SetDlgItemText(IDC_EDIT_GAIN7,cmNumString::NumToStr(m_Configs.EqGainLeft[6],10));
 		SetDlgItemText(IDC_EDIT_GAIN8,cmNumString::NumToStr(m_Configs.EqGainLeft[7],10));
 		SetDlgItemText(IDC_EDIT_GAIN9,cmNumString::NumToStr(m_Configs.EqGainLeft[8],10));
+		SetDlgItemText(IDC_EDIT_GAIN10,cmNumString::NumToStr(m_Configs.EqGainLeft[9],10));
 
 		SetDlgItemText(IDC_EDIT_GF1,cmNumString::NumToStr(m_Configs.EqCFLeft[0],10));
 		SetDlgItemText(IDC_EDIT_GF2,cmNumString::NumToStr(m_Configs.EqCFLeft[1],10));
@@ -403,6 +438,7 @@ void CDlgEq::InitUi(int nChannel)
 		SetDlgItemText(IDC_EDIT_GF7,cmNumString::NumToStr(m_Configs.EqCFLeft[6],10));
 		SetDlgItemText(IDC_EDIT_GF8,cmNumString::NumToStr(m_Configs.EqCFLeft[7],10));
 		SetDlgItemText(IDC_EDIT_GF9,cmNumString::NumToStr(m_Configs.EqCFLeft[8],10));
+		SetDlgItemText(IDC_EDIT_GF10,cmNumString::NumToStr(m_Configs.EqCFLeft[9],10));
 
 		SetDlgItemText(IDC_EDIT_Q2,cmNumString::NumToStr(m_Configs.EqQLeft[0]));
 		SetDlgItemText(IDC_EDIT_Q3,cmNumString::NumToStr(m_Configs.EqQLeft[1]));
@@ -411,6 +447,7 @@ void CDlgEq::InitUi(int nChannel)
 		SetDlgItemText(IDC_EDIT_Q6,cmNumString::NumToStr(m_Configs.EqQLeft[4]));
 		SetDlgItemText(IDC_EDIT_Q7,cmNumString::NumToStr(m_Configs.EqQLeft[5]));
 		SetDlgItemText(IDC_EDIT_Q8,cmNumString::NumToStr(m_Configs.EqQLeft[6]));
+		SetDlgItemText(IDC_EDIT_Q9,cmNumString::NumToStr(m_Configs.EqQLeft[7]));
 	}
 
 	InitChartCtrl();
@@ -597,4 +634,20 @@ void CDlgEq::OnEnKillfocusEditQ8()
 {
 	// TODO: Add your control notification handler code here
 	CheckQ(IDC_EDIT_Q8);
+}
+
+void CDlgEq::OnCbnSelchangeComboChannum()
+{
+	// TODO: Add your control notification handler code here
+	m_Configs.nEQChannel = m_ComChannum.GetCurSel();
+	InitUi(m_Configs.nEQChannel);
+	m_Configs.SaveToolSetting(_T(""));
+}
+
+void CDlgEq::OnBnClickedCheckLink()
+{
+	// TODO: Add your control notification handler code here
+	GetDlgItem(IDC_COMBO_CHANNUM)->EnableWindow(m_Configs.bEQLink);
+	m_Configs.bEQLink = !m_Configs.bEQLink;
+	m_Configs.SaveToolSetting(_T(""));
 }

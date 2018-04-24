@@ -17,6 +17,8 @@ using namespace cm;
 #include "debug.h"
 #include "DlgDrc.h"
 #include "DlgEq.h"
+#include "DlgEQ1.h"
+#include "DlgLimit.h"
 #include "ComSet.h"
 #include "upgradeLib/RKUpgradeDll.h"
 
@@ -35,7 +37,9 @@ public:
 
 	CDlgDrc			m_DlgDrc;
 	CDlgEq			m_DlgEq;
-	CDialog*		pDialog[2];
+	CDlgEQ1			m_DlgEq1;
+	CDlgLimit		m_DlgLimit;
+	CDialog*		pDialog[4];
 	int				m_iCurSelTab;
 
 	void			OnSizeCtl( int cx, int cy);
@@ -71,13 +75,13 @@ public:
 	void			InitUi();
 	BOOL			LoadConfig();
 	void			storeParaData(FILE *fpPara);
-	void			storeParaData1(FILE *fpPara);
 	void			LoadParaData(FILE *fpPara);
 	std::wstring	GetLocalString(std::wstring strKey);
 	VOID			WalkMenu(CMenu *pMenu,CString strMainKeyPart);
 	int				UpdatePara(bool bSet);
 	void			ScanDeviceProc();
-	typedef void(*EQProduct) (float *pfPara, float *pfCurve, signed int swFs, float fMinFreq, signed int swCurvePNum);
+	typedef int(*EQ10Product) (float *pfPara, float *pfCurve, signed int swFs, float fMinFreq, signed int swCurvePNum);
+	typedef int(*EQ8Product) (float *pfPara, float *pfCurve, signed int swFs, float fMinFreq, signed int swCurvePNum);
 public:
 	CTabCtrl m_tabInfo;
 	afx_msg void OnBnClickedButton1();
@@ -100,4 +104,13 @@ public:
 	afx_msg void OnClose();
 	afx_msg void OnBnClickedButtonSave();
 	afx_msg void OnBnClickedButtonCancel();
+	CComboBox m_ComEqMode;
+	CComboBox m_ComDrcMode;
+	afx_msg void OnCbnSelchangeComboEqmode();
+	afx_msg void OnCbnSelchangeComboDrcmode();
+	CComboBox m_ComEqMode1;
+	CComboBox m_ComLimitMode;
+	afx_msg void OnCbnSelchangeComboEqmode2();
+	afx_msg void OnCbnSelchangeComboLimitmode();
+	afx_msg void OnEnKillfocusEditGain2();
 };

@@ -304,6 +304,14 @@
 				>
 			</File>
 			<File
+				RelativePath=".\DlgEQ1.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\DlgLimit.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\EQTool.cpp"
 				>
 			</File>
@@ -494,6 +502,14 @@
 				>
 			</File>
 			<File
+				RelativePath=".\DlgEQ1.h"
+				>
+			</File>
+			<File
+				RelativePath=".\DlgLimit.h"
+				>
+			</File>
+			<File
 				RelativePath=".\EQTool.h"
 				>
 			</File>
@@ -618,6 +634,11 @@
 				</FileConfiguration>
 			</File>
 		</Filter>
+		<File
+			RelativePath=".\DlgLimit.htm"
+			DeploymentContent="true"
+			>
+		</File>
 		<File
 			RelativePath=".\ReadMe.txt"
 			>

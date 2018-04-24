@@ -12,6 +12,7 @@ using namespace cm;
 #include "ChartCtr/ChartLineSerie.h"
 #include "settings/SettingBase.h"
 #include "scriptexe.h"
+#include "afxwin.h"
 
 // CDlgEq dialog
 struct EQparam
@@ -41,6 +42,7 @@ public:
 	void CheckCf(int ID);
 	void InitUi(int nChannel);
 	void SavePara(int nChannel);
+	void SaveConfig();
 	typedef void(*EQProduct) (float *pfPara, float *pfCurve, signed int swFs, float fMinFreq, signed int swCurvePNum);
 public:
 	
@@ -75,4 +77,7 @@ public:
 	afx_msg void OnEnKillfocusEditQ6();
 	afx_msg void OnEnKillfocusEditQ7();
 	afx_msg void OnEnKillfocusEditQ8();
+	CComboBox m_ComChannum;
+	afx_msg void OnCbnSelchangeComboChannum();
+	afx_msg void OnBnClickedCheckLink();
 };

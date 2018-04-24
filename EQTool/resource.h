@@ -12,6 +12,8 @@
 #define IDD_DIALOG_DRC1                 132
 #define IDD_DIALOG_EQ                   132
 #define IDD_DIALOG_COMSET               133
+#define IDD_DIALOG_EQ1                  134
+#define IDD_DIALOG_LIMIT                135
 #define IDC_BUTTON1                     1000
 #define IDC_BUTTON2                     1001
 #define IDC_BUTTON_LEQ                  1001
@@ -96,11 +98,17 @@
 #define IDC_EDIT_DIVFREQ                1055
 #define IDC_CHECK_LINK                  1058
 #define IDC_COMBO_CHANUM                1059
-#define IDC_EDIT_GAIN                   1060
 #define IDC_BUTTON_SET                  1061
 #define IDC_BUTTON_READ                 1062
 #define IDC_LABEL_DEVICE                1063
-#define IDC_BUTTON_READ2                1064
+#define IDC_COMBO_EQMODE                1064
+#define IDC_COMBO_DRCMODE               1065
+#define IDC_COMBO_EQMODE2               1066
+#define IDC_COMBO_LIMITMODE             1067
+#define IDC_EDIT_THRES                  1068
+#define IDC_EDIT_SMTHTIME               1069
+#define IDC_EDIT_ATTATIME               1070
+#define IDC_COMBO_CHANNUM               1072
 #define ID_FILE                         32771
 #define ID_FILE_LOAD                    32772
 #define ID_FILE_SAVEAS                  32773
@@ -116,9 +124,9 @@
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        135
+#define _APS_NEXT_RESOURCE_VALUE        136
 #define _APS_NEXT_COMMAND_VALUE         32781
-#define _APS_NEXT_CONTROL_VALUE         1064
-#define _APS_NEXT_SYMED_VALUE           101
+#define _APS_NEXT_CONTROL_VALUE         1075
+#define _APS_NEXT_SYMED_VALUE           104
 #endif
 #endif

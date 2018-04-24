@@ -36,10 +36,12 @@
 #define DLEVEL_ERROR            3
 #define DLEVEL_NONE             4
 
-#define EQGAIN_LEN				9
-#define EQCF_LEN				9
-#define EQQ_LEN					7
-#define DRC_LEN					11
+#define EQGAIN_LEN				10
+#define EQCF_LEN				10
+#define EQQ_LEN					8
+#define EQGAIN_LEN1				8
+#define EQCF_LEN1				8
+#define EQQ_LEN1				6
 
 class CSettingBase
 {
@@ -166,9 +168,19 @@ public:
 	int						nLogLevel;
 	std::wstring			strLogPath;
 	bool					bLink;
+	bool					bEQLink;
+	bool					bEQLink1;
+	bool					bDrcLink;
+	bool					bLimitLink;
 	bool					bEQSwtch;
+	bool					bEQSwtch1;
+	bool					bLimitSwtch;
 	bool					bDrcSwtch;
 	int						nChannel;
+	int						nEQChannel;
+	int						nEQ1Channel;
+	int						nDrcChannel;
+	int						nLimitChannel;
 
 	/* 1.1 左右声道公共参数 */
 	int		swFs;			//采样率
@@ -180,7 +192,8 @@ public:
 
 	/* 1.2 左声道参数 */
 	/* 1.2.1 左声道增益 */
-	int		ScrGainL;
+	int		ScrGainL1;
+	int		ScrGainL2;
 	/* 1.2.2 左声道EQ参数 */
 	int		EqGainLeft[EQGAIN_LEN];
 	int		EqCFLeft[EQCF_LEN];
@@ -215,11 +228,12 @@ public:
 
 	/* 1.3 右声道参数 */
 	/* 1.3.1 右声道增益 */
-	int		ScrGainR;
+	int		ScrGainR1;
+	int		ScrGainR2;
 	/* 1.3.2 右声道EQ参数 */
-	int		EqGainRight[9];
-	int		EqCFRight[9];
-	float   EqQRight[7];
+	int		EqGainRight[EQGAIN_LEN];
+	int		EqCFRight[EQCF_LEN];
+	float   EqQRight[EQQ_LEN];
 	//sfloat	DrcRight[11];
 	/* 1.3.3 右声道DRC参数 */
 	int		DivFreq_R;		//计算RMS能量的统计时间，单位ms
@@ -249,16 +263,23 @@ public:
 	int		Attatime_RH;
 
 	/* 1.4 LIMITER 参数 */
-	
+	float	fLimitEca_L;
+	float	fLimitThres_L;
+	float	fLimitAtt_L;
+	float	fLimitSmo_L;
+	float	fLimitEca_R;
+	float	fLimitThres_R;
+	float	fLimitAtt_R;
+	float	fLimitSmo_R;
 
 	/* 1.5 第二个EQ参数 */
-	int		EqGainLeft1[EQGAIN_LEN];
-	int		EqCFLeft1[EQCF_LEN];
-	float   EqQLeft1[EQQ_LEN];
+	int		EqGainLeft1[EQGAIN_LEN1];
+	int		EqCFLeft1[EQCF_LEN1];
+	float   EqQLeft1[EQQ_LEN1];
 
-	int		EqGainRight1[EQGAIN_LEN];
-	int		EqCFRight1[EQCF_LEN];
-	float   EqQRight1[EQQ_LEN];
+	int		EqGainRight1[EQGAIN_LEN1];
+	int		EqCFRight1[EQCF_LEN1];
+	float   EqQRight1[EQQ_LEN1];
 
 
 };

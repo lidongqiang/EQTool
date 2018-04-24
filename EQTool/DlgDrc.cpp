@@ -24,6 +24,7 @@ void CDlgDrc::DoDataExchange(CDataExchange* pDX)
 {
 	CDialog::DoDataExchange(pDX);
 	//DDX_Control(pDX, IDC_ChartCtrl_DRC, m_ChartDrc);  
+	DDX_Control(pDX, IDC_COMBO_CHANNUM, m_ComChannum);
 }
 
 
@@ -41,6 +42,8 @@ BEGIN_MESSAGE_MAP(CDlgDrc, CDialog)
 	ON_EN_KILLFOCUS(IDC_EDIT_THREH_L, &CDlgDrc::OnEnKillfocusEditThrehL)
 	ON_EN_KILLFOCUS(IDC_EDIT_THREL_H, &CDlgDrc::OnEnKillfocusEditThrelH)
 	ON_EN_KILLFOCUS(IDC_EDIT_THREH_H, &CDlgDrc::OnEnKillfocusEditThrehH)
+	ON_CBN_SELCHANGE(IDC_COMBO_CHANNUM, &CDlgDrc::OnCbnSelchangeComboChannum)
+	ON_BN_CLICKED(IDC_CHECK_LINK, &CDlgDrc::OnBnClickedCheckLink)
 END_MESSAGE_MAP()
 
 
@@ -73,7 +76,11 @@ BOOL CDlgDrc::OnInitDialog()
 	// TODO:  Add extra initialization here
 	m_LocalLang.TreeControls(m_hWnd,m_Configs.bDebug?TRUE:FALSE,this->IDD,false);
 
-	InitUi(m_Configs.nChannel);
+	m_ComChannum.AddString(_T("channel0"));
+	m_ComChannum.AddString(_T("channel1"));
+	m_ComChannum.SetCurSel(m_Configs.nDrcChannel);
+
+	InitUi(m_Configs.nDrcChannel);
 
 	InitChartCtrl();
 
@@ -85,6 +92,16 @@ void CDlgDrc::InitUi(int nChannel)
 {
 	GetDlgItem(IDC_BUTTON_SAVE)->ShowWindow(FALSE);
 	GetDlgItem(IDC_BUTTON_CAN)->ShowWindow(FALSE);
+	if (m_Configs.bDrcLink)
+	{
+		((CButton*)GetDlgItem(IDC_CHECK_LINK))->SetCheck(BST_CHECKED);
+		GetDlgItem(IDC_COMBO_CHANNUM)->EnableWindow(FALSE);
+	}
+	else
+	{
+		((CButton*)GetDlgItem(IDC_CHECK_LINK))->SetCheck(BST_UNCHECKED);
+		GetDlgItem(IDC_COMBO_CHANNUM)->EnableWindow(TRUE);
+	}
 	if (nChannel)
 	{
 		SetDlgItemText(IDC_EDIT_DIVFREQ,cmNumString::NumToStr(m_Configs.DivFreq_R,10));
@@ -149,37 +166,7 @@ void CDlgDrc::InitUi(int nChannel)
 void CDlgDrc::OnBnClickedButtonSave()
 {
 	// TODO: Add your control notification handler code here
-	CString strValue;
-	if (m_Configs.bLink)
-	{
-		SavePara(0);
-		SavePara(1);
-	}
-	else
-	{
-		SavePara(m_Configs.nChannel);
-	}
-	//发送命令给设备端，设置EQ参数
-	//if (0)
-	//{
-	//	return ;
-	//}
-	//CSpawn					ShellSpawn;
-	//wchar_t     strCmd[2600] = {0};  
-
-	//swprintf(strCmd,nof(strCmd),TEXT("tftp -i %s put \"%s%s\""));
-	//if(ShellSpawn.Exe(strCmd,25000, true)) 
-	//{
-	//	if(0 != ShellSpawn.GetResult()) 
-	//	{
-	//		return -1;
-	//	}
-	//}
-	//else
-	//{
-	//	return -2;
-	//}
-
+	
 	m_Configs.SaveToolSetting(_T(""));
 	AfxMessageBox(_T("保存成功"));
 }
@@ -294,6 +281,20 @@ void CDlgDrc::SavePara(int nChannel)
 		m_Configs.Rathden_LH = cmNumString::StrToInt32(strValue);
 	}
 }
+
+void CDlgDrc::SaveConfig()
+{
+	if (m_Configs.bDrcLink)
+	{
+		SavePara(0);
+		SavePara(1);
+	}
+	else
+	{
+		SavePara(m_Configs.nDrcChannel);
+	}
+}
+
 void CDlgDrc::OnEnKillfocusEditDivfreq()
 {
 	// TODO: Add your control notification handler code here
@@ -461,4 +462,20 @@ void CDlgDrc::OnEnKillfocusEditThrehH()
 		MessageBox(_T("调节范围：-90.3087dB < Threshold L < Threshold H < 0dB"), _T("错误"), MB_OK);
 		GetDlgItem(IDC_EDIT_THREH_H)->SetFocus();
 	}
+}
+
+void CDlgDrc::OnCbnSelchangeComboChannum()
+{
+	// TODO: Add your control notification handler code here
+	m_Configs.nDrcChannel = m_ComChannum.GetCurSel();
+	InitUi(m_Configs.nDrcChannel);
+	m_Configs.SaveToolSetting(_T(""));
+}
+
+void CDlgDrc::OnBnClickedCheckLink()
+{
+	// TODO: Add your control notification handler code here
+	m_Configs.bDrcLink = !m_Configs.bDrcLink;
+	GetDlgItem(IDC_COMBO_CHANNUM)->EnableWindow(m_Configs.bDrcLink);
+	m_Configs.SaveToolSetting(_T(""));
 }

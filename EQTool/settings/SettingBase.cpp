@@ -285,10 +285,20 @@ bool CIniSettingBase::LoadToolSetting(std::wstring strConfig)
 	strLogPath          = GetStr(TEXT("System:LogPath"));
 	bDebug              = 1 == _wtoi(GetStr(TEXT("Debug")).c_str());
 	nLogLevel           = _wtoi(GetStr(TEXT("LogLevel")).c_str());
-	bLink             = 1 == _wtoi(GetStr(TEXT("Link")).c_str());
+	bLink               = 1 == _wtoi(GetStr(TEXT("Link")).c_str());
+	bEQLink             = 1 == _wtoi(GetStr(TEXT("EQLink")).c_str());
+	bEQLink1             = 1 == _wtoi(GetStr(TEXT("EQLink1")).c_str());
+	bDrcLink             = 1 == _wtoi(GetStr(TEXT("DRCLink")).c_str());
+	bLimitSwtch         = 1 == _wtoi(GetStr(TEXT("LimitLink")).c_str());
 	bEQSwtch             = 1 == _wtoi(GetStr(TEXT("EQSwtch")).c_str());
+	bEQSwtch1             = 1 == _wtoi(GetStr(TEXT("EQSwtch1")).c_str());
+	bLimitSwtch             = 1 == _wtoi(GetStr(TEXT("LimitSwtch")).c_str());
 	bDrcSwtch             = 1 == _wtoi(GetStr(TEXT("DrcSwtch")).c_str());
-	nChannel           = _wtoi(GetStr(TEXT("Channel")).c_str());
+	nChannel				= _wtoi(GetStr(TEXT("Channel")).c_str());
+	nEQChannel				 = _wtoi(GetStr(TEXT("EQChannel")).c_str());
+	nEQ1Channel				= _wtoi(GetStr(TEXT("EQ1Channel")).c_str());
+	nDrcChannel             = _wtoi(GetStr(TEXT("DrcChannel")).c_str());
+	nLimitChannel           = _wtoi(GetStr(TEXT("LimitChannel")).c_str());
 
 	/********************** 左右声道公共参数 **********************/
 	swFs				= _wtoi(GetStr(TEXT("SWFS")).c_str());
@@ -298,7 +308,8 @@ bool CIniSettingBase::LoadToolSetting(std::wstring strConfig)
 	nDrcSwitch			= _wtoi(GetStr(TEXT("DRCSWITCH")).c_str());
 	swCurveLen			= _wtoi(GetStr(TEXT("CURVELEN")).c_str());
 
-	ScrGainL			= _wtof(GetStr(TEXT("SCTRGAINL")).c_str());
+	ScrGainL1			= _wtof(GetStr(TEXT("SCTRGAINL1")).c_str());
+	ScrGainL2			= _wtof(GetStr(TEXT("SCTRGAINL2")).c_str());
 	/********************** 左声道EQ参数 **********************/
 	strValue = GetStr(TEXT("EQGAINLEFT"));
 	nValue = EQGAIN_LEN;
@@ -309,9 +320,17 @@ bool CIniSettingBase::LoadToolSetting(std::wstring strConfig)
 	strValue = GetStr(TEXT("EQQLEFT"));
 	nValue = EQQ_LEN;
 	ParseIntegers(strValue,EqQLeft,&nValue);
-	strValue = GetStr(TEXT("EQQLEFT"));
-	nValue = EQQ_LEN;
-	ParseIntegers(strValue,EqQLeft,&nValue);
+
+	//8EQ参数
+	strValue = GetStr(TEXT("EQGAINLEFT1"));
+	nValue = EQGAIN_LEN1;
+	ParseIntegers(strValue,EqGainLeft1,&nValue);
+	strValue = GetStr(TEXT("EQCFLEFT1"));
+	nValue = EQCF_LEN1;
+	ParseIntegers(strValue,EqCFLeft1,&nValue);
+	strValue = GetStr(TEXT("EQQLEFT1"));
+	nValue = EQQ_LEN1;
+	ParseIntegers(strValue,EqQLeft1,&nValue);
 	/********************** 左声道DRC参数 **********************/
 	DivFreq_L = _wtoi(GetStr(TEXT("DIVFREQ_L")).c_str());
 	Offset_LL = _wtoi(GetStr(TEXT("OFFSET_LL")).c_str());
@@ -338,7 +357,8 @@ bool CIniSettingBase::LoadToolSetting(std::wstring strConfig)
 	Smthtime_LH = _wtoi(GetStr(TEXT("SMTHTIME_LH")).c_str());
 	Attatime_LH = _wtoi(GetStr(TEXT("ATTATIME_LH")).c_str());
 
-	ScrGainR			= _wtoi(GetStr(TEXT("SCTRGAINR")).c_str());
+	ScrGainR1			= _wtoi(GetStr(TEXT("SCTRGAINR1")).c_str());
+	ScrGainR2			= _wtoi(GetStr(TEXT("SCTRGAINR2")).c_str());
 	/********************** 右声道EQ参数 **********************/
 	strValue = GetStr(TEXT("EQGAINRIGHT"));
 	nValue = EQGAIN_LEN;
@@ -349,6 +369,17 @@ bool CIniSettingBase::LoadToolSetting(std::wstring strConfig)
 	strValue = GetStr(TEXT("EQQRIGHT"));
 	nValue = EQQ_LEN;
 	ParseIntegers(strValue,EqQRight,&nValue);
+
+	//8EQ参数
+	strValue = GetStr(TEXT("EQGAINRIGHT1"));
+	nValue = EQGAIN_LEN1;
+	ParseIntegers(strValue,EqGainRight1,&nValue);
+	strValue = GetStr(TEXT("EQCFRIGHT1"));
+	nValue = EQCF_LEN1;
+	ParseIntegers(strValue,EqCFRight1,&nValue);
+	strValue = GetStr(TEXT("EQQRIGHT1"));
+	nValue = EQQ_LEN1;
+	ParseIntegers(strValue,EqQRight1,&nValue);
 	/********************** 右声道DRC参数 **********************/
 	DivFreq_R = _wtoi(GetStr(TEXT("DIVFREQ_R")).c_str());
 	Offset_RL = _wtoi(GetStr(TEXT("OFFSET_RL")).c_str());
@@ -374,7 +405,16 @@ bool CIniSettingBase::LoadToolSetting(std::wstring strConfig)
 	Rlstime_RH = _wtoi(GetStr(TEXT("RSLTIME_RH")).c_str());
 	Smthtime_RH = _wtoi(GetStr(TEXT("SMTHTIME_RH")).c_str());
 	Attatime_RH = _wtoi(GetStr(TEXT("ATTATIME_RH")).c_str());
-
+	/*******************Limit 参数***********************/
+	fLimitEca_L = _wtof(GetStr(TEXT("LLMT_ECALTIME")).c_str());
+	fLimitThres_L = _wtof(GetStr(TEXT("LLMT_THRESHOLD")).c_str());
+	fLimitAtt_L = _wtof(GetStr(TEXT("LLMT_ATTACKTIME")).c_str());
+	fLimitSmo_L = _wtof(GetStr(TEXT("LLMT_SMOOTHTIME")).c_str());
+	fLimitEca_R = _wtof(GetStr(TEXT("RLMT_ECALTIME")).c_str());
+	fLimitThres_R = _wtof(GetStr(TEXT("RLMT_THRESHOLD")).c_str());
+	fLimitAtt_R = _wtof(GetStr(TEXT("RLMT_ATTACKTIME")).c_str());
+	fLimitSmo_R = _wtof(GetStr(TEXT("RLMT_SMOOTHTIME")).c_str());
+	
 
     return true;
 
@@ -396,22 +436,52 @@ bool CIniSettingBase::SaveToolSetting(std::wstring strConfig)
         SetStr( TEXT("System:LogPath")  , strLogPath);
         SetStr( TEXT("Debug")			, bDebug   ?checke:unckeck);
 		SetStr( TEXT("Link")			, bLink   ?checke:unckeck);
+		SetStr( TEXT("EQLink")			, bEQLink   ?checke:unckeck);
+		SetStr( TEXT("EQLink1")			, bEQLink1   ?checke:unckeck);
+		SetStr( TEXT("DRCLink")			, bDrcLink   ?checke:unckeck);
+		SetStr( TEXT("LimitLink")			, bLimitLink   ?checke:unckeck);
+		SetStr( TEXT("EQSwtch")			, bEQSwtch  ?checke:unckeck);
+		SetStr( TEXT("EQSwtch1")		, bEQSwtch1   ?checke:unckeck);
+		SetStr( TEXT("DrcSwtch")		, bDrcSwtch   ?checke:unckeck);
+		SetStr( TEXT("LimitSwtch")		, bLimitSwtch   ?checke:unckeck);
 		swprintf(szTemp1,nof(szTemp1),TEXT("%d"),nChannel);
 		SetStr( TEXT("Channel")          , szTemp1);
+		swprintf(szTemp1,nof(szTemp1),TEXT("%d"),nEQChannel);
+		SetStr( TEXT("EQChannel")          , szTemp1);
+		swprintf(szTemp1,nof(szTemp1),TEXT("%d"),nEQ1Channel);
+		SetStr( TEXT("EQ1Channel")          , szTemp1);
+		swprintf(szTemp1,nof(szTemp1),TEXT("%d"),nDrcChannel);
+		SetStr( TEXT("DrcChannel")          , szTemp1);
+		swprintf(szTemp1,nof(szTemp1),TEXT("%d"),nLimitChannel);
+		SetStr( TEXT("LimitChannel")          , szTemp1);
 		
 		/*******************左声道参数***************************/
-		swprintf(szTemp1,nof(szTemp1),TEXT("%d"),ScrGainL);
-		SetStr( TEXT("SCTRGAINL")          , szTemp1);
-        swprintf(szTemp1,nof(szTemp1),TEXT("%d,%d,%d,%d,%d,%d,%d,%d,%d"),EqGainLeft[0],
+		swprintf(szTemp1,nof(szTemp1),TEXT("%d"),ScrGainL1);
+		SetStr( TEXT("SCTRGAINL1")          , szTemp1);
+		swprintf(szTemp1,nof(szTemp1),TEXT("%d"),ScrGainL2);
+		SetStr( TEXT("SCTRGAINL2")          , szTemp1);
+		//1.10eq参数
+        swprintf(szTemp1,nof(szTemp1),TEXT("%d,%d,%d,%d,%d,%d,%d,%d,%d,%d"),EqGainLeft[0],
 				EqGainLeft[1],EqGainLeft[2],EqGainLeft[3],EqGainLeft[4],EqGainLeft[5],
-				EqGainLeft[6],EqGainLeft[7],EqGainLeft[8]);
+				EqGainLeft[6],EqGainLeft[7],EqGainLeft[8],EqGainLeft[9]);
         SetStr( TEXT("EQGAINLEFT")          , szTemp1);
-		swprintf(szTemp1,nof(szTemp1),TEXT("%d,%d,%d,%d,%d,%d,%d,%d,%d"),EqCFLeft[0],
-			EqCFLeft[1],EqCFLeft[2],EqCFLeft[3],EqCFLeft[4],EqCFLeft[5],EqCFLeft[6],EqCFLeft[7],EqCFLeft[8]);
+		swprintf(szTemp1,nof(szTemp1),TEXT("%d,%d,%d,%d,%d,%d,%d,%d,%d,%d"),EqCFLeft[0],
+			EqCFLeft[1],EqCFLeft[2],EqCFLeft[3],EqCFLeft[4],EqCFLeft[5],EqCFLeft[6],EqCFLeft[7],EqCFLeft[8],EqCFLeft[9]);
 		SetStr( TEXT("EQCFLEFT")          , szTemp1);
-		swprintf(szTemp1,nof(szTemp1),TEXT("%f,%f,%f,%f,%f,%f,%f"),EqQLeft[0],
-			EqQLeft[1],EqQLeft[2],EqQLeft[3],EqQLeft[4],EqQLeft[5],EqQLeft[6]);
+		swprintf(szTemp1,nof(szTemp1),TEXT("%f,%f,%f,%f,%f,%f,%f,%f"),EqQLeft[0],
+			EqQLeft[1],EqQLeft[2],EqQLeft[3],EqQLeft[4],EqQLeft[5],EqQLeft[6],EqQLeft[7]);
 		SetStr( TEXT("EQQLEFT")          , szTemp1);
+		//2.8eq参数
+		swprintf(szTemp1,nof(szTemp1),TEXT("%d,%d,%d,%d,%d,%d,%d,%d"),EqGainLeft1[0],
+			EqGainLeft1[1],EqGainLeft1[2],EqGainLeft1[3],EqGainLeft1[4],EqGainLeft1[5],
+			EqGainLeft1[6],EqGainLeft1[7]);
+		SetStr( TEXT("EQGAINLEFT1")          , szTemp1);
+		swprintf(szTemp1,nof(szTemp1),TEXT("%d,%d,%d,%d,%d,%d,%d,%d"),EqCFLeft1[0],
+			EqCFLeft1[1],EqCFLeft1[2],EqCFLeft1[3],EqCFLeft1[4],EqCFLeft1[5],EqCFLeft1[6],EqCFLeft1[7]);
+		SetStr( TEXT("EQCFLEFT1")          , szTemp1);
+		swprintf(szTemp1,nof(szTemp1),TEXT("%f,%f,%f,%f,%f,%f"),EqQLeft1[0],
+			EqQLeft1[1],EqQLeft1[2],EqQLeft1[3],EqQLeft1[4],EqQLeft1[5]);
+		SetStr( TEXT("EQQLEFT1")          , szTemp1);
 
 		swprintf(szTemp1,nof(szTemp1),TEXT("%d"),DivFreq_L);
 		SetStr( TEXT("DIVFREQ_L")          , szTemp1);
@@ -461,19 +531,42 @@ bool CIniSettingBase::SaveToolSetting(std::wstring strConfig)
 		swprintf(szTemp1,nof(szTemp1),TEXT("%d"),Attatime_LH);
 		SetStr( TEXT("ATTATIME_LH")          , szTemp1);
 
+		swprintf(szTemp1,nof(szTemp1),TEXT("%f"),fLimitEca_L);
+		SetStr( TEXT("LLMT_ECALTIME")          , szTemp1);
+		swprintf(szTemp1,nof(szTemp1),TEXT("%f"),fLimitThres_L);
+		SetStr( TEXT("LLMT_THRESHOLD")          , szTemp1);
+		swprintf(szTemp1,nof(szTemp1),TEXT("%f"),fLimitAtt_L);
+		SetStr( TEXT("LLMT_ATTACKTIME")          , szTemp1);
+		swprintf(szTemp1,nof(szTemp1),TEXT("%f"),fLimitSmo_L);
+		SetStr( TEXT("LLMT_SMOOTHTIME")          , szTemp1);
+
 		/*******************右声道参数***************************/
-		swprintf(szTemp1,nof(szTemp1),TEXT("%d"),ScrGainR);
-		SetStr( TEXT("SCTRGAINR")          , szTemp1);
-		swprintf(szTemp1,nof(szTemp1),TEXT("%d,%d,%d,%d,%d,%d,%d,%d,%d"),EqGainRight[0],
+		swprintf(szTemp1,nof(szTemp1),TEXT("%d"),ScrGainR1);
+		SetStr( TEXT("SCTRGAINR1")          , szTemp1);
+		swprintf(szTemp1,nof(szTemp1),TEXT("%d"),ScrGainR2);
+		SetStr( TEXT("SCTRGAINR2")          , szTemp1);
+		swprintf(szTemp1,nof(szTemp1),TEXT("%d,%d,%d,%d,%d,%d,%d,%d,%d,%d"),EqGainRight[0],
 			EqGainRight[1],EqGainRight[2],EqGainRight[3],EqGainRight[4],EqGainRight[5],
-			EqGainRight[6],EqGainRight[7],EqGainRight[8]);
+			EqGainRight[6],EqGainRight[7],EqGainRight[8],EqGainRight[9]);
 		SetStr( TEXT("EQGAINRIGHT")          , szTemp1);
-		swprintf(szTemp1,nof(szTemp1),TEXT("%d,%d,%d,%d,%d,%d,%d,%d,%d"),EqCFRight[0],
-			EqCFRight[1],EqCFRight[2],EqCFRight[3],EqCFRight[4],EqCFRight[5],EqCFRight[6],EqCFRight[7],EqCFRight[8]);
+		swprintf(szTemp1,nof(szTemp1),TEXT("%d,%d,%d,%d,%d,%d,%d,%d,%d,%d"),EqCFRight[0],
+			EqCFRight[1],EqCFRight[2],EqCFRight[3],EqCFRight[4],EqCFRight[5],EqCFRight[6],EqCFRight[7],EqCFRight[8],EqCFRight[9]);
 		SetStr( TEXT("EQCFRIGHT")          , szTemp1);
-		swprintf(szTemp1,nof(szTemp1),TEXT("%f,%f,%f,%f,%f,%f,%f"),EqQRight[0],
-			EqQRight[1],EqQRight[2],EqQRight[3],EqQRight[4],EqQRight[5],EqQRight[6]);
+		swprintf(szTemp1,nof(szTemp1),TEXT("%f,%f,%f,%f,%f,%f,%f,%f"),EqQRight[0],
+			EqQRight[1],EqQRight[2],EqQRight[3],EqQRight[4],EqQRight[5],EqQRight[6],EqQRight[7]);
 		SetStr( TEXT("EQQRIGHT")          , szTemp1);
+
+		//8eq参数
+		swprintf(szTemp1,nof(szTemp1),TEXT("%d,%d,%d,%d,%d,%d,%d,%d"),EqGainRight1[0],
+			EqGainRight1[1],EqGainRight1[2],EqGainRight1[3],EqGainRight1[4],EqGainRight1[5],
+			EqGainRight1[6],EqGainRight1[7]);
+		SetStr( TEXT("EQGAINRIGHT1")          , szTemp1);
+		swprintf(szTemp1,nof(szTemp1),TEXT("%d,%d,%d,%d,%d,%d,%d,%d"),EqCFRight1[0],
+			EqCFRight1[1],EqCFRight1[2],EqCFRight1[3],EqCFRight1[4],EqCFRight1[5],EqCFRight1[6],EqCFRight1[7]);
+		SetStr( TEXT("EQCFRIGHT1")          , szTemp1);
+		swprintf(szTemp1,nof(szTemp1),TEXT("%f,%f,%f,%f,%f,%f"),EqQRight1[0],
+			EqQRight1[1],EqQRight1[2],EqQRight1[3],EqQRight1[4],EqQRight1[5]);
+		SetStr( TEXT("EQQRIGHT1")          , szTemp1);
 
 		swprintf(szTemp1,nof(szTemp1),TEXT("%d"),DivFreq_R);
 		SetStr( TEXT("DIVFREQ_R")          , szTemp1);
@@ -521,7 +614,16 @@ bool CIniSettingBase::SaveToolSetting(std::wstring strConfig)
 		swprintf(szTemp1,nof(szTemp1),TEXT("%d"),Smthtime_RH);
 		SetStr( TEXT("SMTHTIME_RH")          , szTemp1);
 		swprintf(szTemp1,nof(szTemp1),TEXT("%d"),Attatime_RH);
-		SetStr( TEXT("ATTATIME_RH")          , szTemp1);		
+		SetStr( TEXT("ATTATIME_RH")          , szTemp1);
+
+		swprintf(szTemp1,nof(szTemp1),TEXT("%f"),fLimitEca_R);
+		SetStr( TEXT("RLMT_ECALTIME")          , szTemp1);
+		swprintf(szTemp1,nof(szTemp1),TEXT("%f"),fLimitThres_R);
+		SetStr( TEXT("RLMT_THRESHOLD")          , szTemp1);
+		swprintf(szTemp1,nof(szTemp1),TEXT("%f"),fLimitAtt_R);
+		SetStr( TEXT("RLMT_ATTACKTIME")          , szTemp1);
+		swprintf(szTemp1,nof(szTemp1),TEXT("%f"),fLimitSmo_R);
+		SetStr( TEXT("RLMT_SMOOTHTIME")          , szTemp1);
 		return pIniFile->Save(szFileName);
     }
     return false;

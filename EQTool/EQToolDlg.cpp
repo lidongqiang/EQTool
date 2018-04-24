@@ -53,7 +53,7 @@ UINT ThreadScanDevice(LPVOID lpParam)
 
 
 CEQToolDlg::CEQToolDlg(CWnd* pParent /*=NULL*/)
-	: CDialog(CEQToolDlg::IDD, pParent),m_DlgEq(m_Configs,m_LocalLan),m_DlgDrc(m_Configs,m_LocalLan)
+	: CDialog(CEQToolDlg::IDD, pParent),m_DlgEq(m_Configs,m_LocalLan),m_DlgDrc(m_Configs,m_LocalLan),m_DlgEq1(m_Configs,m_LocalLan),m_DlgLimit(m_Configs,m_LocalLan)
 	, m_edtGain(0)
 {
 	m_hIcon = AfxGetApp()->LoadIcon(IDR_MAINFRAME);
@@ -65,8 +65,12 @@ void CEQToolDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_TAB_INFO, m_tabInfo);
 	DDX_Control(pDX, IDC_COMBO_CHANUM, m_ComChannel);
 	DDX_Control(pDX, IDC_LABEL_DEVICE, m_lblDevice);
-	DDX_Text(pDX, IDC_EDIT_GAIN, m_edtGain);
+	DDX_Text(pDX, IDC_EDIT_GAIN1, m_edtGain);
 	DDV_MinMaxInt(pDX, m_edtGain, -12, 12);
+	DDX_Control(pDX, IDC_COMBO_EQMODE, m_ComEqMode);
+	DDX_Control(pDX, IDC_COMBO_DRCMODE, m_ComDrcMode);
+	DDX_Control(pDX, IDC_COMBO_EQMODE2, m_ComEqMode1);
+	DDX_Control(pDX, IDC_COMBO_LIMITMODE, m_ComLimitMode);
 }
 
 BEGIN_MESSAGE_MAP(CEQToolDlg, CDialog)
@@ -84,13 +88,18 @@ BEGIN_MESSAGE_MAP(CEQToolDlg, CDialog)
 	ON_COMMAND(ID_FILE_SAVEAS, &CEQToolDlg::OnFileSaveas)
 	ON_COMMAND(ID_FILE_LOAD, &CEQToolDlg::OnFileLoad)
 	ON_BN_CLICKED(IDC_CHECK_LINK, &CEQToolDlg::OnBnClickedCheckLink)
-	ON_EN_KILLFOCUS(IDC_EDIT_GAIN, &CEQToolDlg::OnEnKillfocusEditGain)
+	ON_EN_KILLFOCUS(IDC_EDIT_GAIN1, &CEQToolDlg::OnEnKillfocusEditGain)
 	ON_CBN_SELCHANGE(IDC_COMBO_CHANUM, &CEQToolDlg::OnCbnSelchangeComboChanum)
 	ON_BN_CLICKED(IDC_BUTTON_SET, &CEQToolDlg::OnBnClickedButtonSet)
 	ON_BN_CLICKED(IDC_BUTTON_READ, &CEQToolDlg::OnBnClickedButtonRead)
 	ON_WM_CLOSE()
 	ON_BN_CLICKED(IDC_BUTTON_SAVE, &CEQToolDlg::OnBnClickedButtonSave)
 	ON_BN_CLICKED(IDC_BUTTON_CANCEL, &CEQToolDlg::OnBnClickedButtonCancel)
+	ON_CBN_SELCHANGE(IDC_COMBO_EQMODE, &CEQToolDlg::OnCbnSelchangeComboEqmode)
+	ON_CBN_SELCHANGE(IDC_COMBO_DRCMODE, &CEQToolDlg::OnCbnSelchangeComboDrcmode)
+	ON_CBN_SELCHANGE(IDC_COMBO_EQMODE2, &CEQToolDlg::OnCbnSelchangeComboEqmode2)
+	ON_CBN_SELCHANGE(IDC_COMBO_LIMITMODE, &CEQToolDlg::OnCbnSelchangeComboLimitmode)
+	ON_EN_KILLFOCUS(IDC_EDIT_GAIN2, &CEQToolDlg::OnEnKillfocusEditGain2)
 END_MESSAGE_MAP()
 
 
@@ -155,29 +164,29 @@ BOOL CEQToolDlg::OnInitDialog()
 		CreateDirectory(m_strLogPath,NULL);
 	}
 
-	InitDevInfo.bScan4FsUsb = FALSE;
-	InitDevInfo.emSupportDevice = 0;
-	InitDevInfo.uiRockMscTimeout = 30;
-	InitDevInfo.uiRockusbTimeout = 30;
-	InitDevInfo.usRockMscPid = 0;
-	InitDevInfo.usRockMscVid = 0;
-	InitDevInfo.usRockusbPid = 0;
-	InitDevInfo.usRockusbVid = 0;
+	//InitDevInfo.bScan4FsUsb = FALSE;
+	//InitDevInfo.emSupportDevice = 0;
+	//InitDevInfo.uiRockMscTimeout = 30;
+	//InitDevInfo.uiRockusbTimeout = 30;
+	//InitDevInfo.usRockMscPid = 0;
+	//InitDevInfo.usRockMscVid = 0;
+	//InitDevInfo.usRockusbPid = 0;
+	//InitDevInfo.usRockusbVid = 0;
 
-	InitLogInfo.bLogEnable = TRUE;
-	InitLogInfo.lpszLogPathName = (LPTSTR)(LPCTSTR)m_strLogPath;
+	//InitLogInfo.bLogEnable = TRUE;
+	//InitLogInfo.lpszLogPathName = (LPTSTR)(LPCTSTR)m_strLogPath;
 
-	InitCallbackInfo.pProgressPromptProc = NULL;//you can set it to ProgressPromptProc for showing upgrade info;
-	InitCallbackInfo.pUpgradeStepPromptProc = NULL;//you can set it to UpgradeStepPromptProc for showing progress info;
-	m_bUpgradeDllInitOK = RK_Initialize(InitDevInfo, InitLogInfo, InitCallbackInfo);
-	if (!m_bUpgradeDllInitOK)
-	{
-		MessageBox(_T("Initialize RKUpgrade dll failed!"),_T("ERROR"),MB_ICONERROR|MB_OK);
-	}
-	else
-	{
-		m_pScanThread = AfxBeginThread(ThreadScanDevice,(LPVOID)this);
-	}
+	//InitCallbackInfo.pProgressPromptProc = NULL;//you can set it to ProgressPromptProc for showing upgrade info;
+	//InitCallbackInfo.pUpgradeStepPromptProc = NULL;//you can set it to UpgradeStepPromptProc for showing progress info;
+	//m_bUpgradeDllInitOK = RK_Initialize(InitDevInfo, InitLogInfo, InitCallbackInfo);
+	//if (!m_bUpgradeDllInitOK)
+	//{
+	//	MessageBox(_T("Initialize RKUpgrade dll failed!"),_T("ERROR"),MB_ICONERROR|MB_OK);
+	//}
+	//else
+	//{
+	//	m_pScanThread = AfxBeginThread(ThreadScanDevice,(LPVOID)this);
+	//}
 
 	InitUi();
 
@@ -268,6 +277,18 @@ void CEQToolDlg::InitUi()
 	m_ComChannel.AddString(_T("channel0"));
 	m_ComChannel.AddString(_T("channel1"));
 	m_ComChannel.SetCurSel(m_Configs.nChannel);
+	m_ComEqMode.AddString(_T("OFF"));
+	m_ComEqMode.AddString(_T("ON"));
+	m_ComEqMode.SetCurSel(m_Configs.bEQSwtch);
+	m_ComEqMode1.AddString(_T("OFF"));
+	m_ComEqMode1.AddString(_T("ON"));
+	m_ComEqMode1.SetCurSel(m_Configs.bEQSwtch1);
+	m_ComLimitMode.AddString(_T("OFF"));
+	m_ComLimitMode.AddString(_T("ON"));
+	m_ComLimitMode.SetCurSel(m_Configs.bLimitSwtch);
+	m_ComDrcMode.AddString(_T("OFF"));
+	m_ComDrcMode.AddString(_T("ON"));
+	m_ComDrcMode.SetCurSel(m_Configs.bDrcSwtch);
 	if (m_Configs.bLink)
 	{
 		((CButton*)GetDlgItem(IDC_CHECK_LINK))->SetCheck(BST_CHECKED);
@@ -280,31 +301,41 @@ void CEQToolDlg::InitUi()
 	}
 	if (m_Configs.nChannel)
 	{
-		SetDlgItemText(IDC_EDIT_GAIN,cmNumString::NumToStr(m_Configs.ScrGainR,10));
+		SetDlgItemText(IDC_EDIT_GAIN1,cmNumString::NumToStr(m_Configs.ScrGainR1,10));
+		SetDlgItemText(IDC_EDIT_GAIN2,cmNumString::NumToStr(m_Configs.ScrGainR2,10));
 	}
 	else
 	{
-		SetDlgItemText(IDC_EDIT_GAIN,cmNumString::NumToStr(m_Configs.ScrGainL,10));
+		SetDlgItemText(IDC_EDIT_GAIN1,cmNumString::NumToStr(m_Configs.ScrGainL1,10));
+		SetDlgItemText(IDC_EDIT_GAIN2,cmNumString::NumToStr(m_Configs.ScrGainL2,10));
 	}
 
 	//为Tab Control增加两个页面  
-	m_tabInfo.InsertItem(0, _T("EQ"));  
-	m_tabInfo.InsertItem(1, _T("DRC"));  
+	m_tabInfo.InsertItem(0, _T("EQ10"));  
+	m_tabInfo.InsertItem(1, _T("DRC"));
+	m_tabInfo.InsertItem(2, _T("EQ8"));
+	m_tabInfo.InsertItem(3, _T("Limit"));
 
 	//创建两个对话框  
 	m_DlgEq.Create(IDD_DIALOG_EQ, &m_tabInfo);  
 	m_DlgDrc.Create(IDD_DIALOG_DRC, &m_tabInfo);
+	m_DlgEq1.Create(IDD_DIALOG_EQ1, &m_tabInfo);
+	m_DlgLimit.Create(IDD_DIALOG_LIMIT, &m_tabInfo);
 	//设定在Tab内显示的范围  
 	CRect rc;  
 	m_tabInfo.GetClientRect(rc);
 	rc.top += 20;  
 
 	m_DlgEq.MoveWindow(&rc);  
-	m_DlgDrc.MoveWindow(&rc);  
+	m_DlgDrc.MoveWindow(&rc);
+	m_DlgEq1.MoveWindow(&rc);
+	m_DlgLimit.MoveWindow(&rc);
 
 	//把对话框对象指针保存起来  
 	pDialog[0] = &m_DlgEq;  
 	pDialog[1] = &m_DlgDrc;  
+	pDialog[2] = &m_DlgEq1;
+	pDialog[3] = &m_DlgLimit;  
 
 	m_iCurSelTab    = 0;
 	pDialog[m_iCurSelTab]->ShowWindow(SW_SHOW);
@@ -470,43 +501,47 @@ void CEQToolDlg::storeParaData(FILE *fpPara)
 	float afPara[PARANUM] = {0.0f};
 	/* 1.1 左右声道公共参数 */
 	afPara[PARA_CHANUM]    = m_Configs.shwChaNum;                      // 声道数
-	afPara[PARA_EQSWTCH]   = m_Configs.bEQSwtch;                // EQ开关
+	afPara[PARA_EQ10SWTCH]  = m_Configs.bEQSwtch;                // EQ开关
+	afPara[PARA_EQ8SWTCH]  = m_Configs.bEQSwtch1;
 	afPara[PARA_DRCSWTCH]  = m_Configs.bDrcSwtch;                // DRC开关
+	afPara[PARA_LIMITERSWTCH]  = m_Configs.bLimitSwtch;
 	afPara[PARA_FS]        = m_Configs.swFs;                           // 采样率
 
 	/* 1.2 左声道参数 */
 	/* 1.2.1 左声道增益 */
-	afPara[PARA_L_GAIN] = m_Configs.ScrGainL;
-	//afPara[PARA_L_GAIN] = -6;
-	/* 1.2.2 左声道EQ参数 */
+	afPara[PARA_L_GAIN1] = m_Configs.ScrGainL1;
+	/* 1.2.2 左声道10EQ参数 */
 	//Gain
-	afPara[PARA_LEQ_GBASS]    = m_Configs.EqGainLeft[0];                           // 第一个滤波器（低通坡式）的通带增益                    
-	afPara[PARA_LEQ_GPEAK1]   = m_Configs.EqGainLeft[1];                           // 第二个滤波器（峰式）的峰值增益               
-	afPara[PARA_LEQ_GPEAK1+1] = m_Configs.EqGainLeft[2];                          // 第三个滤波器（峰式）的峰值增益                    
-	afPara[PARA_LEQ_GPEAK1+2] = m_Configs.EqGainLeft[3];                           // 第四个滤波器（峰式）的峰值增益                   
-	afPara[PARA_LEQ_GPEAK1+3] = m_Configs.EqGainLeft[4];                           // 第五个滤波器（峰式）的峰值增益                    
-	afPara[PARA_LEQ_GPEAK1+4] = m_Configs.EqGainLeft[5];                           // 第六个滤波器（峰式）的峰值增益                   
-	afPara[PARA_LEQ_GPEAK1+5] = m_Configs.EqGainLeft[6];                           // 第七个滤波器（峰式）的峰值增益                    
-	afPara[PARA_LEQ_GPEAK1+6] = m_Configs.EqGainLeft[7];                           // 第八个滤波器（峰式）的峰值增益                   
-	afPara[PARA_LEQ_GTREBLE]  = m_Configs.EqGainLeft[8];                         // 第九个滤波器（高通坡式）的通带增益
+	afPara[PARA_LEQ10_GBASS]    = m_Configs.EqGainLeft[0];                           // 第一个滤波器（低通坡式）的通带增益                    
+	afPara[PARA_LEQ10_GPEAK1]   = m_Configs.EqGainLeft[1];                           // 第二个滤波器（峰式）的峰值增益               
+	afPara[PARA_LEQ10_GPEAK1+1] = m_Configs.EqGainLeft[2];                          // 第三个滤波器（峰式）的峰值增益                    
+	afPara[PARA_LEQ10_GPEAK1+2] = m_Configs.EqGainLeft[3];                           // 第四个滤波器（峰式）的峰值增益                   
+	afPara[PARA_LEQ10_GPEAK1+3] = m_Configs.EqGainLeft[4];                           // 第五个滤波器（峰式）的峰值增益                    
+	afPara[PARA_LEQ10_GPEAK1+4] = m_Configs.EqGainLeft[5];                           // 第六个滤波器（峰式）的峰值增益                   
+	afPara[PARA_LEQ10_GPEAK1+5] = m_Configs.EqGainLeft[6];                           // 第七个滤波器（峰式）的峰值增益                    
+	afPara[PARA_LEQ10_GPEAK1+6] = m_Configs.EqGainLeft[7];                           // 第八个滤波器（峰式）的峰值增益
+	afPara[PARA_LEQ10_GPEAK1+7] = m_Configs.EqGainLeft[8];                           // 第九个滤波器（峰式）的峰值增益
+	afPara[PARA_LEQ10_GTREBLE]  = m_Configs.EqGainLeft[9];                         // 第十个滤波器（高通坡式）的通带增益
 	//CF
-	afPara[PARA_LEQ_CFBASS]    = m_Configs.EqCFLeft[0];                         // 第一个滤波器（低通坡式）的截止频率                        
-	afPara[PARA_LEQ_CFPEAK1]   = m_Configs.EqCFLeft[1];                        // 第二个滤波器（峰式）的中心频率                     
-	afPara[PARA_LEQ_CFPEAK1+1] = m_Configs.EqCFLeft[2];                        // 第三个滤波器（峰式）的中心频率                     
-	afPara[PARA_LEQ_CFPEAK1+2] = m_Configs.EqCFLeft[3];                       // 第四个滤波器（峰式）的中心频率                      
-	afPara[PARA_LEQ_CFPEAK1+3] = m_Configs.EqCFLeft[4];                       // 第五个滤波器（峰式）的中心频率                       
-	afPara[PARA_LEQ_CFPEAK1+4] = m_Configs.EqCFLeft[5];                       // 第六个滤波器（峰式）的中心频率                      
-	afPara[PARA_LEQ_CFPEAK1+5] = m_Configs.EqCFLeft[6];                      // 第七个滤波器（峰式）的中心频率                        
-	afPara[PARA_LEQ_CFPEAK1+6] = m_Configs.EqCFLeft[7];                      // 第八个滤波器（峰式）的中心频率                      
-	afPara[PARA_LEQ_CFTREBLE]  = m_Configs.EqCFLeft[8];                      // 第九个滤波器（高通坡式）的截止频率
+	afPara[PARA_LEQ10_CFBASS]    = m_Configs.EqCFLeft[0];                         // 第一个滤波器（低通坡式）的截止频率                        
+	afPara[PARA_LEQ10_CFPEAK1]   = m_Configs.EqCFLeft[1];                        // 第二个滤波器（峰式）的中心频率                     
+	afPara[PARA_LEQ10_CFPEAK1+1] = m_Configs.EqCFLeft[2];                        // 第三个滤波器（峰式）的中心频率                     
+	afPara[PARA_LEQ10_CFPEAK1+2] = m_Configs.EqCFLeft[3];                       // 第四个滤波器（峰式）的中心频率                      
+	afPara[PARA_LEQ10_CFPEAK1+3] = m_Configs.EqCFLeft[4];                       // 第五个滤波器（峰式）的中心频率                       
+	afPara[PARA_LEQ10_CFPEAK1+4] = m_Configs.EqCFLeft[5];                       // 第六个滤波器（峰式）的中心频率                      
+	afPara[PARA_LEQ10_CFPEAK1+5] = m_Configs.EqCFLeft[6];                      // 第七个滤波器（峰式）的中心频率                        
+	afPara[PARA_LEQ10_CFPEAK1+6] = m_Configs.EqCFLeft[7];                      // 第八个滤波器（峰式）的中心频率
+	afPara[PARA_LEQ10_CFPEAK1+7] = m_Configs.EqCFLeft[8];                      // 第九个滤波器（峰式）的中心频率 
+	afPara[PARA_LEQ10_CFTREBLE]  = m_Configs.EqCFLeft[9];                      // 第十个滤波器（高通坡式）的截止频率
 	//Q
-	afPara[PARA_LEQ_Q1]   = m_Configs.EqQLeft[0];                             // 第二个滤波器（峰式）的Q值               
-	afPara[PARA_LEQ_Q1+1] = m_Configs.EqQLeft[1];                             // 第三个滤波器（峰式）的Q值                        
-	afPara[PARA_LEQ_Q1+2] = m_Configs.EqQLeft[2];                             // 第四个滤波器（峰式）的Q值                        
-	afPara[PARA_LEQ_Q1+3] = m_Configs.EqQLeft[3];                             // 第五个滤波器（峰式）的Q值  
-	afPara[PARA_LEQ_Q1+4] = m_Configs.EqQLeft[4];                             // 第六个滤波器（峰式）的Q值  
-	afPara[PARA_LEQ_Q1+5] = m_Configs.EqQLeft[5];                             // 第七个滤波器（峰式）的Q值  
-	afPara[PARA_LEQ_Q1+6] = m_Configs.EqQLeft[6];                             // 第八个滤波器（峰式）的Q值  
+	afPara[PARA_LEQ10_Q1]   = m_Configs.EqQLeft[0];                             // 第二个滤波器（峰式）的Q值               
+	afPara[PARA_LEQ10_Q1+1] = m_Configs.EqQLeft[1];                             // 第三个滤波器（峰式）的Q值                        
+	afPara[PARA_LEQ10_Q1+2] = m_Configs.EqQLeft[2];                             // 第四个滤波器（峰式）的Q值                        
+	afPara[PARA_LEQ10_Q1+3] = m_Configs.EqQLeft[3];                             // 第五个滤波器（峰式）的Q值  
+	afPara[PARA_LEQ10_Q1+4] = m_Configs.EqQLeft[4];                             // 第六个滤波器（峰式）的Q值  
+	afPara[PARA_LEQ10_Q1+5] = m_Configs.EqQLeft[5];                             // 第七个滤波器（峰式）的Q值  
+	afPara[PARA_LEQ10_Q1+6] = m_Configs.EqQLeft[6];                             // 第八个滤波器（峰式）的Q值 
+	afPara[PARA_LEQ10_Q1+7] = m_Configs.EqQLeft[7];                             // 第九个滤波器（峰式）的Q值 
 	/* 1.2.3 左声道DRC参数 */ 
 	afPara[PARA_LDRC_DIVFREQ] = m_Configs.DivFreq_L;                        // 计算RMS能量的统计时间，单位ms
 	// 低频子带
@@ -521,7 +556,7 @@ void CEQToolDlg::storeParaData(FILE *fpPara)
 	afPara[PARA_LDRC_B1_RLSTIME]  = m_Configs.Rlstime_LL;                      // release time，单位ms
 	afPara[PARA_LDRC_B1_SMTHTIME] = m_Configs.Smthtime_LL;                      // 中间段时域平滑时间，单位ms
 	afPara[PARA_LDRC_B1_ATTATIME] = m_Configs.Attatime_LL;                      // attack time，单位ms
-	// 高频子带
+	 //高频子带
 	afPara[PARA_LDRC_B2_ECALTIME] = m_Configs.Ecaltime_LH;                     // 计算RMS能量的统计时间，单位ms
 	afPara[PARA_LDRC_B2_MAKEUPG]   = m_Configs.Offset_LH;                       // 线性段提升dB数
 	afPara[PARA_LDRC_B2_THREL]    = m_Configs.Threl_LH;                     // 低能段能量阈值，单位dB
@@ -534,40 +569,77 @@ void CEQToolDlg::storeParaData(FILE *fpPara)
 	afPara[PARA_LDRC_B2_SMTHTIME] = m_Configs.Smthtime_LH;                      // 中间段时域平滑时间，单位ms
 	afPara[PARA_LDRC_B2_ATTATIME] = m_Configs.Attatime_LH;                      // attack time，单位ms
 
+	/* 1.2.2 左声道8EQ参数 */
+	//Gain
+	afPara[PARA_LEQ8_GBASS]    = m_Configs.EqGainLeft1[0];                           // 第一个滤波器（低通坡式）的通带增益                    
+	afPara[PARA_LEQ8_GPEAK1]   = m_Configs.EqGainLeft1[1];                           // 第二个滤波器（峰式）的峰值增益               
+	afPara[PARA_LEQ8_GPEAK1+1] = m_Configs.EqGainLeft1[2];                          // 第三个滤波器（峰式）的峰值增益                    
+	afPara[PARA_LEQ8_GPEAK1+2] = m_Configs.EqGainLeft1[3];                           // 第四个滤波器（峰式）的峰值增益                   
+	afPara[PARA_LEQ8_GPEAK1+3] = m_Configs.EqGainLeft1[4];                           // 第五个滤波器（峰式）的峰值增益                    
+	afPara[PARA_LEQ8_GPEAK1+4] = m_Configs.EqGainLeft1[5];                           // 第六个滤波器（峰式）的峰值增益                   
+	afPara[PARA_LEQ8_GPEAK1+5] = m_Configs.EqGainLeft1[6];                           // 第七个滤波器（峰式）的峰值增益                    
+	afPara[PARA_LEQ8_GTREBLE]  = m_Configs.EqGainLeft1[7];                         // 第八个滤波器（高通坡式）的通带增益
+	//CF
+	afPara[PARA_LEQ8_CFBASS]    = m_Configs.EqCFLeft1[0];                         // 第一个滤波器（低通坡式）的截止频率                        
+	afPara[PARA_LEQ8_CFPEAK1]   = m_Configs.EqCFLeft1[1];                        // 第二个滤波器（峰式）的中心频率                     
+	afPara[PARA_LEQ8_CFPEAK1+1] = m_Configs.EqCFLeft1[2];                        // 第三个滤波器（峰式）的中心频率                     
+	afPara[PARA_LEQ8_CFPEAK1+2] = m_Configs.EqCFLeft1[3];                       // 第四个滤波器（峰式）的中心频率                      
+	afPara[PARA_LEQ8_CFPEAK1+3] = m_Configs.EqCFLeft1[4];                       // 第五个滤波器（峰式）的中心频率                       
+	afPara[PARA_LEQ8_CFPEAK1+4] = m_Configs.EqCFLeft1[5];                       // 第六个滤波器（峰式）的中心频率                      
+	afPara[PARA_LEQ8_CFPEAK1+5] = m_Configs.EqCFLeft1[6];                      // 第七个滤波器（峰式）的中心频率                        
+	afPara[PARA_LEQ8_CFTREBLE]  = m_Configs.EqCFLeft1[7];                      // 第八个滤波器（高通坡式）的截止频率
+	//Q
+	afPara[PARA_LEQ8_Q1]   = m_Configs.EqQLeft1[0];                             // 第二个滤波器（峰式）的Q值               
+	afPara[PARA_LEQ8_Q1+1] = m_Configs.EqQLeft1[1];                             // 第三个滤波器（峰式）的Q值                        
+	afPara[PARA_LEQ8_Q1+2] = m_Configs.EqQLeft1[2];                             // 第四个滤波器（峰式）的Q值                        
+	afPara[PARA_LEQ8_Q1+3] = m_Configs.EqQLeft1[3];                             // 第五个滤波器（峰式）的Q值  
+	afPara[PARA_LEQ8_Q1+4] = m_Configs.EqQLeft1[4];                             // 第六个滤波器（峰式）的Q值  
+	afPara[PARA_LEQ8_Q1+5] = m_Configs.EqQLeft1[5];                             // 第七个滤波器（峰式）的Q值
+	/* 1.2.4 左声道Limiter参数 */ 
+	afPara[PARA_LLMT_ECALTIME]   = m_Configs.fLimitEca_L;                        // Static time：计算RMS能量的统计时间，单位ms
+	afPara[PARA_LLMT_THRESHOLD]  = m_Configs.fLimitThres_L;                       // Threshold：输入信号能量高于该阈值时，Limiter开始限制输出幅度，单位dB
+	// -12dB < Threshold < 0dB
+	afPara[PARA_LLMT_ATTACKTIME] = m_Configs.fLimitAtt_L;                      // attack time，单位ms
+	afPara[PARA_LLMT_SMOOTHTIME] = m_Configs.fLimitSmo_L;                       // smooth time，单位ms
+
+	afPara[PARA_L_GAIN2] = m_Configs.ScrGainL2;
 	/* 1.3 右声道参数 */
 	if (m_Configs.shwChaNum == 2)
 	{
 		/* 1.2.1 右声道增益 */
-		afPara[PARA_R_GAIN] = m_Configs.ScrGainR;
+		afPara[PARA_R_GAIN1] = m_Configs.ScrGainR1;
 		/* 1.2.2 右声道EQ参数 */
 		//Gain
-		afPara[PARA_REQ_GBASS]    = m_Configs.EqGainRight[0];                     // 第一个滤波器（低通坡式）的通带增益             
-		afPara[PARA_REQ_GPEAK1]   = m_Configs.EqGainRight[1];                       // 第二个滤波器（峰式）的峰值增益                        
-		afPara[PARA_REQ_GPEAK1+1] = m_Configs.EqGainRight[2];                       // 第三个滤波器（峰式）的峰值增益                       
-		afPara[PARA_REQ_GPEAK1+2] = m_Configs.EqGainRight[3];                       // 第四个滤波器（峰式）的峰值增益                
-		afPara[PARA_REQ_GPEAK1+3] = m_Configs.EqGainRight[4];                       // 第五个滤波器（峰式）的峰值增益                
-		afPara[PARA_REQ_GPEAK1+4] = m_Configs.EqGainRight[5];                      // 第六个滤波器（峰式）的峰值增益               
-		afPara[PARA_REQ_GPEAK1+5] = m_Configs.EqGainRight[6];                       // 第七个滤波器（峰式）的峰值增益                
-		afPara[PARA_REQ_GPEAK1+6] = m_Configs.EqGainRight[7];                       // 第八个滤波器（峰式）的峰值增益               
-		afPara[PARA_REQ_GTREBLE]  = m_Configs.EqGainRight[8];                       // 第九个滤波器（高通坡式）的通带增益
+		afPara[PARA_REQ10_GBASS]    = m_Configs.EqGainRight[0];                     // 第一个滤波器（低通坡式）的通带增益             
+		afPara[PARA_REQ10_GPEAK1]   = m_Configs.EqGainRight[1];                       // 第二个滤波器（峰式）的峰值增益                        
+		afPara[PARA_REQ10_GPEAK1+1] = m_Configs.EqGainRight[2];                       // 第三个滤波器（峰式）的峰值增益                       
+		afPara[PARA_REQ10_GPEAK1+2] = m_Configs.EqGainRight[3];                       // 第四个滤波器（峰式）的峰值增益                
+		afPara[PARA_REQ10_GPEAK1+3] = m_Configs.EqGainRight[4];                       // 第五个滤波器（峰式）的峰值增益                
+		afPara[PARA_REQ10_GPEAK1+4] = m_Configs.EqGainRight[5];                      // 第六个滤波器（峰式）的峰值增益               
+		afPara[PARA_REQ10_GPEAK1+5] = m_Configs.EqGainRight[6];                       // 第七个滤波器（峰式）的峰值增益                
+		afPara[PARA_REQ10_GPEAK1+6] = m_Configs.EqGainRight[7];                       // 第八个滤波器（峰式）的峰值增益
+		afPara[PARA_REQ10_GPEAK1+7] = m_Configs.EqGainRight[8];                       // 第九个滤波器（峰式）的峰值增益
+		afPara[PARA_REQ10_GTREBLE]  = m_Configs.EqGainRight[9];                       // 第十个滤波器（高通坡式）的通带增益
 		//CF
-		afPara[PARA_REQ_CFBASS]    = m_Configs.EqCFRight[0];                     // 第一个滤波器（低通坡式）的截止频率                  
-		afPara[PARA_REQ_CFPEAK1]   = m_Configs.EqCFRight[1];                    // 第二个滤波器（峰式）的中心频率                  
-		afPara[PARA_REQ_CFPEAK1+1] = m_Configs.EqCFRight[2];                    // 第三个滤波器（峰式）的中心频率                  
-		afPara[PARA_REQ_CFPEAK1+2] = m_Configs.EqCFRight[3];                   // 第四个滤波器（峰式）的中心频率                   
-		afPara[PARA_REQ_CFPEAK1+3] = m_Configs.EqCFRight[4];                   // 第五个滤波器（峰式）的中心频率                    
-		afPara[PARA_REQ_CFPEAK1+4] = m_Configs.EqCFRight[5];                   // 第六个滤波器（峰式）的中心频率                    
-		afPara[PARA_REQ_CFPEAK1+5] = m_Configs.EqCFRight[6];                  // 第七个滤波器（峰式）的中心频率                      
-		afPara[PARA_REQ_CFPEAK1+6] = m_Configs.EqCFRight[7];                  // 第八个滤波器（峰式）的中心频率                    
-		afPara[PARA_REQ_CFTREBLE]  = m_Configs.EqCFRight[8];                  // 第九个滤波器（高通坡式）的截止频率
+		afPara[PARA_REQ10_CFBASS]    = m_Configs.EqCFRight[0];                     // 第一个滤波器（低通坡式）的截止频率                  
+		afPara[PARA_REQ10_CFPEAK1]   = m_Configs.EqCFRight[1];                    // 第二个滤波器（峰式）的中心频率                  
+		afPara[PARA_REQ10_CFPEAK1+1] = m_Configs.EqCFRight[2];                    // 第三个滤波器（峰式）的中心频率                  
+		afPara[PARA_REQ10_CFPEAK1+2] = m_Configs.EqCFRight[3];                   // 第四个滤波器（峰式）的中心频率                   
+		afPara[PARA_REQ10_CFPEAK1+3] = m_Configs.EqCFRight[4];                   // 第五个滤波器（峰式）的中心频率                    
+		afPara[PARA_REQ10_CFPEAK1+4] = m_Configs.EqCFRight[5];                   // 第六个滤波器（峰式）的中心频率                    
+		afPara[PARA_REQ10_CFPEAK1+5] = m_Configs.EqCFRight[6];                  // 第七个滤波器（峰式）的中心频率                      
+		afPara[PARA_REQ10_CFPEAK1+6] = m_Configs.EqCFRight[7];                  // 第八个滤波器（峰式）的中心频率 
+		afPara[PARA_REQ10_CFPEAK1+7] = m_Configs.EqCFRight[8];                  // 第九个滤波器（峰式）的中心频率
+		afPara[PARA_REQ10_CFTREBLE]  = m_Configs.EqCFRight[9];                  // 第十个滤波器（高通坡式）的截止频率
 		//Q
-		afPara[PARA_REQ_Q1]   = m_Configs.EqQRight[0];                         // 第二个滤波器（峰式）的Q值              
-		afPara[PARA_REQ_Q1+1] = m_Configs.EqQRight[1];                         // 第三个滤波器（峰式）的Q值             
-		afPara[PARA_REQ_Q1+2] = m_Configs.EqQRight[2];                         // 第四个滤波器（峰式）的Q值             
-		afPara[PARA_REQ_Q1+3] = m_Configs.EqQRight[3];                         // 第五个滤波器（峰式）的Q值
-		afPara[PARA_REQ_Q1+4] = m_Configs.EqQRight[4];                         // 第六个滤波器（峰式）的Q值
-		afPara[PARA_REQ_Q1+5] = m_Configs.EqQRight[5];                         // 第七个滤波器（峰式）的Q值 
-		afPara[PARA_REQ_Q1+6] = m_Configs.EqQRight[6];                         // 第八个滤波器（峰式）的Q值
+		afPara[PARA_REQ10_Q1]   = m_Configs.EqQRight[0];                         // 第二个滤波器（峰式）的Q值              
+		afPara[PARA_REQ10_Q1+1] = m_Configs.EqQRight[1];                         // 第三个滤波器（峰式）的Q值             
+		afPara[PARA_REQ10_Q1+2] = m_Configs.EqQRight[2];                         // 第四个滤波器（峰式）的Q值             
+		afPara[PARA_REQ10_Q1+3] = m_Configs.EqQRight[3];                         // 第五个滤波器（峰式）的Q值
+		afPara[PARA_REQ10_Q1+4] = m_Configs.EqQRight[4];                         // 第六个滤波器（峰式）的Q值
+		afPara[PARA_REQ10_Q1+5] = m_Configs.EqQRight[5];                         // 第七个滤波器（峰式）的Q值 
+		afPara[PARA_REQ10_Q1+6] = m_Configs.EqQRight[6];                         // 第八个滤波器（峰式）的Q值
+		afPara[PARA_REQ10_Q1+7] = m_Configs.EqQRight[7];                         // 第九个滤波器（峰式）的Q值
 		/* 1.2.3 右声道DRC参数 */ 
 		afPara[PARA_RDRC_DIVFREQ] = m_Configs.DivFreq_R;                    // 计算RMS能量的统计时间，单位ms
 		// 低频子带
@@ -582,7 +654,7 @@ void CEQToolDlg::storeParaData(FILE *fpPara)
 		afPara[PARA_RDRC_B1_RLSTIME]  = m_Configs.Rlstime_RL;                  // release time，单位ms
 		afPara[PARA_RDRC_B1_SMTHTIME] = m_Configs.Smthtime_RL;                  // 中间段时域平滑时间，单位ms
 		afPara[PARA_RDRC_B1_ATTATIME] = m_Configs.Attatime_RL;                  // attack time，单位ms
-		// 高频子带
+		 //高频子带
 		afPara[PARA_RDRC_B2_ECALTIME] = m_Configs.Ecaltime_RH;                 // 计算RMS能量的统计时间，单位ms
 		afPara[PARA_RDRC_B2_MAKEUPG]   = m_Configs.Offset_RH;                   // 线性段提升dB数
 		afPara[PARA_RDRC_B2_THREL]    = m_Configs.Threl_RH;                 // 低能段能量阈值，单位dB
@@ -594,13 +666,49 @@ void CEQToolDlg::storeParaData(FILE *fpPara)
 		afPara[PARA_RDRC_B2_RLSTIME]  = m_Configs.Rlstime_RH;                  // release time，单位ms
 		afPara[PARA_RDRC_B2_SMTHTIME] = m_Configs.Smthtime_RH;                  // 中间段时域平滑时间，单位ms
 		afPara[PARA_RDRC_B2_ATTATIME] = m_Configs.Attatime_RH;                  // attack time，单位ms
+		/* 1.2.4 右声道8EQ参数 */
+		//Gain
+		afPara[PARA_REQ8_GBASS]    = m_Configs.EqGainRight1[0];                     // 第一个滤波器（低通坡式）的通带增益             
+		afPara[PARA_REQ8_GPEAK1]   = m_Configs.EqGainRight1[1];                       // 第二个滤波器（峰式）的峰值增益                        
+		afPara[PARA_REQ8_GPEAK1+1] = m_Configs.EqGainRight1[2];                       // 第三个滤波器（峰式）的峰值增益                       
+		afPara[PARA_REQ8_GPEAK1+2] = m_Configs.EqGainRight1[3];                       // 第四个滤波器（峰式）的峰值增益                
+		afPara[PARA_REQ8_GPEAK1+3] = m_Configs.EqGainRight1[4];                       // 第五个滤波器（峰式）的峰值增益                
+		afPara[PARA_REQ8_GPEAK1+4] = m_Configs.EqGainRight1[5];                      // 第六个滤波器（峰式）的峰值增益               
+		afPara[PARA_REQ8_GPEAK1+5] = m_Configs.EqGainRight1[6];                       // 第七个滤波器（峰式）的峰值增益                
+		afPara[PARA_REQ8_GTREBLE]  = m_Configs.EqGainRight1[7];                       // 第十个滤波器（高通坡式）的通带增益
+		//CF
+		afPara[PARA_REQ8_CFBASS]    = m_Configs.EqCFRight1[0];                     // 第一个滤波器（低通坡式）的截止频率                  
+		afPara[PARA_REQ8_CFPEAK1]   = m_Configs.EqCFRight1[1];                    // 第二个滤波器（峰式）的中心频率                  
+		afPara[PARA_REQ8_CFPEAK1+1] = m_Configs.EqCFRight1[2];                    // 第三个滤波器（峰式）的中心频率                  
+		afPara[PARA_REQ8_CFPEAK1+2] = m_Configs.EqCFRight1[3];                   // 第四个滤波器（峰式）的中心频率                   
+		afPara[PARA_REQ8_CFPEAK1+3] = m_Configs.EqCFRight1[4];                   // 第五个滤波器（峰式）的中心频率                    
+		afPara[PARA_REQ8_CFPEAK1+4] = m_Configs.EqCFRight1[5];                   // 第六个滤波器（峰式）的中心频率                    
+		afPara[PARA_REQ8_CFPEAK1+5] = m_Configs.EqCFRight1[6];                  // 第七个滤波器（峰式）的中心频率                      
+		afPara[PARA_REQ8_CFTREBLE]  = m_Configs.EqCFRight1[7];                  // 第十个滤波器（高通坡式）的截止频率
+		//Q
+		afPara[PARA_REQ8_Q1]   = m_Configs.EqQRight[0];                         // 第二个滤波器（峰式）的Q值              
+		afPara[PARA_REQ8_Q1+1] = m_Configs.EqQRight[1];                         // 第三个滤波器（峰式）的Q值             
+		afPara[PARA_REQ8_Q1+2] = m_Configs.EqQRight[2];                         // 第四个滤波器（峰式）的Q值             
+		afPara[PARA_REQ8_Q1+3] = m_Configs.EqQRight[3];                         // 第五个滤波器（峰式）的Q值
+		afPara[PARA_REQ8_Q1+4] = m_Configs.EqQRight[4];                         // 第六个滤波器（峰式）的Q值
+		afPara[PARA_REQ8_Q1+5] = m_Configs.EqQRight[5];                         // 第七个滤波器（峰式）的Q值 
+		/* 1.3.4 右声道Limiter参数 */ 
+		afPara[PARA_RLMT_ECALTIME]   = m_Configs.fLimitEca_R;                    // Static time：计算RMS能量的统计时间，单位ms
+		afPara[PARA_RLMT_THRESHOLD]  = m_Configs.fLimitThres_R;                   // Threshold：输入信号能量高于该阈值时，Limiter开始限制输出幅度，单位dB
+		// -12dB < Threshold < 0dB
+		afPara[PARA_RLMT_ATTACKTIME] = m_Configs.fLimitAtt_R;                  // smooth time，单位ms
+		afPara[PARA_RLMT_SMOOTHTIME] = m_Configs.fLimitSmo_R;                   // attack time，单位ms
+		afPara[PARA_R_GAIN2] = m_Configs.ScrGainR2;
 	}
 	/* 1. 设计EQ */
 	fMinFreq = 20;
 	swCurveLen = 1000;
-	EQProduct lvEQProduct = (EQProduct)GetProcAddress(m_DlgEq.AudioHnd, "EQProduct");
-	lvEQProduct(&(afPara[PARA_LEQ_GBASS]), afCurve1, m_Configs.swFs, fMinFreq, swCurveLen);
-	lvEQProduct(&(afPara[PARA_REQ_GBASS]), afCurve2, m_Configs.swFs, fMinFreq, swCurveLen);
+	EQ10Product lvEQ10Product = (EQ10Product)GetProcAddress(m_DlgEq.AudioHnd, "EQ10Product");
+	EQ8Product lvEQ8Product = (EQ8Product)GetProcAddress(m_DlgEq.AudioHnd, "EQ8Product");
+	lvEQ10Product(&(afPara[PARA_LEQ10_GBASS]), afCurve1, m_Configs.swFs, fMinFreq, swCurveLen);
+	lvEQ10Product(&(afPara[PARA_REQ10_GBASS]), afCurve1, m_Configs.swFs, fMinFreq, swCurveLen);
+	lvEQ8Product(&(afPara[PARA_LEQ8_GBASS]), afCurve2, m_Configs.swFs, fMinFreq, swCurveLen);
+	lvEQ8Product(&(afPara[PARA_REQ8_GBASS]), afCurve2, m_Configs.swFs, fMinFreq, swCurveLen);
 
 	fwrite(afPara, sizeof(float), PARANUM, fpPara);
 
@@ -634,36 +742,39 @@ void CEQToolDlg::LoadParaData(FILE *fpPara)
 	fclose(fpPara);
 	m_Configs.shwChaNum = afPara[PARA_CHANUM];
 	m_Configs.swFs = afPara[PARA_FS];
-	m_Configs.ScrGainL = afPara[PARA_L_GAIN];
+	m_Configs.ScrGainL1 = afPara[PARA_L_GAIN1];
 	/* 1.2.2 左声道EQ参数 */
 	//Gain
-	m_Configs.EqGainLeft[0] = afPara[PARA_LEQ_GBASS];                           // 第一个滤波器（低通坡式）的通带增益                    
-	m_Configs.EqGainLeft[1] = afPara[PARA_LEQ_GPEAK1];                           // 第二个滤波器（峰式）的峰值增益               
-	m_Configs.EqGainLeft[2] = afPara[PARA_LEQ_GPEAK1+1];                          // 第三个滤波器（峰式）的峰值增益                    
-	m_Configs.EqGainLeft[3] = afPara[PARA_LEQ_GPEAK1+2];                           // 第四个滤波器（峰式）的峰值增益                   
-	m_Configs.EqGainLeft[4] = afPara[PARA_LEQ_GPEAK1+3];                           // 第五个滤波器（峰式）的峰值增益                    
-	m_Configs.EqGainLeft[5] = afPara[PARA_LEQ_GPEAK1+4];                           // 第六个滤波器（峰式）的峰值增益                   
-	m_Configs.EqGainLeft[6] = afPara[PARA_LEQ_GPEAK1+5];                           // 第七个滤波器（峰式）的峰值增益                    
-	m_Configs.EqGainLeft[7] = afPara[PARA_LEQ_GPEAK1+6];                           // 第八个滤波器（峰式）的峰值增益                   
-	m_Configs.EqGainLeft[8] = afPara[PARA_LEQ_GTREBLE];                         // 第九个滤波器（高通坡式）的通带增益
+	m_Configs.EqGainLeft[0] = afPara[PARA_LEQ10_GBASS];                           // 第一个滤波器（低通坡式）的通带增益                    
+	m_Configs.EqGainLeft[1] = afPara[PARA_LEQ10_GPEAK1];                           // 第二个滤波器（峰式）的峰值增益               
+	m_Configs.EqGainLeft[2] = afPara[PARA_LEQ10_GPEAK1+1];                          // 第三个滤波器（峰式）的峰值增益                    
+	m_Configs.EqGainLeft[3] = afPara[PARA_LEQ10_GPEAK1+2];                           // 第四个滤波器（峰式）的峰值增益                   
+	m_Configs.EqGainLeft[4] = afPara[PARA_LEQ10_GPEAK1+3];                           // 第五个滤波器（峰式）的峰值增益                    
+	m_Configs.EqGainLeft[5] = afPara[PARA_LEQ10_GPEAK1+4];                           // 第六个滤波器（峰式）的峰值增益                   
+	m_Configs.EqGainLeft[6] = afPara[PARA_LEQ10_GPEAK1+5];                           // 第七个滤波器（峰式）的峰值增益                    
+	m_Configs.EqGainLeft[7] = afPara[PARA_LEQ10_GPEAK1+6];                           // 第八个滤波器（峰式）的峰值增益
+	m_Configs.EqGainLeft[8] = afPara[PARA_LEQ10_GPEAK1+7];                           // 第八个滤波器（峰式）的峰值增益 
+	m_Configs.EqGainLeft[9] = afPara[PARA_LEQ10_GTREBLE];                         // 第九个滤波器（高通坡式）的通带增益
 	//CF
-	m_Configs.EqCFLeft[0] = afPara[PARA_LEQ_CFBASS];                     // 第一个滤波器（低通坡式）的截止频率                  
-	m_Configs.EqCFLeft[1] = afPara[PARA_LEQ_CFPEAK1];                    // 第二个滤波器（峰式）的中心频率                  
-	m_Configs.EqCFLeft[2] = afPara[PARA_LEQ_CFPEAK1+1];                    // 第三个滤波器（峰式）的中心频率                  
-	m_Configs.EqCFLeft[3] = afPara[PARA_LEQ_CFPEAK1+2];                   // 第四个滤波器（峰式）的中心频率                   
-	m_Configs.EqCFLeft[4] = afPara[PARA_LEQ_CFPEAK1+3];                   // 第五个滤波器（峰式）的中心频率                    
-	m_Configs.EqCFLeft[5] = afPara[PARA_LEQ_CFPEAK1+4];                   // 第六个滤波器（峰式）的中心频率                    
-	m_Configs.EqCFLeft[6] = afPara[PARA_LEQ_CFPEAK1+5];                  // 第七个滤波器（峰式）的中心频率                      
-	m_Configs.EqCFLeft[7] = afPara[PARA_LEQ_CFPEAK1+6];                  // 第八个滤波器（峰式）的中心频率                    
-	m_Configs.EqCFLeft[8] = afPara[PARA_LEQ_CFTREBLE];                  // 第九个滤波器（高通坡式）的截止频率
+	m_Configs.EqCFLeft[0] = afPara[PARA_LEQ10_CFBASS];                     // 第一个滤波器（低通坡式）的截止频率                  
+	m_Configs.EqCFLeft[1] = afPara[PARA_LEQ10_CFPEAK1];                    // 第二个滤波器（峰式）的中心频率                  
+	m_Configs.EqCFLeft[2] = afPara[PARA_LEQ10_CFPEAK1+1];                    // 第三个滤波器（峰式）的中心频率                  
+	m_Configs.EqCFLeft[3] = afPara[PARA_LEQ10_CFPEAK1+2];                   // 第四个滤波器（峰式）的中心频率                   
+	m_Configs.EqCFLeft[4] = afPara[PARA_LEQ10_CFPEAK1+3];                   // 第五个滤波器（峰式）的中心频率                    
+	m_Configs.EqCFLeft[5] = afPara[PARA_LEQ10_CFPEAK1+4];                   // 第六个滤波器（峰式）的中心频率                    
+	m_Configs.EqCFLeft[6] = afPara[PARA_LEQ10_CFPEAK1+5];                  // 第七个滤波器（峰式）的中心频率                      
+	m_Configs.EqCFLeft[7] = afPara[PARA_LEQ10_CFPEAK1+6];                  // 第八个滤波器（峰式）的中心频率    
+	m_Configs.EqCFLeft[8] = afPara[PARA_LEQ10_CFPEAK1+7];                  // 第八个滤波器（峰式）的中心频率  
+	m_Configs.EqCFLeft[9] = afPara[PARA_LEQ10_CFTREBLE];                  // 第九个滤波器（高通坡式）的截止频率
 	//Q
-	m_Configs.EqQLeft[0] = afPara[PARA_LEQ_Q1];                         // 第二个滤波器（峰式）的Q值              
-	m_Configs.EqQLeft[1] = afPara[PARA_LEQ_Q1+1];                         // 第三个滤波器（峰式）的Q值             
-	m_Configs.EqQLeft[2] = afPara[PARA_LEQ_Q1+2];                         // 第四个滤波器（峰式）的Q值             
-	m_Configs.EqQLeft[3] = afPara[PARA_LEQ_Q1+3];                         // 第五个滤波器（峰式）的Q值
-	m_Configs.EqQLeft[4] = afPara[PARA_LEQ_Q1+4];                         // 第六个滤波器（峰式）的Q值
-	m_Configs.EqQLeft[5] = afPara[PARA_LEQ_Q1+5];                         // 第七个滤波器（峰式）的Q值 
-	m_Configs.EqQLeft[6] = afPara[PARA_LEQ_Q1+6];                         // 第八个滤波器（峰式）的Q值
+	m_Configs.EqQLeft[0] = afPara[PARA_LEQ10_Q1];                         // 第二个滤波器（峰式）的Q值              
+	m_Configs.EqQLeft[1] = afPara[PARA_LEQ10_Q1+1];                         // 第三个滤波器（峰式）的Q值             
+	m_Configs.EqQLeft[2] = afPara[PARA_LEQ10_Q1+2];                         // 第四个滤波器（峰式）的Q值             
+	m_Configs.EqQLeft[3] = afPara[PARA_LEQ10_Q1+3];                         // 第五个滤波器（峰式）的Q值
+	m_Configs.EqQLeft[4] = afPara[PARA_LEQ10_Q1+4];                         // 第六个滤波器（峰式）的Q值
+	m_Configs.EqQLeft[5] = afPara[PARA_LEQ10_Q1+5];                         // 第七个滤波器（峰式）的Q值 
+	m_Configs.EqQLeft[6] = afPara[PARA_LEQ10_Q1+6];                         // 第八个滤波器（峰式）的Q值
+	m_Configs.EqQLeft[7] = afPara[PARA_LEQ10_Q1+7];                         // 第八个滤波器（峰式）的Q值
 	/* 1.2.3 左声道DRC参数 */ 
 	m_Configs.DivFreq_L = afPara[PARA_LDRC_DIVFREQ];                    // 计算RMS能量的统计时间，单位ms
 	// 低频子带
@@ -690,37 +801,72 @@ void CEQToolDlg::LoadParaData(FILE *fpPara)
 	m_Configs.Rlstime_LH = afPara[PARA_LDRC_B2_RLSTIME];                  // release time，单位ms
 	m_Configs.Smthtime_LH = afPara[PARA_LDRC_B2_SMTHTIME];                  // 中间段时域平滑时间，单位ms
 	m_Configs.Attatime_LH = afPara[PARA_LDRC_B2_ATTATIME];                  // attack time，单位ms
-
-
-	/* 1.2.2 左声道EQ参数 */
+	/* 1.24 左声道8EQ参数 */
 	//Gain
-	m_Configs.EqGainRight[0] = afPara[PARA_REQ_GBASS];                           // 第一个滤波器（低通坡式）的通带增益                    
-	m_Configs.EqGainRight[1] = afPara[PARA_REQ_GPEAK1];                           // 第二个滤波器（峰式）的峰值增益               
-	m_Configs.EqGainRight[2] = afPara[PARA_REQ_GPEAK1+1];                          // 第三个滤波器（峰式）的峰值增益                    
-	m_Configs.EqGainRight[3] = afPara[PARA_REQ_GPEAK1+2];                           // 第四个滤波器（峰式）的峰值增益                   
-	m_Configs.EqGainRight[4] = afPara[PARA_REQ_GPEAK1+3];                           // 第五个滤波器（峰式）的峰值增益                    
-	m_Configs.EqGainRight[5] = afPara[PARA_REQ_GPEAK1+4];                           // 第六个滤波器（峰式）的峰值增益                   
-	m_Configs.EqGainRight[6] = afPara[PARA_REQ_GPEAK1+5];                           // 第七个滤波器（峰式）的峰值增益                    
-	m_Configs.EqGainRight[7] = afPara[PARA_REQ_GPEAK1+6];                           // 第八个滤波器（峰式）的峰值增益                   
-	m_Configs.EqGainRight[8] = afPara[PARA_REQ_GTREBLE];                         // 第九个滤波器（高通坡式）的通带增益
+	m_Configs.EqGainLeft1[0] = afPara[PARA_LEQ8_GBASS];                           // 第一个滤波器（低通坡式）的通带增益                    
+	m_Configs.EqGainLeft1[1] = afPara[PARA_LEQ8_GPEAK1];                           // 第二个滤波器（峰式）的峰值增益               
+	m_Configs.EqGainLeft1[2] = afPara[PARA_LEQ8_GPEAK1+1];                          // 第三个滤波器（峰式）的峰值增益                    
+	m_Configs.EqGainLeft1[3] = afPara[PARA_LEQ8_GPEAK1+2];                           // 第四个滤波器（峰式）的峰值增益                   
+	m_Configs.EqGainLeft1[4] = afPara[PARA_LEQ8_GPEAK1+3];                           // 第五个滤波器（峰式）的峰值增益                    
+	m_Configs.EqGainLeft1[5] = afPara[PARA_LEQ8_GPEAK1+4];                           // 第六个滤波器（峰式）的峰值增益                   
+	m_Configs.EqGainLeft1[6] = afPara[PARA_LEQ8_GPEAK1+5];                           // 第七个滤波器（峰式）的峰值增益                    
+	m_Configs.EqGainLeft1[7] = afPara[PARA_LEQ8_GTREBLE];                         // 第九个滤波器（高通坡式）的通带增益
 	//CF
-	m_Configs.EqCFRight[0] = afPara[PARA_REQ_CFBASS];                     // 第一个滤波器（低通坡式）的截止频率                  
-	m_Configs.EqCFRight[1] = afPara[PARA_REQ_CFPEAK1];                    // 第二个滤波器（峰式）的中心频率                  
-	m_Configs.EqCFRight[2] = afPara[PARA_REQ_CFPEAK1+1];                    // 第三个滤波器（峰式）的中心频率                  
-	m_Configs.EqCFRight[3] = afPara[PARA_REQ_CFPEAK1+2];                   // 第四个滤波器（峰式）的中心频率                   
-	m_Configs.EqCFRight[4] = afPara[PARA_REQ_CFPEAK1+3];                   // 第五个滤波器（峰式）的中心频率                    
-	m_Configs.EqCFRight[5] = afPara[PARA_REQ_CFPEAK1+4];                   // 第六个滤波器（峰式）的中心频率                    
-	m_Configs.EqCFRight[6] = afPara[PARA_REQ_CFPEAK1+5];                  // 第七个滤波器（峰式）的中心频率                      
-	m_Configs.EqCFRight[7] = afPara[PARA_REQ_CFPEAK1+6];                  // 第八个滤波器（峰式）的中心频率                    
-	m_Configs.EqCFRight[8] = afPara[PARA_REQ_CFTREBLE];                  // 第九个滤波器（高通坡式）的截止频率
+	m_Configs.EqCFLeft1[0] = afPara[PARA_LEQ8_CFBASS];                     // 第一个滤波器（低通坡式）的截止频率                  
+	m_Configs.EqCFLeft1[1] = afPara[PARA_LEQ8_CFPEAK1];                    // 第二个滤波器（峰式）的中心频率                  
+	m_Configs.EqCFLeft1[2] = afPara[PARA_LEQ8_CFPEAK1+1];                    // 第三个滤波器（峰式）的中心频率                  
+	m_Configs.EqCFLeft1[3] = afPara[PARA_LEQ8_CFPEAK1+2];                   // 第四个滤波器（峰式）的中心频率                   
+	m_Configs.EqCFLeft1[4] = afPara[PARA_LEQ8_CFPEAK1+3];                   // 第五个滤波器（峰式）的中心频率                    
+	m_Configs.EqCFLeft1[5] = afPara[PARA_LEQ8_CFPEAK1+4];                   // 第六个滤波器（峰式）的中心频率                    
+	m_Configs.EqCFLeft1[6] = afPara[PARA_LEQ8_CFPEAK1+5];                  // 第七个滤波器（峰式）的中心频率                       
+	m_Configs.EqCFLeft1[9] = afPara[PARA_LEQ8_CFTREBLE];                  // 第九个滤波器（高通坡式）的截止频率
 	//Q
-	m_Configs.EqQRight[0] = afPara[PARA_REQ_Q1];                         // 第二个滤波器（峰式）的Q值              
-	m_Configs.EqQRight[1] = afPara[PARA_REQ_Q1+1];                         // 第三个滤波器（峰式）的Q值             
-	m_Configs.EqQRight[2] = afPara[PARA_REQ_Q1+2];                         // 第四个滤波器（峰式）的Q值             
-	m_Configs.EqQRight[3] = afPara[PARA_REQ_Q1+3];                         // 第五个滤波器（峰式）的Q值
-	m_Configs.EqQRight[4] = afPara[PARA_REQ_Q1+4];                         // 第六个滤波器（峰式）的Q值
-	m_Configs.EqQRight[5] = afPara[PARA_REQ_Q1+5];                         // 第七个滤波器（峰式）的Q值 
-	m_Configs.EqQRight[6] = afPara[PARA_REQ_Q1+6];                         // 第八个滤波器（峰式）的Q值
+	m_Configs.EqQLeft1[0] = afPara[PARA_LEQ8_Q1];                         // 第二个滤波器（峰式）的Q值              
+	m_Configs.EqQLeft1[1] = afPara[PARA_LEQ8_Q1+1];                         // 第三个滤波器（峰式）的Q值             
+	m_Configs.EqQLeft1[2] = afPara[PARA_LEQ8_Q1+2];                         // 第四个滤波器（峰式）的Q值             
+	m_Configs.EqQLeft1[3] = afPara[PARA_LEQ8_Q1+3];                         // 第五个滤波器（峰式）的Q值
+	m_Configs.EqQLeft1[4] = afPara[PARA_LEQ8_Q1+4];                         // 第六个滤波器（峰式）的Q值
+	m_Configs.EqQLeft1[5] = afPara[PARA_LEQ8_Q1+5];                         // 第七个滤波器（峰式）的Q值 
+	/*limit 参数*/
+	m_Configs.fLimitEca_L = afPara[PARA_LLMT_ECALTIME];
+	m_Configs.fLimitThres_L = afPara[PARA_LLMT_THRESHOLD];
+	m_Configs.fLimitAtt_L = afPara[PARA_LLMT_ATTACKTIME];
+	m_Configs.fLimitSmo_L = afPara[PARA_LLMT_SMOOTHTIME];
+	m_Configs.ScrGainL2 = afPara[PARA_L_GAIN2];
+
+	m_Configs.ScrGainR1 = afPara[PARA_R_GAIN1];
+	/* 1.2.2 右声道EQ参数 */
+	//Gain
+	m_Configs.EqGainRight[0] = afPara[PARA_REQ10_GBASS];                           // 第一个滤波器（低通坡式）的通带增益                    
+	m_Configs.EqGainRight[1] = afPara[PARA_REQ10_GPEAK1];                           // 第二个滤波器（峰式）的峰值增益               
+	m_Configs.EqGainRight[2] = afPara[PARA_REQ10_GPEAK1+1];                          // 第三个滤波器（峰式）的峰值增益                    
+	m_Configs.EqGainRight[3] = afPara[PARA_REQ10_GPEAK1+2];                           // 第四个滤波器（峰式）的峰值增益                   
+	m_Configs.EqGainRight[4] = afPara[PARA_REQ10_GPEAK1+3];                           // 第五个滤波器（峰式）的峰值增益                    
+	m_Configs.EqGainRight[5] = afPara[PARA_REQ10_GPEAK1+4];                           // 第六个滤波器（峰式）的峰值增益                   
+	m_Configs.EqGainRight[6] = afPara[PARA_REQ10_GPEAK1+5];                           // 第七个滤波器（峰式）的峰值增益                    
+	m_Configs.EqGainRight[7] = afPara[PARA_REQ10_GPEAK1+6];                           // 第八个滤波器（峰式）的峰值增益 
+	m_Configs.EqGainRight[8] = afPara[PARA_REQ10_GPEAK1+7];                           // 第八个滤波器（峰式）的峰值增益  
+	m_Configs.EqGainRight[9] = afPara[PARA_REQ10_GTREBLE];                         // 第九个滤波器（高通坡式）的通带增益
+	//CF
+	m_Configs.EqCFRight[0] = afPara[PARA_REQ10_CFBASS];                     // 第一个滤波器（低通坡式）的截止频率                  
+	m_Configs.EqCFRight[1] = afPara[PARA_REQ10_CFPEAK1];                    // 第二个滤波器（峰式）的中心频率                  
+	m_Configs.EqCFRight[2] = afPara[PARA_REQ10_CFPEAK1+1];                    // 第三个滤波器（峰式）的中心频率                  
+	m_Configs.EqCFRight[3] = afPara[PARA_REQ10_CFPEAK1+2];                   // 第四个滤波器（峰式）的中心频率                   
+	m_Configs.EqCFRight[4] = afPara[PARA_REQ10_CFPEAK1+3];                   // 第五个滤波器（峰式）的中心频率                    
+	m_Configs.EqCFRight[5] = afPara[PARA_REQ10_CFPEAK1+4];                   // 第六个滤波器（峰式）的中心频率                    
+	m_Configs.EqCFRight[6] = afPara[PARA_REQ10_CFPEAK1+5];                  // 第七个滤波器（峰式）的中心频率                      
+	m_Configs.EqCFRight[7] = afPara[PARA_REQ10_CFPEAK1+6];                  // 第八个滤波器（峰式）的中心频率
+	m_Configs.EqCFRight[8] = afPara[PARA_REQ10_CFPEAK1+7];                  // 第八个滤波器（峰式）的中心频率 
+	m_Configs.EqCFRight[9] = afPara[PARA_REQ10_CFTREBLE];                  // 第九个滤波器（高通坡式）的截止频率
+	//Q
+	m_Configs.EqQRight[0] = afPara[PARA_REQ10_Q1];                         // 第二个滤波器（峰式）的Q值              
+	m_Configs.EqQRight[1] = afPara[PARA_REQ10_Q1+1];                         // 第三个滤波器（峰式）的Q值             
+	m_Configs.EqQRight[2] = afPara[PARA_REQ10_Q1+2];                         // 第四个滤波器（峰式）的Q值             
+	m_Configs.EqQRight[3] = afPara[PARA_REQ10_Q1+3];                         // 第五个滤波器（峰式）的Q值
+	m_Configs.EqQRight[4] = afPara[PARA_REQ10_Q1+4];                         // 第六个滤波器（峰式）的Q值
+	m_Configs.EqQRight[5] = afPara[PARA_REQ10_Q1+5];                         // 第七个滤波器（峰式）的Q值 
+	m_Configs.EqQRight[6] = afPara[PARA_REQ10_Q1+6];                         // 第八个滤波器（峰式）的Q值
+	m_Configs.EqQRight[7] = afPara[PARA_REQ10_Q1+7];                         // 第八个滤波器（峰式）的Q值
 	/* 1.2.3 右声道DRC参数 */ 
 	m_Configs.DivFreq_R = afPara[PARA_RDRC_DIVFREQ];                    // 计算RMS能量的统计时间，单位ms
 	// 低频子带
@@ -747,160 +893,55 @@ void CEQToolDlg::LoadParaData(FILE *fpPara)
 	m_Configs.Rlstime_RH = afPara[PARA_RDRC_B2_RLSTIME];                  // release time，单位ms
 	m_Configs.Smthtime_RH = afPara[PARA_RDRC_B2_SMTHTIME];                  // 中间段时域平滑时间，单位ms
 	m_Configs.Attatime_RH = afPara[PARA_RDRC_B2_ATTATIME];                  // attack time，单位ms
+	/* 1.2.2 右声道8EQ参数 */
+	//Gain
+	m_Configs.EqGainRight1[0] = afPara[PARA_REQ10_GBASS];                           // 第一个滤波器（低通坡式）的通带增益                    
+	m_Configs.EqGainRight1[1] = afPara[PARA_REQ8_GPEAK1];                           // 第二个滤波器（峰式）的峰值增益               
+	m_Configs.EqGainRight1[2] = afPara[PARA_REQ8_GPEAK1+1];                          // 第三个滤波器（峰式）的峰值增益                    
+	m_Configs.EqGainRight1[3] = afPara[PARA_REQ8_GPEAK1+2];                           // 第四个滤波器（峰式）的峰值增益                   
+	m_Configs.EqGainRight1[4] = afPara[PARA_REQ8_GPEAK1+3];                           // 第五个滤波器（峰式）的峰值增益                    
+	m_Configs.EqGainRight1[5] = afPara[PARA_REQ8_GPEAK1+4];                           // 第六个滤波器（峰式）的峰值增益                   
+	m_Configs.EqGainRight1[6] = afPara[PARA_REQ8_GPEAK1+5];                           // 第七个滤波器（峰式）的峰值增益                    
+	m_Configs.EqGainRight1[7] = afPara[PARA_REQ8_GTREBLE];                         // 第九个滤波器（高通坡式）的通带增益
+	//CF
+	m_Configs.EqCFRight1[0] = afPara[PARA_REQ8_CFBASS];                     // 第一个滤波器（低通坡式）的截止频率                  
+	m_Configs.EqCFRight1[1] = afPara[PARA_REQ8_CFPEAK1];                    // 第二个滤波器（峰式）的中心频率                  
+	m_Configs.EqCFRight1[2] = afPara[PARA_REQ8_CFPEAK1+1];                    // 第三个滤波器（峰式）的中心频率                  
+	m_Configs.EqCFRight1[3] = afPara[PARA_REQ8_CFPEAK1+2];                   // 第四个滤波器（峰式）的中心频率                   
+	m_Configs.EqCFRight1[4] = afPara[PARA_REQ8_CFPEAK1+3];                   // 第五个滤波器（峰式）的中心频率                    
+	m_Configs.EqCFRight1[5] = afPara[PARA_REQ8_CFPEAK1+4];                   // 第六个滤波器（峰式）的中心频率                    
+	m_Configs.EqCFRight1[6] = afPara[PARA_REQ8_CFPEAK1+5];                  // 第七个滤波器（峰式）的中心频率                      
+	m_Configs.EqCFRight1[7] = afPara[PARA_REQ8_CFTREBLE];                  // 第九个滤波器（高通坡式）的截止频率
+	//Q
+	m_Configs.EqQRight1[0] = afPara[PARA_REQ8_Q1];                         // 第二个滤波器（峰式）的Q值              
+	m_Configs.EqQRight1[1] = afPara[PARA_REQ8_Q1+1];                         // 第三个滤波器（峰式）的Q值             
+	m_Configs.EqQRight1[2] = afPara[PARA_REQ8_Q1+2];                         // 第四个滤波器（峰式）的Q值             
+	m_Configs.EqQRight1[3] = afPara[PARA_REQ8_Q1+3];                         // 第五个滤波器（峰式）的Q值
+	m_Configs.EqQRight1[4] = afPara[PARA_REQ8_Q1+4];                         // 第六个滤波器（峰式）的Q值
+	m_Configs.EqQRight1[5] = afPara[PARA_REQ8_Q1+5];                         // 第七个滤波器（峰式）的Q值 
+	/*limit 参数*/
+	m_Configs.fLimitEca_R = afPara[PARA_RLMT_ECALTIME];
+	m_Configs.fLimitThres_R = afPara[PARA_RLMT_THRESHOLD];
+	m_Configs.fLimitAtt_R = afPara[PARA_RLMT_ATTACKTIME];
+	m_Configs.fLimitSmo_R = afPara[PARA_RLMT_SMOOTHTIME];
+	m_Configs.ScrGainR2 = afPara[PARA_R_GAIN2];
 
 	if (m_Configs.nChannel)
 	{
-		SetDlgItemText(IDC_EDIT_GAIN,cmNumString::NumToStr(m_Configs.ScrGainR,10));
+		SetDlgItemText(IDC_EDIT_GAIN1,cmNumString::NumToStr(m_Configs.ScrGainR1,10));
+		SetDlgItemText(IDC_EDIT_GAIN2,cmNumString::NumToStr(m_Configs.ScrGainR2,10));
 	}
 	else
 	{
-		SetDlgItemText(IDC_EDIT_GAIN,cmNumString::NumToStr(m_Configs.ScrGainL,10));
+		SetDlgItemText(IDC_EDIT_GAIN1,cmNumString::NumToStr(m_Configs.ScrGainL1,10));
+		SetDlgItemText(IDC_EDIT_GAIN2,cmNumString::NumToStr(m_Configs.ScrGainL2,10));
 	}
-	m_DlgEq.InitUi(m_Configs.nChannel);
-	m_DlgDrc.InitUi(m_Configs.nChannel);
+	m_DlgEq.InitUi(m_Configs.nEQChannel);
+	m_DlgDrc.InitUi(m_Configs.nDrcChannel);
+	m_DlgEq1.InitUi(m_Configs.nEQ1Channel);
+	m_DlgLimit.InitUi(m_Configs.nLimitChannel);
 }
 
-void CEQToolDlg::storeParaData1(FILE *fpPara)
-{
-	signed short int shwChaNum;
-	signed int swFs;
-	float afPara[PARANUM] = {0.0f};
-
-	/* 1. 配置测试参数 */
-	shwChaNum = 2;      // 声道数
-	swFs      = 44100;  // 采样率
-
-	/* 1.1 左右声道公共参数 */
-	afPara[PARA_CHANUM]    = shwChaNum;                      // 声道数
-	afPara[PARA_EQSWTCH]   = m_Configs.bEQSwtch;                // EQ开关
-	afPara[PARA_DRCSWTCH]  =  m_Configs.bDrcSwtch;                // DRC开关
-	afPara[PARA_FS]        = swFs;                           // 采样率
-
-	/* 1.2 左声道参数 */
-	/* 1.2.1 左声道增益 */
-	afPara[PARA_L_GAIN] = -6;
-	/* 1.2.2 左声道EQ参数 */
-	//Gain
-	afPara[PARA_LEQ_GBASS]    = 0;                           // 第一个滤波器（低通坡式）的通带增益                    
-	afPara[PARA_LEQ_GPEAK1]   = 0;                           // 第二个滤波器（峰式）的峰值增益               
-	afPara[PARA_LEQ_GPEAK1+1] = 15;                          // 第三个滤波器（峰式）的峰值增益                    
-	afPara[PARA_LEQ_GPEAK1+2] = 0;                           // 第四个滤波器（峰式）的峰值增益                   
-	afPara[PARA_LEQ_GPEAK1+3] = 0;                           // 第五个滤波器（峰式）的峰值增益                    
-	afPara[PARA_LEQ_GPEAK1+4] = 0;                           // 第六个滤波器（峰式）的峰值增益                   
-	afPara[PARA_LEQ_GPEAK1+5] = 0;                           // 第七个滤波器（峰式）的峰值增益                    
-	afPara[PARA_LEQ_GPEAK1+6] = 0;                           // 第八个滤波器（峰式）的峰值增益                   
-	afPara[PARA_LEQ_GTREBLE]  = -15;                         // 第九个滤波器（高通坡式）的通带增益
-	//CF
-	afPara[PARA_LEQ_CFBASS]    = 60;                         // 第一个滤波器（低通坡式）的截止频率                        
-	afPara[PARA_LEQ_CFPEAK1]   = 150;                        // 第二个滤波器（峰式）的中心频率                     
-	afPara[PARA_LEQ_CFPEAK1+1] = 400;                        // 第三个滤波器（峰式）的中心频率                     
-	afPara[PARA_LEQ_CFPEAK1+2] = 1000;                       // 第四个滤波器（峰式）的中心频率                      
-	afPara[PARA_LEQ_CFPEAK1+3] = 3000;                       // 第五个滤波器（峰式）的中心频率                       
-	afPara[PARA_LEQ_CFPEAK1+4] = 7000;                       // 第六个滤波器（峰式）的中心频率                      
-	afPara[PARA_LEQ_CFPEAK1+5] = 15000;                      // 第七个滤波器（峰式）的中心频率                        
-	afPara[PARA_LEQ_CFPEAK1+6] = 17000;                      // 第八个滤波器（峰式）的中心频率                      
-	afPara[PARA_LEQ_CFTREBLE]  = 17500;                      // 第九个滤波器（高通坡式）的截止频率
-	//Q
-	afPara[PARA_LEQ_Q1]   = 2.5;                             // 第二个滤波器（峰式）的Q值               
-	afPara[PARA_LEQ_Q1+1] = 2.5;                             // 第三个滤波器（峰式）的Q值                        
-	afPara[PARA_LEQ_Q1+2] = 2.5;                             // 第四个滤波器（峰式）的Q值                        
-	afPara[PARA_LEQ_Q1+3] = 2.5;                             // 第五个滤波器（峰式）的Q值  
-	afPara[PARA_LEQ_Q1+4] = 2.5;                             // 第六个滤波器（峰式）的Q值  
-	afPara[PARA_LEQ_Q1+5] = 2.5;                             // 第七个滤波器（峰式）的Q值  
-	afPara[PARA_LEQ_Q1+6] = 2.5;                             // 第八个滤波器（峰式）的Q值  
-	/* 1.2.3 左声道DRC参数 */ 
-	afPara[PARA_LDRC_DIVFREQ] = 1000;                        // 计算RMS能量的统计时间，单位ms
-	// 低频子带
-	afPara[PARA_LDRC_B1_ECALTIME] = 300;                     // 计算RMS能量的统计时间，单位ms
-	afPara[PARA_LDRC_B1_MAKEUPG]   = 6;                       // 线性段提升dB数
-	afPara[PARA_LDRC_B1_THREL]    = -84;                     // 低能段能量阈值，单位dB
-	afPara[PARA_LDRC_B1_THREH]    = -18;                     // 高能段能量阈值，单位dB
-	afPara[PARA_LDRC_B1_RATLNOM]  = 1;                       // 低能段压缩比例的分子
-	afPara[PARA_LDRC_B1_RATLDEN]  = 1;                       // 低能段压缩比例的分母
-	afPara[PARA_LDRC_B1_RATHNOM]  = 5;                       // 高能段压缩比例的分子
-	afPara[PARA_LDRC_B1_RATHDEN]  = 2;                       // 高能段压缩比例的分母
-	afPara[PARA_LDRC_B1_RLSTIME]  = 20;                      // release time，单位ms
-	afPara[PARA_LDRC_B1_SMTHTIME] = 20;                      // 中间段时域平滑时间，单位ms
-	afPara[PARA_LDRC_B1_ATTATIME] = 20;                      // attack time，单位ms
-	// 高频子带
-	afPara[PARA_LDRC_B2_ECALTIME] = 200;                     // 计算RMS能量的统计时间，单位ms
-	afPara[PARA_LDRC_B2_MAKEUPG]   = 8;                       // 线性段提升dB数
-	afPara[PARA_LDRC_B2_THREL]    = -70;                     // 低能段能量阈值，单位dB
-	afPara[PARA_LDRC_B2_THREH]    = -10;                     // 高能段能量阈值，单位dB
-	afPara[PARA_LDRC_B2_RATLNOM]  = 1;                       // 低能段压缩比例的分子
-	afPara[PARA_LDRC_B2_RATLDEN]  = 1;                       // 低能段压缩比例的分母
-	afPara[PARA_LDRC_B2_RATHNOM]  = 2;                       // 高能段压缩比例的分子
-	afPara[PARA_LDRC_B2_RATHDEN]  = 1;                       // 高能段压缩比例的分母
-	afPara[PARA_LDRC_B2_RLSTIME]  = 30;                      // release time，单位ms
-	afPara[PARA_LDRC_B2_SMTHTIME] = 30;                      // 中间段时域平滑时间，单位ms
-	afPara[PARA_LDRC_B2_ATTATIME] = 30;                      // attack time，单位ms
-
-	/* 1.3 右声道参数 */
-	if (shwChaNum == 2)
-	{
-		/* 1.2.1 右声道增益 */
-		afPara[PARA_R_GAIN] = -6;
-		/* 1.2.2 右声道EQ参数 */
-		//Gain
-		afPara[PARA_REQ_GBASS]    = -15;                     // 第一个滤波器（低通坡式）的通带增益                         
-		afPara[PARA_REQ_GPEAK1]   = 0;                       // 第二个滤波器（峰式）的峰值增益                        
-		afPara[PARA_REQ_GPEAK1+1] = 0;                       // 第三个滤波器（峰式）的峰值增益                       
-		afPara[PARA_REQ_GPEAK1+2] = 0;                       // 第四个滤波器（峰式）的峰值增益                
-		afPara[PARA_REQ_GPEAK1+3] = 0;                       // 第五个滤波器（峰式）的峰值增益                
-		afPara[PARA_REQ_GPEAK1+4] = 15;                      // 第六个滤波器（峰式）的峰值增益                
-		afPara[PARA_REQ_GPEAK1+5] = 0;                       // 第七个滤波器（峰式）的峰值增益                
-		afPara[PARA_REQ_GPEAK1+6] = 0;                       // 第八个滤波器（峰式）的峰值增益               
-		afPara[PARA_REQ_GTREBLE]  = 0;                       // 第九个滤波器（高通坡式）的通带增益
-		//CF
-		afPara[PARA_REQ_CFBASS]    = 60;                     // 第一个滤波器（低通坡式）的截止频率                  
-		afPara[PARA_REQ_CFPEAK1]   = 150;                    // 第二个滤波器（峰式）的中心频率                  
-		afPara[PARA_REQ_CFPEAK1+1] = 400;                    // 第三个滤波器（峰式）的中心频率                  
-		afPara[PARA_REQ_CFPEAK1+2] = 1000;                   // 第四个滤波器（峰式）的中心频率                   
-		afPara[PARA_REQ_CFPEAK1+3] = 3000;                   // 第五个滤波器（峰式）的中心频率                    
-		afPara[PARA_REQ_CFPEAK1+4] = 7000;                   // 第六个滤波器（峰式）的中心频率                    
-		afPara[PARA_REQ_CFPEAK1+5] = 15000;                  // 第七个滤波器（峰式）的中心频率                      
-		afPara[PARA_REQ_CFPEAK1+6] = 17000;                  // 第八个滤波器（峰式）的中心频率                    
-		afPara[PARA_REQ_CFTREBLE]  = 17500;                  // 第九个滤波器（高通坡式）的截止频率
-		//Q
-		afPara[PARA_REQ_Q1]   = 2.5;                         // 第二个滤波器（峰式）的Q值              
-		afPara[PARA_REQ_Q1+1] = 2.5;                         // 第三个滤波器（峰式）的Q值             
-		afPara[PARA_REQ_Q1+2] = 2.5;                         // 第四个滤波器（峰式）的Q值             
-		afPara[PARA_REQ_Q1+3] = 2.5;                         // 第五个滤波器（峰式）的Q值
-		afPara[PARA_REQ_Q1+4] = 2.5;                         // 第六个滤波器（峰式）的Q值
-		afPara[PARA_REQ_Q1+5] = 2.5;                         // 第七个滤波器（峰式）的Q值 
-		afPara[PARA_REQ_Q1+6] = 2.5;                         // 第八个滤波器（峰式）的Q值
-		/* 1.2.3 右声道DRC参数 */ 
-		afPara[PARA_RDRC_DIVFREQ] = 1000;                    // 计算RMS能量的统计时间，单位ms
-		// 低频子带
-		afPara[PARA_RDRC_B1_ECALTIME] = 300;                 // 计算RMS能量的统计时间，单位ms
-		afPara[PARA_RDRC_B1_MAKEUPG]   = 6;                   // 线性段提升dB数
-		afPara[PARA_RDRC_B1_THREL]    = -84;                 // 低能段能量阈值，单位dB
-		afPara[PARA_RDRC_B1_THREH]    = -18;                 // 高能段能量阈值，单位dB
-		afPara[PARA_RDRC_B1_RATLNOM]  = 1;                   // 低能段压缩比例的分子
-		afPara[PARA_RDRC_B1_RATLDEN]  = 1;                   // 低能段压缩比例的分母
-		afPara[PARA_RDRC_B1_RATHNOM]  = 5;                   // 高能段压缩比例的分子
-		afPara[PARA_RDRC_B1_RATHDEN]  = 2;                   // 高能段压缩比例的分母
-		afPara[PARA_RDRC_B1_RLSTIME]  = 20;                  // release time，单位ms
-		afPara[PARA_RDRC_B1_SMTHTIME] = 20;                  // 中间段时域平滑时间，单位ms
-		afPara[PARA_RDRC_B1_ATTATIME] = 20;                  // attack time，单位ms
-		// 高频子带
-		afPara[PARA_RDRC_B2_ECALTIME] = 200;                 // 计算RMS能量的统计时间，单位ms
-		afPara[PARA_RDRC_B2_MAKEUPG]   = 8;                   // 线性段提升dB数
-		afPara[PARA_RDRC_B2_THREL]    = -70;                 // 低能段能量阈值，单位dB
-		afPara[PARA_RDRC_B2_THREH]    = -10;                 // 高能段能量阈值，单位dB
-		afPara[PARA_RDRC_B2_RATLNOM]  = 1;                   // 低能段压缩比例的分子
-		afPara[PARA_RDRC_B2_RATLDEN]  = 1;                   // 低能段压缩比例的分母
-		afPara[PARA_RDRC_B2_RATHNOM]  = 2;                   // 高能段压缩比例的分子
-		afPara[PARA_RDRC_B2_RATHDEN]  = 1;                   // 高能段压缩比例的分母
-		afPara[PARA_RDRC_B2_RLSTIME]  = 30;                  // release time，单位ms
-		afPara[PARA_RDRC_B2_SMTHTIME] = 30;                  // 中间段时域平滑时间，单位ms
-		afPara[PARA_RDRC_B2_ATTATIME] = 30;                  // attack time，单位ms
-	}
-
-	fwrite(afPara, sizeof(float), PARANUM, fpPara);
-
-	fclose(fpPara);
-}
 void CEQToolDlg::OnBnClickedCheckLink()
 {
 	// TODO: Add your control notification handler code here
@@ -912,41 +953,41 @@ void CEQToolDlg::OnBnClickedCheckLink()
 void CEQToolDlg::OnEnKillfocusEditGain()
 {
 	// TODO: Add your control notification handler code here
-	//CString strValue;
-	//GetDlgItemText(IDC_EDIT_GAIN,strValue);
-	//if (m_Configs.bLink)
-	//{
-	//	m_Configs.ScrGainL = cmNumString::StrToDouble(strValue);
-	//	m_Configs.ScrGainR = cmNumString::StrToDouble(strValue);
-	//}else
-	//{
-	//	if (m_Configs.nChannel)
-	//	{
-	//		m_Configs.ScrGainR = cmNumString::StrToDouble(strValue);
-	//	}
-	//	else
-	//	{
-	//		m_Configs.ScrGainL = cmNumString::StrToDouble(strValue);
-	//	}
-	//}
-	//m_Configs.SaveToolSetting(_T(""));
+	CString strValue1;
+	GetDlgItemText(IDC_EDIT_GAIN1,strValue1);
+	if (m_Configs.bLink)
+	{
+		m_Configs.ScrGainL1 = cmNumString::StrToDouble(strValue1);
+		m_Configs.ScrGainR1 = cmNumString::StrToDouble(strValue1);
+	}else
+	{
+		if (m_Configs.nChannel)
+		{
+			m_Configs.ScrGainR1 = cmNumString::StrToDouble(strValue1);
+		}
+		else
+		{
+			m_Configs.ScrGainL1 = cmNumString::StrToDouble(strValue1);
+		}
+	}
+	m_Configs.SaveToolSetting(_T(""));
 }
 
 void CEQToolDlg::OnCbnSelchangeComboChanum()
 {
 	// TODO: Add your control notification handler code here
-	//m_DlgEq.SavePara(m_Configs.nChannel);
-	//m_DlgDrc.SavePara(m_Configs.nChannel);
 	m_Configs.nChannel = m_ComChannel.GetCurSel();
-	m_DlgEq.InitUi(m_Configs.nChannel);
-	m_DlgDrc.InitUi(m_Configs.nChannel);
+	//m_DlgEq.InitUi(m_Configs.nChannel);
+	//m_DlgDrc.InitUi(m_Configs.nChannel);
 	if (m_Configs.nChannel)
 	{
-		SetDlgItemText(IDC_EDIT_GAIN,cmNumString::NumToStr(m_Configs.ScrGainR,10));
+		SetDlgItemText(IDC_EDIT_GAIN1,cmNumString::NumToStr(m_Configs.ScrGainR1,10));
+		SetDlgItemText(IDC_EDIT_GAIN2,cmNumString::NumToStr(m_Configs.ScrGainR2,10));
 	}
 	else
 	{
-		SetDlgItemText(IDC_EDIT_GAIN,cmNumString::NumToStr(m_Configs.ScrGainL,10));
+		SetDlgItemText(IDC_EDIT_GAIN1,cmNumString::NumToStr(m_Configs.ScrGainL1,10));
+		SetDlgItemText(IDC_EDIT_GAIN2,cmNumString::NumToStr(m_Configs.ScrGainL1,10));
 	}
 	m_Configs.SaveToolSetting(_T(""));
 }
@@ -991,18 +1032,10 @@ int CEQToolDlg::UpdatePara(bool bSet)
 void CEQToolDlg::OnBnClickedButtonSet()
 {
 	// TODO: Add your control notification handler code here
-	if (m_Configs.bLink)
-	{
-		m_DlgEq.SavePara(0);
-		m_DlgEq.SavePara(1);
-		m_DlgDrc.SavePara(0);
-		m_DlgDrc.SavePara(1);
-	}
-	else
-	{
-		m_DlgEq.SavePara(m_Configs.nChannel);
-		m_DlgDrc.SavePara(m_Configs.nChannel);
-	}
+	m_DlgEq.SaveConfig();
+	m_DlgDrc.SaveConfig();
+	m_DlgEq1.SaveConfig();
+	m_DlgLimit.SaveConfig();
 	//发送命令给设备端，设置EQ参数
 	if (UpdatePara(TRUE)<0)
 	{
@@ -1129,30 +1162,41 @@ void CEQToolDlg::OnClose()
 void CEQToolDlg::OnBnClickedButtonSave()
 {
 	// TODO: Add your control notification handler code here
-	CString strValue;
-	GetDlgItemText(IDC_EDIT_GAIN,strValue);
+	CString strValue1,strValue2;
+	GetDlgItemText(IDC_EDIT_GAIN1,strValue1);
+	GetDlgItemText(IDC_EDIT_GAIN2,strValue2);
 	if (m_Configs.bLink)
 	{
-		m_DlgEq.SavePara(0);
-		m_DlgEq.SavePara(1);
-		m_DlgDrc.SavePara(0);
-		m_DlgDrc.SavePara(1);
-		m_Configs.ScrGainL = cmNumString::StrToDouble(strValue);
-		m_Configs.ScrGainR = cmNumString::StrToDouble(strValue);
+		//m_DlgEq.SavePara(0);
+		//m_DlgEq.SavePara(1);
+		//m_DlgDrc.SavePara(0);
+		//m_DlgDrc.SavePara(1);
+		//m_DlgEq1.SavePara(0);
+		//m_DlgEq1.SavePara(1);
+		//m_DlgLimit.SavePara(0);
+		//m_DlgLimit.SavePara(1);
+		m_Configs.ScrGainL1 = cmNumString::StrToDouble(strValue1);
+		m_Configs.ScrGainR1 = cmNumString::StrToDouble(strValue1);
 	}
 	else
 	{
-		m_DlgEq.SavePara(m_Configs.nChannel);
-		m_DlgDrc.SavePara(m_Configs.nChannel);
+		//m_DlgEq.SavePara(m_Configs.nChannel);
+		//m_DlgDrc.SavePara(m_Configs.nChannel);
+		//m_DlgEq1.SavePara(m_Configs.nChannel);
+		//m_DlgLimit.SavePara(m_Configs.nChannel);
 		if (m_Configs.nChannel)
 		{
-			m_Configs.ScrGainR = cmNumString::StrToInt32(strValue);
+			m_Configs.ScrGainR1 = cmNumString::StrToInt32(strValue2);
 		}
 		else
 		{
-			m_Configs.ScrGainL = cmNumString::StrToInt32(strValue);
+			m_Configs.ScrGainL1 = cmNumString::StrToInt32(strValue2);
 		}
 	}
+	m_DlgEq.SaveConfig();
+	m_DlgDrc.SaveConfig();
+	m_DlgEq1.SaveConfig();
+	m_DlgLimit.SaveConfig();
 	m_DlgEq.InitChartCtrl();
 	m_Configs.SaveToolSetting(_T(""));
 	AfxMessageBox(_T("保存成功"));
@@ -1165,10 +1209,65 @@ void CEQToolDlg::OnBnClickedButtonCancel()
 	m_DlgDrc.InitUi(m_Configs.nChannel);
 	if (m_Configs.nChannel)
 	{
-		SetDlgItemText(IDC_EDIT_GAIN,cmNumString::NumToStr(m_Configs.ScrGainR,10));
+		SetDlgItemText(IDC_EDIT_GAIN1,cmNumString::NumToStr(m_Configs.ScrGainR1,10));
 	}
 	else
 	{
-		SetDlgItemText(IDC_EDIT_GAIN,cmNumString::NumToStr(m_Configs.ScrGainL));
+		SetDlgItemText(IDC_EDIT_GAIN1,cmNumString::NumToStr(m_Configs.ScrGainL1));
 	}
+}
+
+void CEQToolDlg::OnCbnSelchangeComboEqmode()
+{
+	// TODO: Add your control notification handler code here
+	m_Configs.bEQSwtch = m_ComEqMode.GetCurSel();
+
+	m_Configs.SaveToolSetting(_T(""));
+}
+
+void CEQToolDlg::OnCbnSelchangeComboDrcmode()
+{
+	// TODO: Add your control notification handler code here
+	m_Configs.bDrcSwtch = m_ComDrcMode.GetCurSel();
+
+	m_Configs.SaveToolSetting(_T(""));
+}
+
+void CEQToolDlg::OnCbnSelchangeComboEqmode2()
+{
+	// TODO: Add your control notification handler code here
+	m_Configs.bEQSwtch1 = m_ComEqMode1.GetCurSel();
+
+	m_Configs.SaveToolSetting(_T(""));
+}
+
+void CEQToolDlg::OnCbnSelchangeComboLimitmode()
+{
+	// TODO: Add your control notification handler code here
+	m_Configs.bLimitSwtch = m_ComLimitMode.GetCurSel();
+
+	m_Configs.SaveToolSetting(_T(""));
+}
+
+void CEQToolDlg::OnEnKillfocusEditGain2()
+{
+	// TODO: Add your control notification handler code here
+	CString strValue1;
+	GetDlgItemText(IDC_EDIT_GAIN2,strValue1);
+	if (m_Configs.bLink)
+	{
+		m_Configs.ScrGainL2 = cmNumString::StrToDouble(strValue1);
+		m_Configs.ScrGainR2 = cmNumString::StrToDouble(strValue1);
+	}else
+	{
+		if (m_Configs.nChannel)
+		{
+			m_Configs.ScrGainR2 = cmNumString::StrToDouble(strValue1);
+		}
+		else
+		{
+			m_Configs.ScrGainL2 = cmNumString::StrToDouble(strValue1);
+		}
+	}
+	m_Configs.SaveToolSetting(_T(""));
 }

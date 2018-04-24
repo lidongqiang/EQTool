@@ -11,6 +11,7 @@ using namespace cm;
 #include "ChartCtr/ChartAxis.h" 
 #include "ChartCtr/ChartLineSerie.h"
 #include "settings/SettingBase.h"
+#include "afxwin.h"
 
 // CDlgDrc dialog
 
@@ -31,6 +32,7 @@ public:
 	CChartCtrl m_ChartDrc;
 	void InitUi(int nChannel);
 	void SavePara(int nChannel);
+	void SaveConfig();
 	void InitChartCtrl();
 protected:
 	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV support
@@ -51,4 +53,7 @@ public:
 	afx_msg void OnEnKillfocusEditThrehL();
 	afx_msg void OnEnKillfocusEditThrelH();
 	afx_msg void OnEnKillfocusEditThrehH();
+	CComboBox m_ComChannum;
+	afx_msg void OnCbnSelchangeComboChannum();
+	afx_msg void OnBnClickedCheckLink();
 };

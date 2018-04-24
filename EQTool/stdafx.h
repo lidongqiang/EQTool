@@ -48,6 +48,7 @@
 #endif
 
 #include "RKUpgradeDll.h"
+#include <afxdhtml.h>
 #ifdef _DEBUG
 #pragma comment(lib,"RKUpgrade_Debug.lib")
 #else
